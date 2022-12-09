@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+
+}
+div.notific_main {
+    width: 70%;
+    margin: auto;
+}
+div.notific_main h1 {
+    padding-top: 3em;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+div.notific_top {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-right: 2em;
+}
+div.notific_profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    border-left: 3px solid orange;
+    margin-bottom: 1.5em;
+    height: 10vh;
+}
+div.notific_profile img {
+   margin-right: 0.5em;
+   margin-left: 2em;
+   border: 3px solid orange;
+   border-radius: 2em;
+}
+div.notific_profile p {
+  opacity: 70%;
+}
