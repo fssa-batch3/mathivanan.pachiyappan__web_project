@@ -5,18 +5,70 @@
 body {
     font-family: sans-serif;
 }
-div.nav_bar {
+div.header {
     display: flex;
     flex-direction: row;
-    align-content: center;
     justify-content: space-between;
-    background-color:white;
-    padding: 0.8em;
+    padding: 1em;
+    background-color: white;
     position: fixed;
-    top: 1;
+    top: 0;
     width: 98%;
+    z-index: 1;
+    box-shadow: 1px 1px 4px #000000;
+}
+div.header form input {
+    width: 17vw;
     height: 5%;
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    padding: 0.8em;
+    border-radius: 2em;
+    border: 2px solid gray;
+    font-size: 80%;
+    margin-right: -4em;
+}
+div.navigation_link ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    align-items: center;
+}
+div.navigation_link ul li {
+    margin-left: 1.3em;
+}
+div.navigation_link ul li a {
+    background-color: orange;
+    border-radius: 8px;
+    font-weight: bold;
+    color:white;
+    padding: 0.7em;
+    text-decoration: none;
+}
+div.navigation_link ul li a:hover {
+    background-color: #f9881d;
+    border-radius: 8px;
+    color:white;
+    padding: 0.7em;
+    margin-top: 1em;
+    text-decoration: none;
+}
+div.navigation_link ul a li img {
+    border-radius: 2em;
+}
+div.nav_main {
+    color: black;
+    font-size: 200%;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+div.nav_main span {
+    color: orange;
+}
+div.nav_list {
+    margin: auto;
 }
 div.nav_list {
     display: flex;
@@ -43,21 +95,6 @@ div.nav_list:hover {
     padding: 1em;
     border-radius: 1em;
 }
-hr {
-    margin-top: 0.5em;
-}
-div.nav_main {
-    color: orange;
-    font-size: 90%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-div.nav_main span {
-    color: black;
-}
 div.nav_list a {
     text-decoration: none;
     font-size: 100%;
@@ -65,31 +102,10 @@ div.nav_list a {
 }
 div.nav_list a:hover {
     text-decoration: none;
-    font-size: 110%;
+    font-size: 102%;
     color: black;
     font-weight: bold;
-}
-div.nav_side ul {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    list-style: none;
-}
-div.nav_side ul a li img {
-    border-radius: 2em;
-    margin-left: 1em;
-}
-div.nav_side ul li a {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    background-color: orange;
-    color: white;
-    padding: 0.8em;
-    font-weight: bold;
-    border-radius: 8px;
-    text-decoration: none;
+    border-bottom: 2px solid orange;
 }
 div.banner {
     height: 65vh;
@@ -114,26 +130,49 @@ div.banner p {
     font-size: 120%;
 }
 div.post_area {
-    width: 80vw;
-    height: 58vh;
+    max-width: 80vw;
+    max-height: 60vh;
     margin: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    margin-bottom: 2em;
+    text-align: justify;
 }
-div.post_area div p img {
+div.home_pic a {
+    text-decoration: none;
+    color: black;
+}
+div.home_pic {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    border-top: 1px solid gray;
+    margin-top: 0.5em;
+}
+div.home_pic img {
     border-radius: 3em;
     border: 2px solid orange;
     margin-top: 0.5em;
-    margin-bottom: -1.5em;
     margin-right: 0.5em;
     font-size: 80%;
 }
-div.post_area div {
+div.home_pic p img {
+    border:none;
+    width: 5%;
+    height: 1%;
+    margin-bottom: -2px;
+}
+div.pic_subtxt {
+    margin-top: 0.8em;
+    font-size: 90%;
+    align-items: center;
+}
+div.content_card {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
     padding: 1em;
-    margin-bottom: 2em;
-    margin-left: 2em;
+    margin-right: 2em;
     border-radius: 10px;
 }
 div.post_area div p:nth-of-type(2) {
@@ -141,9 +180,12 @@ div.post_area div p:nth-of-type(2) {
     font-size: 98%;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+div.content_card button a {
+    text-decoration: none;
+    color: white;
+}
 div.post_area div button {
     background-color: black;
-    color: white;
     padding: 2px;
     margin-top: 2px;
     font-weight: bold;
@@ -154,4 +196,23 @@ div.post_area h3 {
     color: orange;
     margin-top: 1em;
     margin-bottom: 0.5em;
+}
+div.icons a img {
+    margin: auto;
+    margin-bottom: 0.5em;
+    margin-left: 1em;
+}
+div.icons {
+    align-content: center;
+    justify-content: space-evenly;
+    width: 95%;
+    height: 7vh;
+    margin: auto;
+    margin-top: 2em;
+    text-align: center;
+    margin-bottom: 2em;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    padding: 1em;
+    border-radius: 1em;
+    background-color: white;
 }

@@ -1,59 +1,84 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Blooger</title>
-        <link rel="stylesheet" href="../assets/css/3_home.css">
-        <link rel="stylesheet" href="../assets/css/4_creat_post.css">
-    </head>
-    <body>
-        <div class="nav_bar">
-            <div class="nav_main">
-                <h1><span>Ve</span>nom</h1>
-            </div>
-            <div class="nav_side">
-                <ul>
-                    <ul>
-                        <li><a href="./4_creat_post.html">Create blog</a></li>
-                        <a href="./5_notification.html"><li><img src="../assets/images/svg/notification_bell.svg" width="20vw" height="40vh"></li></a>
-                        <a href="./6_profile.html"><li><img src="../assets/images/profile_2.jpg" alt="profile_pic" width="40vw" height="40vh"></li></a>
-                    </ul>
-                </ul>
-              </div>
-        </div>
-        <div class="post_page">
-           <div class="edit_page"> 
-           <h2>Creat Post</h2>
-           <input type="submit" value="Add a cover image"/>
-           <input type="text" placeholder="New Title"/>
-           <input type="text" placeholder="#Top tags"/>
-           
-           <div class="container">
-            <textarea></textarea>
-           </div>
-           
-           <div class="buttons">
-           <button>Publish</button>
-           <button>Save draft</button>
-           <button>Edit</button>
-           <button>Preview</button>
-          </div>
-        </div>
-         <div class="side_bar">
-            <h3>Writing a Great Post Title</h3>
-           <ul>
-            <li>Think of your post title as a super short (but compelling!) description — like an overview of the actual post in one short sentence.</li>
-            <li>Use keywords where appropriate to help ensure people can find your post by search.</li>
-           </ul>
-             <h4>Tagging Guidelines</h4>
-             <ul>
-                <li>Tags help people find your post.</li>
-                <li>Think of tags as the topics or categories that best describe your post.</li>
-                <li>Add up to four comma-separated tags per post. Combine tags to reach the appropriate subcommunities.</li>
-                <li>Use existing tags whenever possible.</li>
-                <li>Some tags, such as “help” or “healthydebate”, have special posting guidelines.</li>
-             </ul>
-           <img src="../assets/images/bg_image2.jpg" alt="edit_pagebg" width="100%" height="40%"/>
-        </div>
-        </div>
-    </body>
+
+<head>
+  <title>venom.com</title>
+  <link rel="stylesheet" href="../assets/css/3_home.css">
+  <link rel="stylesheet" href="../assets/css/4_creat_post.css">
+  <link rel="icon" href="../assets/images/logo.png" type="image/x-icon">
+</head>
+
+<body>
+  <div class="header">
+    <div class="nav_main">
+      <p>Ve<span>nom</span></p>
+    </div>
+
+    <div class="navigation_link">
+      <ul>
+        <a href="./3_home.html">
+          <li><img src="../assets/images/svg/home.svg" width="20vw" height="40vh"></li>
+        </a>
+        <li>
+          <form>
+            <input type="text" placeholder="Search...." />
+          </form>
+        </li>
+        <li><img class="search_icon" src="../assets/images/svg/search.svg" alt="search-image" width="20vw"
+            heighgt="20vh" /></li>
+        <li><a href="./4_creat_post.html">Create blog</a></li>
+        <a href="./5_notification.html">
+          <li><img src="../assets/images/svg/notification_bell.svg" width="20vw" height="40vh"></li>
+        </a>
+        <a href="./6_profile.html">
+          <li><img src="../assets/images/profile_2.jpg" alt="profile_pic" width="40vw" height="40vh"></li>
+        </a>
+      </ul>
+    </div>
+  </div>
+  <div class="post_page">
+    <div class="edit_page">
+      <h2>Create Post</h2>
+      <input type="submit" value="Add a cover image" />
+      <input type="text" placeholder="New Title" />
+      <input type="text" placeholder="#Top tags" />
+
+      <div class="container">
+        <textarea></textarea>
+      </div>
+
+      <div class="buttons">
+        <button>Publish</button>
+        <button>Save draft</button>
+        <button>Edit</button>
+        <button>Preview</button>
+      </div>
+    </div>
+    <div class="side_bar">
+      <h3>Writing a Great Post Title</h3>
+      <ul>
+        <li>Think of your post title as a super short (but compelling!) description — like an overview of the actual
+          post in one short sentence.</li>
+        <li>Use keywords where appropriate to help ensure people can find your post by search.</li>
+      </ul>
+      <h4>Tagging Guidelines</h4>
+      <ul>
+        <li>Tags help people find your post.</li>
+        <li>Think of tags as the topics or categories that best describe your post.</li>
+        <li>Add up to four comma-separated tags per post. Combine tags to reach the appropriate subcommunities.</li>
+        <li>Use existing tags whenever possible.</li>
+        <li>Some tags, such as “help” or “healthydebate”, have special posting guidelines.</li>
+      </ul>
+      <img src="../assets/images/bg_image2.jpg" alt="edit_pagebg" width="100%" height="40%" />
+    </div>
+  </div>
+  <div class="icons">
+    <a href="#"><img src="../assets/images/svg/logo-facebook.svg"  width="25vw" height="25vh"/></a>
+    <a href="#"><img src="../assets/images/svg/logo-instagram.svg"  width="25vw" height="25vh"/></a>
+    <a href="#"><img src="../assets/images/svg/logo-github.svg"  width="25vw" height="25vh"/></a>
+    <a href="#"><img src="../assets/images/svg/logo-behance.svg"  width="25vw" height="25vh"/></a>
+    <p>© 2022 Venom.com All rights reserved</p>
+ </div>
+</body>
+
 </html>
