@@ -40,3 +40,23 @@ div.post_page ul {
     margin-left: 3em;
     margin-bottom: 1em;
 }
+div.react_icons {
+    position: fixed;
+    left: 0;
+    margin-top: 10em;
+    padding-top: 3em;
+    max-width: 3%;
+    max-height: 25%;
+    margin-left: 10em;
+    padding: 0.8em;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 50%);
+    border-radius: 1em;
+    text-align: center;
+}
+div.react_icons img {
+    width: 60%;
+    margin-top: 1.5em;
+}
+div.react_icon p {
+    text-align: center;
+}
