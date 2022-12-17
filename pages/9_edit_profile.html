@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+
+  <title>venom.com</title>
+  <link rel="stylesheet" href="../assets/css/9_edit_profile.css">
+  <link rel="stylesheet" href="../assets/css/3_home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="icon" href="../assets/images/logo.png" type="image/x-icon">
+</head>
+
+<body>
+  <div class="header">
+    <div class="nav_main">
+      <p><a href="../index.html">Ve<span>nom</span></a></p>
+    </div>
+
+    <div class="navigation_link">
+      <ul>
+
+        <li>
+          <form>
+            <input type="text" placeholder="Search...." />
+          </form>
+        </li>
+        <li><img class="search_icon" src="../assets/images/svg/search.svg" alt="search-image" width="20vw"
+            heighgt="20vh" /></li>
+        <li><a href="./4_creat_post.html">Create blog</a></li>
+        <a href="./5_notification.html">
+          <li><img src="../assets/images/svg/notification_bell.svg" alt="notific_icon" alt="notific_icon" width="20vw"
+              height="40vh"></li>
+        </a>
+        <a href="./6_profile.html">
+          <li><img src="../assets/images/profile_2.jpg" alt="profile_pic" width="40vw" height="40vh"></li>
+        </a>
+      </ul>
+    </div>
+  </div>
+  <div class="header__wrapper">
+    <header></header>
+    <div class="round_1">
+      <input type="file">
+      <i class="fa fa-camera" style="color: #000;"></i>
+    </div>
+    <div class="upload">
+      <img src="../assets/images/profile_2.jpg" width="100" height="100" alt="">
+      <div class="round">
+        <input type="file">
+        <i class="fa fa-camera" style="color: #000;"></i>
+      </div>
+    </div>
+    <h1>Edit<span><i class="fa fa-edit" style="color: #000;"></i></span></h1>
+    <div class="inputs">
+      <form>
+        <h2>User</h2>
+        <div>
+          <label>Name</label>
+          <input type="text" placeholder="First Name" />
+          <input type="text" placeholder="Second Name" />
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" placeholder="Email" />
+          <label>Password</label>
+          <input type="password" placeholder="******" />
+        </div>
+        <div>
+          <label>DOB</label>
+          <input type="date" required="true" style="text-transform: uppercase;" />
+          <label>Country</label>
+          <input type="text" placeholder="Country" list="count" />
+          <datalist id="count">
+            <option>Australia</option>
+            <option>Bangladesh</option>
+            <option>China</option>
+            <option>Denmark</option>
+            <option>Egypt</option>
+            <option>France</option>
+            <option>Germany</option>
+            <option>Hungary</option>
+            <option>India</option>
+            <option>Japan</option>
+            <option>Kuwait</option>
+            <option>Lebanon</option>
+            <option>Malaysia</option>
+            <option>New Zealand</option>
+            <option>Oman</option>
+            <option>Pakistan</option>
+            <option>Qatar</option>
+            <option>Russia</option>
+            <option>Singapore</option>
+            <option>Thailand</option>
+            <option>UAE</option>
+            <option>UK</option>
+            <option>USA</option>
+            <option>Vietnam</option>
+            <option>Yemen</option>
+            <option>Zimbabwe</option>
+          </datalist>
+        </div>
+        <div>
+          <label>Designation</label>
+          <input type="text" placeholder="Ex : CEO of Google">
+          <label>Tags</label>
+          <input type="text" placeholder="#tech #career #design #space">
+        </div>
+      </form>
+      <div class="side_txt">
+        <h3>Bio</h3>
+        <textarea placeholder="Write something about you...(Max-30 words)"></textarea>
+      </div>
+    </div>
+    <p>Save Profile</p>
+  </div>
+</body>
+
+</html>

@@ -2,21 +2,25 @@
     margin: 0;
     padding: 0;
 }
+
 body {
     font-family: sans-serif;
     background-image: url('../images/bg_flw_image.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 div.follow_content {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
+
 div.follow_content img {
     border-radius: 3em;
 }
+
 div.notific_profile {
     display: flex;
     flex-direction: row;
@@ -24,38 +28,44 @@ div.notific_profile {
     justify-content: space-between;
     margin-bottom: 3em;
 }
+
 div.notific_profile img {
-   margin-bottom: -1.8em;
-   margin-right: 0.5em;
-   margin-left: 2em;
-   border: 3px solid orange;
+    margin-bottom: -1.8em;
+    margin-right: 0.5em;
+    margin-left: 2em;
+    border: 3px solid orange;
 }
+
 div.notific_profile p:nth-child(2) {
-   background-color: black;
-   color: white;
-   padding: 0.5em;
-   font-size: 90%;
-   font-weight: bold;
-   border-radius: 5px;
+    background-color: black;
+    color: white;
+    padding: 0.5em;
+    font-size: 90%;
+    font-weight: bold;
+    border-radius: 5px;
 }
+
 div.follow_main {
     width: 50%;
     padding-right: 1.5em;
-    top:0;
+    top: 0;
     border-right: 2px solid black;
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+}
+
 div.follow_side {
     width: 50%;
     padding-right: 1em;
 }
+
 div.profile_image {
     text-align: center;
     margin: auto;
     max-width: 20%;
     padding: 2em;
     margin-bottom: -3em;
-   padding-top: 13em;
+    padding-top: 13em;
 }
+
 h2 {
     text-align: center;
     margin: auto;
@@ -68,6 +78,7 @@ h2 {
     background-color: black;
     font-size: 120%;
 }
+
 div.profile_image img {
     border-radius: 8em;
     margin-bottom: 1em;

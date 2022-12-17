@@ -1,13 +1,16 @@
 * {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
+
 body {
     font-family: sans-serif;
 }
+
 div.header {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     padding: 1em;
     background-color: white;
@@ -17,43 +20,59 @@ div.header {
     z-index: 1;
     box-shadow: 1px 1px 4px #000000;
 }
+
 div.header form input {
     width: 17vw;
     height: 5%;
     padding: 0.8em;
     border-radius: 2em;
-    border: 2px solid gray;
+    border: 1.3px solid gray;
     font-size: 80%;
     margin-right: -4em;
 }
+
+div.header form input:focus {
+    outline: none;
+}
+
 div.navigation_link ul {
     display: flex;
     flex-direction: row;
     list-style: none;
     align-items: center;
 }
+
 div.navigation_link ul li {
     margin-left: 1.3em;
 }
+
+div.nav_main p a {
+    color: black;
+    text-decoration: none;
+}
+
 div.navigation_link ul li a {
     background-color: orange;
     border-radius: 8px;
     font-weight: bold;
-    color:white;
+    color: white;
     padding: 0.7em;
     text-decoration: none;
 }
+
 div.navigation_link ul li a:hover {
     background-color: #f9881d;
     border-radius: 8px;
-    color:white;
+    color: white;
     padding: 0.7em;
     margin-top: 1em;
     text-decoration: none;
 }
+
 div.navigation_link ul a li img {
     border-radius: 2em;
 }
+
 div.nav_main {
     color: black;
     font-size: 200%;
@@ -62,14 +81,17 @@ div.nav_main {
     flex-direction: row;
     flex-wrap: wrap;
     align-content: center;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
 div.nav_main span {
     color: orange;
 }
+
 div.nav_list {
     margin: auto;
 }
+
 div.nav_list {
     display: flex;
     flex-direction: row;
@@ -83,6 +105,7 @@ div.nav_list {
     padding: 1em;
     border-radius: 1em;
 }
+
 div.nav_list:hover {
     display: flex;
     flex-direction: row;
@@ -95,11 +118,13 @@ div.nav_list:hover {
     padding: 1em;
     border-radius: 1em;
 }
+
 div.nav_list a {
     text-decoration: none;
     font-size: 100%;
     color: black;
 }
+
 div.nav_list a:hover {
     text-decoration: none;
     font-size: 102%;
@@ -107,6 +132,7 @@ div.nav_list a:hover {
     font-weight: bold;
     border-bottom: 2px solid orange;
 }
+
 div.banner {
     height: 65vh;
     background-image: url("../images/bg_image.jpg");
@@ -114,6 +140,7 @@ div.banner {
     background-repeat: no-repeat;
     margin-bottom: 1em;
 }
+
 div.banner h1 {
     text-align: justify;
     margin-left: 5em;
@@ -122,13 +149,15 @@ div.banner h1 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 280%;
 }
+
 div.banner p {
     text-align: justify;
     margin-top: 0.5em;
     margin-left: 12em;
-    color: white;   
+    color: white;
     font-size: 120%;
 }
+
 div.post_area {
     max-width: 80vw;
     max-height: 60vh;
@@ -139,10 +168,17 @@ div.post_area {
     margin-bottom: 2em;
     text-align: justify;
 }
+
 div.home_pic a {
     text-decoration: none;
     color: black;
 }
+
+div.home_pic a img {
+    max-width: 3.2vw;
+    max-height: 5.6vh;
+}
+
 div.home_pic {
     display: flex;
     flex-direction: row;
@@ -151,6 +187,7 @@ div.home_pic {
     border-top: 1px solid gray;
     margin-top: 0.5em;
 }
+
 div.home_pic img {
     border-radius: 3em;
     border: 2px solid orange;
@@ -158,32 +195,42 @@ div.home_pic img {
     margin-right: 0.5em;
     font-size: 80%;
 }
+
 div.home_pic p img {
-    border:none;
+    border: none;
     width: 5%;
     height: 1%;
     margin-bottom: -2px;
 }
+
 div.pic_subtxt {
     margin-top: 0.8em;
     font-size: 90%;
     align-items: center;
+    color: gray;
 }
+
 div.content_card {
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-    padding: 1em;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 15%);
+    padding-top: 1em;
+    padding-bottom: 1.5em;
+    padding-left: 1em;
+    padding-right: 1em;
     margin-right: 2em;
     border-radius: 10px;
 }
+
+div.content_card a {
+    text-decoration: none;
+    color: black;
+}
+
 div.post_area div p:nth-of-type(2) {
     color: gray;
     font-size: 98%;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-div.content_card button a {
-    text-decoration: none;
-    color: white;
-}
+
 div.post_area div button {
     background-color: black;
     padding: 2px;
@@ -191,17 +238,21 @@ div.post_area div button {
     font-weight: bold;
     border-radius: 5px;
     font-size: 70%;
+    color: white;
 }
+
 div.post_area h3 {
     color: orange;
-    margin-top: 1em;
+    margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
+
 div.icons a img {
     margin: auto;
     margin-bottom: 0.5em;
     margin-left: 1em;
 }
+
 div.icons {
     align-content: center;
     justify-content: space-evenly;

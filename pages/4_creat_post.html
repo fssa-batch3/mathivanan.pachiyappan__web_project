@@ -15,14 +15,12 @@
 <body>
   <div class="header">
     <div class="nav_main">
-      <p>Ve<span>nom</span></p>
+      <p><a href="../index.html">Ve<span>nom</span></a></p>
     </div>
 
     <div class="navigation_link">
       <ul>
-        <a href="./3_home.html">
-          <li><img src="../assets/images/svg/home.svg" alt="home_icon" width="20vw" height="40vh"></li>
-        </a>
+
         <li>
           <form>
             <input type="text" placeholder="Search...." />
@@ -44,11 +42,40 @@
     <div class="edit_page">
       <h2>Create Post</h2>
       <input type="submit" value="Add a cover image" />
+      <input type="file" />
       <input type="text" placeholder="New Title" />
-      <input type="text" placeholder="#Top tags" />
+      <input type="text" placeholder="#Top Tags" list="count" />
+      <datalist id="count">
+        <option>#Tech</option>
+        <option>#Design</option>
+        <option>#Coding</option>
+        <option>#Architech</option>
+        <option>#Mobile</option>
+        <option>#Gadgets</option>
+        <option>#Career</option>
+        <option>#Studies</option>
+        <option>#IELTS</option>
+        <option>#Electronics</option>
+        <option>#Communication</option>
+        <option>#Networking</option>
+        <option>#DataBase</option>
+        <option>#VFX Animation</option>
+        <option>#IEEE</option>
+        <option>#Scholerships</option>
+        <option>#Aironoticel</option>
+        <option>#SpaceScience</option>
+        <option>#Galaxy</option>
+        <option>#Movies</option>
+        <option>#Songs</option>
+        <option>#Animals</option>
+        <option>#Forest</option>
+        <option>#Oceans</option>
+        <option>#Countries</option>
+        <option>#Horror</option>
+      </datalist>
 
       <div class="container">
-        <textarea></textarea>
+        <textarea placeholder="Write your post content here..."></textarea>
       </div>
 
       <div class="buttons">

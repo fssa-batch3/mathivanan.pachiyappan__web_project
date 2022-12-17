@@ -1,7 +1,8 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
+
 body {
     margin: 1em;
     font-family: sans-serif;
@@ -10,19 +11,22 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 div.form {
     width: 20vw;
     height: 45vh;
     margin: auto;
-    background-color: rgba(186, 177, 177, 0.5);  
+    background-color: rgba(186, 177, 177, 0.5);
     padding: 2em;
     margin-top: 6em;
     text-align: center;
     border-radius: 1.5em;
 }
+
 a {
     color: blue;
 }
+
 form.form_list {
     display: flex;
     flex-direction: column;
@@ -30,21 +34,26 @@ form.form_list {
     width: 20vw;
     height: 27vh;
 }
+
 form.form_list input {
     margin-top: 1em;
     padding: 1em;
     border-color: transparent;
     border-radius: 25px;
 }
+
 div.form h1 {
     margin-bottom: 1em;
 }
+
 div.form p {
     margin-top: 2em;
 }
+
 div.form p input {
     margin-right: 0.5em;
 }
+
 form.form_list a {
     font-size: 105%;
     letter-spacing: 2px;
@@ -60,6 +69,7 @@ form.form_list a {
     border: none;
     text-decoration: none;
 }
+
 form.form_list a:hover {
     font-size: 105%;
     letter-spacing: 2px;
@@ -73,6 +83,7 @@ form.form_list a:hover {
     color: white;
     border-radius: 10px;
 }
+
 p.login {
     margin-bottom: -1.5em;
 }
