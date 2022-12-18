@@ -144,6 +144,12 @@ a {
   color: #818181;
 }
 
+.header__wrapper .cols__container .right__col nav ul li.udr_line a {
+  border-bottom: 2px solid orange;
+  font-weight: bold;
+  color: #1d1d1d;
+}
+
 .header__wrapper .cols__container .right__col nav ul li:nth-child(1) a {
   color: #1d1d1d;
   font-weight: 600;
@@ -189,6 +195,17 @@ button a {
   display: block;
   height: 100%;
   object-fit: cover;
+}
+
+.header__wrapper .cols__container .right__col .photos p {
+  margin-left: 0.5em;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  background: #000;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  font-weight: bold;
 }
 
 /* Responsiveness */
