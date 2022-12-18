@@ -197,17 +197,6 @@ button a {
   object-fit: cover;
 }
 
-.header__wrapper .cols__container .right__col .photos p {
-  margin-left: 0.5em;
-  text-align: center;
-  color: white;
-  font-weight: bold;
-  background: #000;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  font-weight: bold;
-}
-
 /* Responsiveness */
 
 @media (min-width: 868px) {
