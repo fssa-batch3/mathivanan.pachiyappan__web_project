@@ -9,10 +9,6 @@ body {
 }
 
 div.post_page {
-    margin-left: 0em;
-}
-
-div.post_page {
     display: flex;
     flex-direction: row;
     height: 100%;

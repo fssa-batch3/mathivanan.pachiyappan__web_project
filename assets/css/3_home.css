@@ -89,10 +89,6 @@ div.nav_main span {
 }
 
 div.nav_list {
-    margin: auto;
-}
-
-div.nav_list {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
