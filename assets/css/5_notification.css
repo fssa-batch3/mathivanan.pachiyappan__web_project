@@ -4,19 +4,24 @@
 }
 
 div.notific_main {
-    width: 70%;
+    max-width: 60rem;
     margin: auto;
+    padding: 2em;
 }
 
 div.notific_main h1 {
-    padding-top: 3em;
+    padding-top: 5rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+div.notific_main h1 sup {
+    margin-left: 0.5rem;
+    font-size: 50%;
+}
+
 div.notific_top {
-    padding-top: 2em;
-    padding-bottom: 2em;
-    padding-right: 2em;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 div.notific_profile {
@@ -25,17 +30,22 @@ div.notific_profile {
     align-items: center;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
     border-left: 3px solid orange;
-    margin-bottom: 1.5em;
-    height: 10vh;
+    margin-bottom: 1.5rem;
+    padding-right: 1rem;
+    height: 5rem;
 }
 
 div.notific_profile img {
-    margin-right: 0.5em;
-    margin-left: 2em;
+    margin-right: 0.5rem;
+    margin-left: 1.5rem;
     border: 3px solid orange;
-    border-radius: 2em;
+    border-radius: 2rem;
+    width: 4rem;
+    height: 4rem;
 }
 
 div.notific_profile p {
     opacity: 70%;
+    font-size: 80%;
+    text-align: left;
 }

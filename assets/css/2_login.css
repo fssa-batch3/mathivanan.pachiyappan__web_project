@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +6,7 @@
 
 body {
     margin: 1em;
-    font-family: sans-serif;
+    font-family: "Poppins", sans-serif;
     background-image: url('../images/login_bg.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -13,14 +14,15 @@ body {
 }
 
 div.form {
-    width: 20vw;
-    height: 35vh;
+    width: 20rem;
+    height: 21rem;
     margin: auto;
-    background-color: rgba(125, 123, 123, 0.5);
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 30%);
     padding: 2em;
     margin-top: 13em;
     text-align: center;
-    border-radius: 1.5em;
+    border-radius: 0.5em;
 }
 
 a {
@@ -32,31 +34,52 @@ form.form_list {
     display: flex;
     flex-direction: column;
     align-content: center;
-    width: 20vw;
+    width: 20rem;
     height: 20vh;
 }
 
 form.form_list input {
     margin-top: 1em;
     padding: 1em;
-    border-color: transparent;
-    border-radius: 25px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    font-family: "Poppins", sans-serif;
 }
 
-div.form h1 {
-    margin-bottom: 1em;
-    color: blue;
+div.form h1 {   
+    margin-bottom: 1rem;
+    color: black;
+
 }
 
 div.form p {
     margin-top: 2em;
 }
 
+input:focus {
+    outline: none;
+}
+
+label a {
+    margin-left: 11rem;
+    text-decoration: underline;
+    padding-top: -2em;
+    margin-bottom: -1em;
+    font-size: 90%;
+}
+
+p.Create_new a {
+    font-size: 120%;
+    font-weight: bold;
+    color: gray;
+    text-decoration: underline;
+}
+
 div.form p input {
     margin-right: 0.5em;
 }
 
-form.form_list a {
+form.form_list a.enter_btn {
     font-size: 105%;
     letter-spacing: 2px;
     padding-top: 0.5em;
@@ -70,7 +93,7 @@ form.form_list a {
     border-radius: 10px;
 }
 
-form.form_list a:hover {
+form.form_list a.enter_btn:hover {
     font-size: 105%;
     letter-spacing: 2px;
     padding-top: 0.5em;

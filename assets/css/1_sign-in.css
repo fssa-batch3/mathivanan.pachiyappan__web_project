@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +7,7 @@
 
 body {
     margin: 1em;
-    font-family: sans-serif;
+    font-family: "Poppins", sans-serif;
     background-image: url('../images/form_bg.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -13,14 +15,14 @@ body {
 }
 
 div.form {
-    width: 20vw;
+    width: 20rem;
     height: 45vh;
     margin: auto;
     background-color: rgba(186, 177, 177, 0.5);
     padding: 2em;
     margin-top: 6em;
     text-align: center;
-    border-radius: 1.5em;
+    border-radius: 0.5em;
 }
 
 a {
@@ -31,15 +33,16 @@ form.form_list {
     display: flex;
     flex-direction: column;
     align-content: center;
-    width: 20vw;
+    width: 20rem;
     height: 27vh;
 }
 
 form.form_list input {
     margin-top: 1em;
-    padding: 1em;
+    padding: 0.6rem;
     border-color: transparent;
-    border-radius: 25px;
+    border-radius: 10px;
+    font-family: "Poppins", sans-serif;
 }
 
 div.form h1 {
@@ -52,6 +55,10 @@ div.form p {
 
 div.form p input {
     margin-right: 0.5em;
+}
+
+input:focus {
+    outline: none;
 }
 
 form.form_list a {

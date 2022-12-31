@@ -2,82 +2,168 @@
 <html lang="en">
 
 <head>
-  <title>Venom.com</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreatPost-Venom.com</title>
   <link rel="stylesheet" href="../../assets/css/3_home.css">
   <link rel="stylesheet" href="../../assets/css/4_creat_post.css">
   <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-  <div class="header">
-    <div class="nav_main">
+  <!--Header-->
+  <header>
+    <!--Nav-->
+    <div class="header">
+      <div class="nav_main">
         <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
-    </div>
+      </div>
 
-    <div class="navigation_link">
+      <div class="navigation_link">
         <ul>
-            <li>
-                <form>
-                    <input type="text" placeholder="Search...." />
-                </form>
-            </li>
-            <li><img class="search_icon" src="../../assets/images/svg/search.svg" alt="search-image" width="20vw"
-                    heighgt="20vh" /></li>
-            <li><a href="../user_services/4_creat_post.html">Create blog</a></li>
-            <a href="../user_services/5_notification.html">
-                <li><img src="../../assets/images/svg/notification_bell.svg" alt="notific_icon" alt="notific_icon"
-                        width="20vw" height="40vh"></li>
-            </a>
-            <a href="../Myprofile/6_profile.html">
-                <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40vw" height="40vh"></li>
-            </a>
+          <li>
+            <form>
+              <input type="text" placeholder="Search...." />
+            </form>
+          </li>
+          <li><i class="fa fa-search" style="color: #000;"></i></li>
+          <li><a href="../user_services/4_creat_post.html">Create</a></li>
+          <a href="../user_services/5_notification.html">
+            <li><i class="fa fa-bell" style="color: #000;"></i></li>
+          </a>
+          <div class="dropdown">
+            <button class="dropbtn"><a href="../Myprofile/6_profile.html">
+                <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem" height="40rem"></li>
+              </a></button>
+            <div class="dropdown-content">
+              <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
+                  style="font-size:18px"></i>Profile</a>
+              <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear" style="font-size:18px"></i>Settings</a>
+              <a href="../Reg/1_sign-in.html"><i class="fa fa-sign-out" style="font-size:18px"></i>Log-Out</a>
+            </div>
+          </div>
+
         </ul>
+      </div>
     </div>
-</div>
-  <div class="post_page">
-    <div class="edit_page">
-      <h2>Create Post</h2>
-      <input type="submit" value="Add a cover image" />
+  </header>
+
+  <div class="container">
+
+    <h2>Create Post</h2>
+    <div class="inputs">
+      <input type="submit" placeholder="Add a cover image" value="Add a cover image" />
       <input type="file" />
-      <input type="text" placeholder="New Title" />
-      <input type="text" placeholder="#Top Tags" />
+    </div>
+    <div class="inputs">
+      <input type="text" placeholder="New post title here..." />
+    </div>
+    <div class="inputs">
+      <input type="search" placeholder="Add top tags..." />
+    </div>
 
-      <div class="container">
-        <textarea placeholder="Write your post content here..."></textarea>
+    <div class="options">
+      <!-- Text Format -->
+      <button id="bold" class="option-button format">
+        <i class="fa-solid fa-bold"></i>
+      </button>
+      <button id="italic" class="option-button format">
+        <i class="fa-solid fa-italic"></i>
+      </button>
+      <button id="underline" class="option-button format">
+        <i class="fa-solid fa-underline"></i>
+      </button>
+      <button id="strikethrough" class="option-button format">
+        <i class="fa-solid fa-strikethrough"></i>
+      </button>
+      <button id="superscript" class="option-button script">
+        <i class="fa-solid fa-superscript"></i>
+      </button>
+      <button id="subscript" class="option-button script">
+        <i class="fa-solid fa-subscript"></i>
+      </button>
+      <!-- List -->
+      <button id="insertOrderedList" class="option-button">
+        <div class="fa-solid fa-list-ol"></div>
+      </button>
+      <button id="insertUnorderedList" class="option-button">
+        <i class="fa-solid fa-list"></i>
+      </button>
+      <!-- Undo/Redo -->
+      <button id="undo" class="option-button">
+        <i class="fa-solid fa-rotate-left"></i>
+      </button>
+      <button id="redo" class="option-button">
+        <i class="fa-solid fa-rotate-right"></i>
+      </button>
+      <!-- Link -->
+      <button id="createLink" class="adv-option-button">
+        <i class="fa fa-link"></i>
+      </button>
+      <button id="unlink" class="option-button">
+        <i class="fa fa-unlink"></i>
+      </button>
+      <!-- Alignment -->
+      <button id="justifyLeft" class="option-button align">
+        <i class="fa-solid fa-align-left"></i>
+      </button>
+      <button id="justifyCenter" class="option-button align">
+        <i class="fa-solid fa-align-center"></i>
+      </button>
+      <button id="justifyRight" class="option-button align">
+        <i class="fa-solid fa-align-right"></i>
+      </button>
+      <button id="justifyFull" class="option-button align">
+        <i class="fa-solid fa-align-justify"></i>
+      </button>
+      <button id="indent" class="option-button spacing">
+        <i class="fa-solid fa-indent"></i>
+      </button>
+      <button id="outdent" class="option-button spacing">
+        <i class="fa-solid fa-outdent"></i>
+      </button>
+      <!-- Headings -->
+      <select id="formatBlock" class="adv-option-button">
+        <option value="H1">H1</option>
+        <option value="H2">H2</option>
+        <option value="H3">H3</option>
+        <option value="H4">H4</option>
+        <option value="H5">H5</option>
+        <option value="H6">H6</option>
+      </select>
+      <!-- Font -->
+      <select id="fontName" class="adv-option-button"></select>
+      <select id="fontSize" class="adv-option-button"></select>
+      <!-- Color -->
+      <div class="input-wrapper">
+        <input type="color" id="foreColor" class="adv-option-button" />
+        <label for="foreColor">Font Color</label>
       </div>
-
-      <div class="buttons">
-        <button>Publish</button>
-        <button>Save draft</button>
-        <button>Edit</button>
-        <button>Preview</button>
+      <div class="input-wrapper">
+        <input type="color" id="backColor" class="adv-option-button" />
+        <label for="backColor">Highlight Color</label>
       </div>
     </div>
-    <div class="side_bar">
-      <h3>Writing a Great Post Title</h3>
-      <ul>
-        <li>Think of your post title as a super short (but compelling!) description — like an overview of the actual
-          post in one short sentence.</li>
-        <li>Use keywords where appropriate to help ensure people can find your post by search.</li>
-      </ul>
-      <h4>Tagging Guidelines</h4>
-      <ul>
-        <li>Tags help people find your post.</li>
-        <li>Think of tags as the topics or categories that best describe your post.</li>
-        <li>Add up to four comma-separated tags per post. Combine tags to reach the appropriate subcommunities.</li>
-        <li>Use existing tags whenever possible.</li>
-        <li>Some tags, such as “help” or “healthydebate”, have special posting guidelines.</li>
-      </ul>
-      <img src="../../assets/images/bg_image2.jpg" alt="edit_pagebg" width="100%" height="40%" />
+    <div id="text-input" contenteditable="true"></div>
+
+    <div class="post_button">
+      <button>Publish</button>
+      <button>Save draft</button>
     </div>
   </div>
+
   <div class="icons">
-    <a href="#"><img src="../../assets/images/svg/logo-facebook.svg" alt="fb_icon" width="25vw" height="25vh" /></a>
-    <a href="#"><img src="../../assets/images/svg/logo-instagram.svg" alt="insta_icon" width="25vw" height="25vh" /></a>
-    <a href="#"><img src="../../assets/images/svg/logo-github.svg" alt="git_icon" width="25vw" height="25vh" /></a>
-    <a href="#"><img src="../../assets/images/svg/logo-behance.svg" alt="be_icon" width="25vw" height="25vh" /></a>
+    <a href="#"><i class="fa fa-facebook" style="color: #000;"></i></a>
+    <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
+    <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
+    <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
     <p>© 2022 Venom.com All rights reserved</p>
   </div>
+  <!--Script-->
+  <script src="../../assets/script.js"></script>
 </body>
 
 </html>

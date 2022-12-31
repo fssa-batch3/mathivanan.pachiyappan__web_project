@@ -2,40 +2,59 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Venom.com</title>
     <link rel="stylesheet" href="../../assets/css/3_home.css">
     <link rel="stylesheet" href="../../assets/css/8_post.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
 </head>
 
 <body>
-    <div class="header">
-        <div class="nav_main">
-            <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
-        </div>
+    <!--Header-->
+    <header>
+        <!--Nav-->
+        <div class="header">
+            <div class="nav_main">
+                <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
+            </div>
 
-        <div class="navigation_link">
-            <ul>
-                <li>
-                    <form>
-                        <input type="text" placeholder="Search...." />
-                    </form>
-                </li>
-                <li><img class="search_icon" src="../../assets/images/svg/search.svg" alt="search-image" width="20vw"
-                        heighgt="20vh" /></li>
-                <li><a href="../user_services/4_creat_post.html">Create blog</a></li>
-                <a href="../user_services/5_notification.html">
-                    <li><img src="../../assets/images/svg/notification_bell.svg" alt="notific_icon" alt="notific_icon"
-                            width="20vw" height="40vh"></li>
-                </a>
-                <a href="../Myprofile/6_profile.html">
-                    <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40vw" height="40vh"></li>
-                </a>
-            </ul>
+            <div class="navigation_link">
+                <ul>
+                    <li>
+                        <form>
+                            <input type="text" placeholder="Search...." />
+                        </form>
+                    </li>
+                    <li><i class="fa fa-search" style="color: #000;"></i></li>
+                    <li><a href="../user_services/4_creat_post.html">Create</a></li>
+                    <a href="../user_services/5_notification.html">
+                        <li><i class="fa fa-bell" style="color: #000;"></i></li>
+                    </a>
+                    <div class="dropdown">
+                        <button class="dropbtn"><a href="../Myprofile/6_profile.html">
+                                <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem"
+                                        height="40rem"></li>
+                            </a></button>
+                        <div class="dropdown-content">
+                            <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
+                                    style="font-size:18px"></i>Profile</a>
+                            <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear"
+                                    style="font-size:18px"></i>Settings</a>
+                            <a href="../Reg/1_sign-in.html"><i class="fa fa-sign-out"
+                                    style="font-size:18px"></i>Log-Out</a>
+                        </div>
+                    </div>
+
+                </ul>
+            </div>
         </div>
-    </div>
+    </header>
+
     <div class="post_page">
-        <img src="../../assets/images/img/post-5.jpg" alt="post_1" width="100%" height="500vh" />
+        <img src="../../assets/images/img/post-5.jpg" alt="post_1" width="100%" height="30%" />
         <h2>Elements of a network</h2>
         <p>In order to understand networks we need to understand the elements of a network. There are four main elements
             that define how communication over networks works.</p>
@@ -81,9 +100,9 @@
         <div class="react_icons">
             <div class="icon_main">
                 <p><img src="../../assets/images/svg/heart-outline.svg" alt="heart_icon">
-                    893</p>
+                    658</p>
                 <p class="cmt_icon"><img src="../../assets/images/svg/chatbubble-outline.svg" alt="comment_icon">
-                    396</p>
+                    283</p>
             </div>
             <div class="side_main">
                 <p><img src="../../assets/images/svg/bookmark-outline.svg" alt="bookmark_icon">
@@ -96,87 +115,85 @@
             <h4>Others</h4>
             <div class="notific_profile">
                 <div>
-                    <a href="../others-profile/6b_profile-Anand.html"><img src="../../assets/images/Profile/profile_2.jpg"
-                            alt="user_image" /></a>
+                    <a href="../others-profile/6b_profile-Anand.html"><img
+                            src="../../assets/images/Profile/profile_2.jpg" alt="user_image" /></a>
                     <p><strong>Anand Mahindra</strong><br /><span>5m ago</span></p>
                 </div>
-                <img src="../../assets/images/svg/ellipsis-vertical.svg" alt="ellipsis_icon" width="20vw" height="20vh"
-                    class="img_right" />
+
             </div>
             <p class="comment_txt">Thank you so much for letting me express my feeling about your post.
                 You write every blog post so well. Keep the hard work going and good luck.
                 Hope to see such beneficial post ahead to.</p>
             <div class="notific_profile">
                 <div>
-                <a href="../others-profile/6c_profile-Kamala.html"><img src="../../assets/images/Profile/profile_3.jpg"
-                        alt="user_image" /></a>
-                <p><strong>Kamala Harris</strong><br /><span>7m ago</span></p>
+                    <a href="../others-profile/6c_profile-Kamala.html"><img
+                            src="../../assets/images/Profile/profile_3.jpg" alt="user_image" /></a>
+                    <p><strong>Kamala Harris</strong><br /><span>7m ago</span></p>
+                </div>
+
             </div>
-            <img src="../../assets/images/svg/ellipsis-vertical.svg" alt="ellipsis_icon" width="20vw" height="20vh"
-                    class="img_right" />
-            </div>
-            <p class="comment_txt">@Linda I appreciate so much all of the information you put forward in this piece. It is beautifully
+            <p class="comment_txt">@Linda I appreciate so much all of the information you put forward in this piece. It
+                is beautifully
                 written, and it connects me with my Mexican ancestry on so many levels.
             </p>
             <div class="notific_profile">
                 <div>
-                <a href="../others-profile/6e_profile-johnny.html"><img src="../../assets/images/Profile/profile_5.jpg"
-                        alt="user_image" /></a>
-                <p><strong>Johnny Depp</strong><br /><span>15m ago</span></p>
-            </div>
-            <img src="../../assets/images/svg/ellipsis-vertical.svg" alt="ellipsis_icon" width="20vw" height="20vh"
-                    class="img_right" />
+                    <a href="../others-profile/6e_profile-johnny.html"><img
+                            src="../../assets/images/Profile/profile_5.jpg" alt="user_image" /></a>
+                    <p><strong>Johnny Depp</strong><br /><span>15m ago</span></p>
+                </div>
+
             </div>
             <p class="comment_txt">Bravo 👏🏽👏🏽👏🏽…...</p>
             <div class="notific_profile">
                 <div>
-                <a href="../others-profile/6f_profile-chris.html"><img src="../../assets/images/Profile/profile_6.jpg"
-                        alt="user_image" /></a>
-                <p><strong>Chris Evans</strong><br /><span>1h ago</span></p>
+                    <a href="../others-profile/6f_profile-chris.html"><img
+                            src="../../assets/images/Profile/profile_6.jpg" alt="user_image" /></a>
+                    <p><strong>Chris Evans</strong><br /><span>1h ago</span></p>
+                </div>
+
             </div>
-            <img src="../../assets/images/svg/ellipsis-vertical.svg" alt="ellipsis_icon" width="20vw" height="20vh"
-                    class="img_right" />
-            </div>
-            <p class="comment_txt">Thanks for sharing such a great information.. It really helpful to me..I always search to read the quality content and finally i found this in you post. keep it up!</p>
+            <p class="comment_txt">Thanks for sharing such a great information.. It really helpful to me..I always
+                search to read the quality content and finally i found this in you post. keep it up!</p>
             <div class="notific_profile">
                 <div>
-                <a href="../others-profile/6g_profile-james.html"><img src="../../assets/images/Profile/profile_7.jpg"
-                        alt="user_image" /></a>
-                <p><strong>James Cameron</strong><br /><span>5h ago</span></p>
-            </div>
-            <img src="../../assets/images/svg/ellipsis-vertical.svg" alt="ellipsis_icon" width="20vw" height="20vh"
-                    class="img_right" />
+                    <a href="../others-profile/6g_profile-james.html"><img
+                            src="../../assets/images/Profile/profile_7.jpg" alt="user_image" /></a>
+                    <p><strong>James Cameron</strong><br /><span>5h ago</span></p>
+                </div>
+
             </div>
             <p class="comment_txt">nice post . Thank you for posting something like this
                 keep up the good work</p>
             <div class="notific_profile">
                 <div>
-                <a href="../others-profile/6h_profile-tata.html"><img src="../../assets/images/Profile/profile_8.jpg"
-                        alt="user_image" /></a>
-                <p><strong>Ratan Tata</strong><br /><span>2d ago</span></p>
+                    <a href="../others-profile/6h_profile-tata.html"><img
+                            src="../../assets/images/Profile/profile_8.jpg" alt="user_image" /></a>
+                    <p><strong>Ratan Tata</strong><br /><span>2d ago</span></p>
+                </div>
+
             </div>
-            <img src="../../assets/images/svg/ellipsis-vertical.svg" alt="ellipsis_icon" width="20vw" height="20vh"
-                    class="img_right" />
-            </div>
-            <p class="comment_txt">I’ve been surfing on the web more than 3 hours today, yet I never found any stunning article like yours. It’s alluringly worth for me. As I would see it, if all web proprietors and bloggers made puzzling substance as you did, the net will be in a general sense more beneficial than at whatever point in late memory.</p>
+            <p class="comment_txt">I’ve been surfing on the web more than 3 hours today, yet I never found any stunning
+                article like yours. It’s alluringly worth for me. As I would see it, if all web proprietors and bloggers
+                made puzzling substance as you did, the net will be in a general sense more beneficial than at whatever
+                point in late memory.</p>
             <div class="notific_profile">
                 <div>
-                <a href="../others-profile/6j_profile-sundar.html"><img src="../../assets/images/Profile/profile_10.jpg"
-                        alt="user_image" /></a>
-                <p><strong>Sundar Pichai</strong><br /><span>5d ago</span></p>
+                    <a href="../others-profile/6j_profile-sundar.html"><img
+                            src="../../assets/images/Profile/profile_10.jpg" alt="user_image" /></a>
+                    <p><strong>Sundar Pichai</strong><br /><span>5d ago</span></p>
+                </div>
+
             </div>
-            <img src="../../assets/images/svg/ellipsis-vertical.svg" alt="ellipsis_icon" width="20vw" height="20vh"
-                    class="img_right" />
-            </div>
-            <p class="comment_txt">I read this post your post so nice and very informative post thanks for sharing this post</p>
+            <p class="comment_txt">I read this post your post so nice and very informative post thanks for sharing this
+                post</p>
         </div>
     </div>
     <div class="icons">
-        <a href="#"><img src="../../assets/images/svg/logo-facebook.svg" alt="fb_icon" width="25vw" height="25vh" /></a>
-        <a href="#"><img src="../../assets/images/svg/logo-instagram.svg" alt="insta_icon" width="25vw"
-                height="25vh" /></a>
-        <a href="#"><img src="../../assets/images/svg/logo-github.svg" alt="git_icon" width="25vw" height="25vh" /></a>
-        <a href="#"><img src="../../assets/images/svg/logo-behance.svg" alt="be_icon" width="25vw" height="25vh" /></a>
+        <a href="#"><i class="fa fa-facebook" style="color: #000;"></i></a>
+        <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
+        <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
+        <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
         <p>© 2022 Venom.com All rights reserved</p>
     </div>
 
