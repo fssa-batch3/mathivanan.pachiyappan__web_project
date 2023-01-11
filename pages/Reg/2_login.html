@@ -14,13 +14,32 @@
     <div class="form">
         <h1>Login</h1>
         <form class="form_list">
-            <input type="email" placeholder="Email" required="true" />
-            <input type="password" placeholder="Password" required="true" />
+            <input type="email" placeholder="Email" required="true" id="email" />
+            <input type="password" placeholder="Password" required="true" id="password" />
             <label><a href="../Reg/3_forgot_password.html">Forgot Password?</a></label>
-            <p class="Create_new"><a href="../Reg/1_sign-in.html">Create New Account</a></p>
-            <a href="../home/3_home.html" class="enter_btn">Enter</a>
         </form>
+        <button class="enter_btn" type="button" onclick="submit()">Enter</button>
+        <p class="Create_new"><a href="../Reg/1_sign-in.html">Create New Account</a></p>
     </div>
+
+    <script>
+        
+      function submit() {
+      const email = document.getElementById("email").value
+      const password = document.getElementById("password").value
+
+      console.log(email)
+      console.log(password)
+      
+      // localStorage.getItem("key", value)
+
+      localStorage.setItem("user_email", email)
+      localStorage.setItem("user_password", password)
+
+      window.location.href = "../home/3_home.html"
+
+    }
+    </script>
 </body>
 
 </html>

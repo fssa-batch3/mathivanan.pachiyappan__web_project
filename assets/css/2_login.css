@@ -79,28 +79,28 @@ div.form p input {
     margin-right: 0.5em;
 }
 
-form.form_list a.enter_btn {
+button.enter_btn {
     font-size: 105%;
+    width: 100%;
     letter-spacing: 2px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     padding-left: 2em;
     padding-right: 2em;
-    margin-top: 2em;
     margin-bottom: -1em;
     background-color: #f36d0c;
+    border: none;
     color: white;
     border-radius: 10px;
 }
 
-form.form_list a.enter_btn:hover {
+button.enter_btn:hover {
     font-size: 105%;
     letter-spacing: 2px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     padding-left: 2em;
-    padding-right: 2em;
-    margin-top: 2em;
+    padding-right: 2em; 
     margin-bottom: -1em;
     background-color: #0c92f3;
     color: white;

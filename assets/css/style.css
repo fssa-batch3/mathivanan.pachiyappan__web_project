@@ -56,13 +56,13 @@ div.header {
 }
 
 div.header form input {
-    width: 17vw;
+    width: 18vw;
     height: 5%;
     padding: 0.8em;
     border-radius: 2em;
     border: 1.3px solid gray;
     font-size: 80%;
-    margin-right: -4em;
+    margin-right: -2.5em;
 }
 
 div.header form input:focus {
@@ -275,4 +275,9 @@ div.icons {
     padding: 1em;
     border-radius: 1em;
     background-color: white;
+}
+@media only screen and (max-width: 600px) {
+    div.header form input {
+        width: 100%;
+    }
 }

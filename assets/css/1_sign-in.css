@@ -34,7 +34,6 @@ form.form_list {
     flex-direction: column;
     align-content: center;
     width: 20rem;
-    height: 27vh;
 }
 
 form.form_list input {
@@ -61,15 +60,15 @@ input:focus {
     outline: none;
 }
 
-form.form_list a {
+button {
     font-size: 105%;
+    width: 100%;
     letter-spacing: 2px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     padding-left: 2em;
     padding-right: 2em;
-    margin-top: 2em;
-    margin-bottom: -1em;
+    margin-top: 2rem;
     background-color: #335ecc;
     color: white;
     border-radius: 10px;
@@ -77,15 +76,15 @@ form.form_list a {
     text-decoration: none;
 }
 
-form.form_list a:hover {
+button:hover {
     font-size: 105%;
+    width: 100%;
     letter-spacing: 2px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     padding-left: 2em;
     padding-right: 2em;
-    margin-top: 2em;
-    margin-bottom: -1em;
+    margin-top: 2rem;
     background-color: #34a806;
     color: white;
     border-radius: 10px;
