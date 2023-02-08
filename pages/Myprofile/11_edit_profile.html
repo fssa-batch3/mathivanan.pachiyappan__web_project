@@ -71,19 +71,17 @@
       <form>
         <div>
           <p>Name</p>
-          <input type="text" placeholder="Name" value="name" id="name"/>
+          <input type="text" placeholder="Name" id="name"/>
         </div>
         <div>
           <p>Email</p>
-          <input type="email" placeholder="Email" value="email" id="email"/>
-          <p>Password</p>
-          <input type="password" placeholder="******" value="password" id="password"/>
+          <input type="email" placeholder="Email" id="email"/>
         </div>
         <div>
           <p>DOB</p>
-          <input type="date" required="true" style="text-transform: uppercase;" value="2022-10-01" id="date"/>
+          <input type="date" required="true" style="text-transform: uppercase;" id="date"/>
           <p>Country</p>
-          <input type="text" placeholder="Country" list="count" />
+          <input type="text" placeholder="Country" list="count" id="country"/>
           <datalist id="count">
             <option>Australia</option>
             <option>Bangladesh</option>
@@ -115,18 +113,18 @@
         </div>
         <div>
           <p>Designation</p>
-          <input type="text" placeholder="Ex : CEO of Google">
+          <input type="text" placeholder="Ex : CEO of Google" id="job">
           <p>Tags</p>
-          <input type="text" placeholder="#tech #career #design #space">
+          <input type="text" placeholder="#tech #career #design #space" id="tag">
         </div>
       </form>
       <div class="textarea_box">
         <h3>Bio</h3>
-        <textarea placeholder="A short bio..."></textarea>
+        <textarea placeholder="A short bio..." id="bio"></textarea>
         <p>(0/30)</p>
       </div>
     </div>
-    <button class="save_prfl">Save Profile</button>
+    <button class="save_prfl" type="button" onclick="submit()">Save Profile</button>
   </div>
   <div class="icons">
     <a href="#"><i class="fa fa-facebook" style="color: #000;"></i></a>
@@ -137,15 +135,37 @@
   </div>
 
   <script>
-    const name = document.getElementById("name").value
-    const email = document.getElementById("email").value
-    const password = document.getElementById("password").value
-    const date = document.getElementById("date").value
+    function submit() {
+      
+    let name = document.getElementById("name").value
+    let email = document.getElementById("email").value
+    let date = document.getElementById("date").value
+    let country = document.getElementById("country").value
+    let job = document.getElementById("job").value
+    let tag = document.getElementById("tag").value
+    let bio = document.getElementById("bio").value
 
     console.log(name)
     console.log(email)
-    console.log(password)
     console.log(date)
+    console.log(country)
+    console.log(job)
+    console.log(tag)
+    console.log(bio)
+
+    // localStorage.getItem("key", value)
+
+    localStorage.setItem("name", name)
+    localStorage.setItem("email", email)
+    localStorage.setItem("user_date", date)
+    localStorage.setItem("user_country", country)
+    localStorage.setItem("user_job", job)
+    localStorage.setItem("user_tag", tag)
+    localStorage.setItem("user_bio", bio)
+
+    window.location.href = "../Myprofile/6_profile.html"
+
+    }
   </script>
 </body>
 

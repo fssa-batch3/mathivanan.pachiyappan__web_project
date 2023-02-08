@@ -61,12 +61,11 @@
           <img src="../../assets/images/profile_2.jpg" alt="JR_profile" />
           <span></span>
         </div>
-        <h2>Tom Holland</h2>
-        <p>Sr.Senior Software engineer Google, CA.</p>
-        <p id="user_email">tomholland@gmail.com</p>
-        <p>26/03/1995</p>
-        <p><img src="../../assets/images/svg/location-sharp.svg" alt="location_icon" width="20vw" height="20vh" />USA
-        </p>
+        <h2 id="user_name"></h2>
+        <p id="user_job"></p>
+        <p id="user_email"></p>
+        <p id="user_date"></p>
+        <img src="../../assets/images/svg/location-sharp.svg" alt="location_icon" width="20vw" height="20vh" /><p id="user_country"></p>
 
         <ul class="about">
           <li><a href="../follow/7_follow.html"><span>4,053</span>Followers</a></li>
@@ -75,10 +74,8 @@
         </ul>
 
         <div class="content">
-          <p>
-            American blogger to explore lot of things about movies and songs review. Book review and Tech updates share
-            good career guidence. Born on 26 March 1995
-          </p>
+          <p id="user_tag" class="tag_line"></p>
+          <p id="user_bio"></p>
         </div>
         <button><a href="./11_edit_profile.html">Edit Profile</a></button>
       </div>
@@ -89,7 +86,7 @@
             <li><a href="./6_savedpost.html">saved items</a></li>
             <li><a href="./6_toptrend.html">Top Trending</a></li>
           </ul>
-          <button>Follow</button>
+          <button><b>Edit Post</b></button>
         </nav>
 
         <div class="photos">
@@ -116,13 +113,29 @@
 
   <script>
     // localStorage.getItem("key", value)
-    const user_email = localStorage.getItem("user_email");
-    console.log(user_email);
+    let user_name = localStorage.getItem("user_name");
+    // console.log(user_name);
+    let user_email = localStorage.getItem("user_email");
+    // console.log(user_email);
+    let user_date = localStorage.getItem("user_date");
+    // console.log(user_date);
+    let user_country = localStorage.getItem("user_country");
+    // console.log(user_country);
+    let user_job = localStorage.getItem("user_job");
+    // console.log(user_job);
+    let user_tag = localStorage.getItem("user_tag");
+    // console.log(user_tag);
+    let user_bio = localStorage.getItem("user_bio");
+    // console.log(user_bio);
 
-    document.getElementById("user_email").innerText = user_email
-    document.getElementById("user_email").value = user_email
-
-
+    document.getElementById("user_name").innerText = user_name
+    document.getElementById("email").innerText = user_email
+    document.getElementById("user_date").innerText = user_date
+    document.getElementById("user_country").innerText = user_country
+    document.getElementById("user_job").innerText = user_job
+    document.getElementById("user_tag").innerText = user_tag
+    document.getElementById("user_bio").innerText = user_bio
+  
   </script>
 
 </body>

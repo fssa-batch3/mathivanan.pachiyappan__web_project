@@ -111,6 +111,12 @@ a {
   line-height: 1.8em;
 }
 
+.header__wrapper .cols__container .content p.tag_line {
+  font-size: 0.8rem;
+  color: gray;
+  line-height: 1.8em;
+}
+
 .header__wrapper .cols__container .content ul img {
   gap: 30px;
   justify-content: center;

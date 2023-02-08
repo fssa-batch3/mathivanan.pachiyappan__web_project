@@ -1,0 +1,32 @@
+<script>
+         const div_col = document.createElement("div");
+      div_col.setAttribute("class", "col");
+      document.querySelector("div.row.row-cols-1").append(div_col);
+
+      const div_card = document.createElement("div");
+      div_card.setAttribute("class", "card");
+      document.querySelector("div.col").append(div_card);
+      
+      const img_top = document.createElement("img");
+      img_top.setAttribute("class", "card-img-top");
+      img_top.setAttribute("src","https://via.placeholder.com/500x150");
+      document.querySelector("div.card").prepend(img_top);
+      
+      const div_body = document.createElement("div");
+      div_body.setAttribute("class", "card-body");
+      document.querySelector("div.card").append(div_body);
+
+      const h5_title = document.createElement("h5");
+      h5_title.innerText = "Card title";
+      h5_title.setAttribute("class", "card-title");
+      document.querySelector("div.card-body").prepend(h5_title);
+
+      const p_text = document.createElement("p");
+      p_text.innerText = "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.";
+      p_text.setAttribute("class", "card-text");
+      document.querySelector("div.card-body").append(p_text);
+      
+      const div_col_3 = document.createElement("div");
+      div_col_3.setAttribute("class", "col col-3");
+      document.querySelector("div.row.row-cols-1").append(div_col_3);
+   </script>

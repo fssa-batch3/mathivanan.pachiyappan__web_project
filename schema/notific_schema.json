@@ -1,0 +1,6 @@
+{
+    "notific_user": "string",
+    "strong": "string",
+    "notific_text": "string",
+    "timestamp": "string"
+}

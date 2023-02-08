@@ -35,7 +35,7 @@ div.notific_profile {
     height: 5rem;
 }
 
-div.notific_profile img {
+div.notific_profile img.profile_pic{
     margin-right: 0.5rem;
     margin-left: 1.5rem;
     border: 3px solid orange;
@@ -44,8 +44,17 @@ div.notific_profile img {
     height: 4rem;
 }
 
-div.notific_profile p {
-    opacity: 70%;
+div.notific_profile p.post-description{
+    opacity: 100%;
     font-size: 80%;
     text-align: left;
+    max-width: 20rem;
 }
+
+div.notific_profile strong.bold {
+    opacity: 80%;
+    font-size: 14px;
+    text-align: left;
+    font-weight: bold;
+}
+

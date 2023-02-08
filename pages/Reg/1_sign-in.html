@@ -14,15 +14,48 @@
     <div class="form">
         <h1>Register</h1>
         <form class="form_list">
-            <input type="name" placeholder="Name" required="true" value="Mathi" id="name"/>
-            <input type="email" placeholder="e-mail" required="true" value="mathizan16@gamil.com" id="email"/>
-            <input type="password" placeholder="Password" required="true" value="password" id="password"/>
+            <input type="name" placeholder="Name" required="true" id="name_1" />
+            <input type="email" placeholder="Email" required="true" id="email" />
+            <input type="password" placeholder="Password" required="true" id="password" />
         </form>
-        <button class="enter_btn" type="button" onclick="submit()">Create Account</button>
+        <button class="enter_btn" type="button" onclick="Sign_Up()">Create Account</button>
         <p class="login">Or</p>
         <p><a href="2_login.html">Login</a></p>
 
     </div>
+    <script>
+        function Sign_Up() {
+            let user_name, user_email, user_password;
+            user_name = document.getElementById("name_1").value;
+            user_email = document.getElementById("email").value;
+            user_password = document.getElementById("password").value;
+
+            let user_records = new Array();
+            const users = localStorage.getItem("users")
+            user_records = JSON.parse(localStorage.getItem("users")) ? JSON.parse(localStorage.getItem("users")) : []
+
+            if (user_records.some((v) => { return v.user_name == user_name })) {
+                alert("Your details successfully registed ");
+                window.location.href = "../Reg/2_login.html"
+            }
+            else if (password.value.length == 0 && email.value.length == 0 && name_1.value.length == 0) {
+                alert('Please fill Details');
+            } else if (name_1.value.length == 0) {
+                alert('Please enter your Name');
+            } else if (email.value.length == 0) {
+                alert('Please enter your email');
+            } else if (password.value.length == 0) {
+                alert('Please enter password');
+            } else {
+                user_records.push({
+                    "user_name": user_name,
+                    "user_email": user_email,
+                    "user_password": user_password
+                })
+                localStorage.setItem("users", JSON.stringify(user_records));
+            }
+        }
+    </script>
 </body>
 
 </html>

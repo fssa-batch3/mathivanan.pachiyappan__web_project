@@ -56,56 +56,7 @@
   <div class="notific_main">
     <h1>Notifications<sup><i class="fa fa-bell" style="color: #000;"></i></sup></h1>
     <div class="notific_top">
-      <div class="notific_profile">
-        <a href="../others-profile/6a_profile-elon.html"><img src="../../assets/images/Profile/profile_1.jpg"
-            alt="user_image" /></a>
-        <p><strong>Elon Musk</strong> liked your post<br />3m ago</p>
-      </div>
-      <div class="notific_profile">
-        <a href="../others-profile/6b_profile-Anand.html"><img src="../../assets/images/Profile/profile_2.jpg"
-            alt="user_image" /></a>
-        <p><strong>Anand Mahindra</strong> comment your post and started follow you<br />5m ago</p>
-      </div>
-      <div class="notific_profile">
-        <a href="../others-profile/6c_profile-Kamala.html"><img src="../../assets/images/Profile/profile_3.jpg"
-            alt="user_image" /></a>
-        <p><strong>Kamala Harris</strong> like and comment your post<br />7m ago</p>
-      </div>
-      <div class="notific_profile">
-        <a href="../others-profile/6d_profile-girish.html"><img src="../../assets/images/Profile/profile_4.jpg"
-            alt="user_image" /></a>
-        <p><strong>Girish Mathrubootham</strong> like your post and started follow you<br />8m ago</p>
-      </div>
-      <div class="notific_profile">
-        <a href="../others-profile/6e_profile-johnny.html"><img src="../../assets/images/Profile/profile_5.jpg"
-            alt="user_image" /></a>
-        <p><strong>Johnny Depp</strong> react your post with shocking emoji<br />15m ago</p>
-      </div>
-      <div class="notific_profile">
-        <a href="../others-profile/6f_profile-chris.html"><img src="../../assets/images/Profile/profile_6.jpg"
-            alt="user_image" /></a>
-        <p><strong>Chris Evans</strong> comment your post and started follow you<br />1h ago</p>
-      </div>
-      <div class="notific_profile">
-        <a href="../others-profile/6g_profile-james.html"><img src="../../assets/images/Profile/profile_7.jpg"
-            alt="user_image" /></a>
-        <p><strong>James Cameron</strong> liked your Post<br />5h ago</p>
-      </div>
-      <div class="notific_profile">
-        <a href="../others-profile/6h_profile-tata.html"><img src="../../assets/images/Profile/profile_8.jpg"
-            alt="user_image" /></a>
-        <p><strong>Ratan Tata</strong> liked your Post<br />2d ago</p>
-      </div>
-      <div class="notific_profile">
-        <a href="../others-profile/6i_profile-billgates.html"><img src="../../assets/images/Profile/profile_9.jpg"
-            alt="user_image" /></a>
-        <p><strong>Bill Gates</strong> liked your Post<br />3d ago</p>
-      </div>
-      <div class="notific_profile">
-        <a href="../others-profile/6j_profile-sundar.html"><img src="../../assets/images/Profile/profile_10.jpg"
-            alt="user_image" /></a>
-        <p><strong>Sundar Pichai</strong> liked your Post<br />5d ago</p>
-      </div>
+     <!--Notification_content_Js-->
     </div>
   </div>
   <div class="icons">
@@ -115,6 +66,140 @@
     <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
     <p>© 2022 Venom.com All rights reserved</p>
   </div>
+
+  <script>
+    const notific_card = [
+      {
+        "notific_user":{
+          source:"../../assets/images/Profile/profile_1.jpg",
+          alt:"user_profile"
+        } ,
+        "strong" : "Elon Musk",
+        "notific_text": "liked your post",
+        "timestamp" : "3m ago"
+      },
+      {
+        "notific_user":{
+          source:"../../assets/images/Profile/profile_2.jpg",
+          alt:"user_profile"
+        } ,
+        "strong" : "Anand Mahindra",
+        "notific_text": "comment your post and started follow you",
+        "timestamp":"5m ago"
+      },
+      {
+        "notific_user":{
+          source:"../../assets/images/Profile/profile_3.jpg",
+          alt:"user_profile"
+        } ,
+        "strong": "Kamala Harris",
+        "notific_text": "like and comment your post",
+        "timestamp": "7m ago"
+      },
+      {
+        "notific_user":{
+          source:"../../assets/images/Profile/profile_4.jpg",
+          alt:"user_profile"
+        } ,
+        "strong" :"Girish Mathrubootham",
+        "notific_text": "like your post and started follow you",
+        "timestamp": " 8m ago"
+      },
+      {
+        "notific_user":{
+          source:"../../assets/images/Profile/profile_5.jpg",
+          alt:"user_profile"
+        } ,
+        "strong":"Johnny Depp",
+        "notific_text": "react your post with shocking emoji",
+        "timestamp":"15m ago"
+      },
+      {
+        "notific_user":{
+          source:"../../assets/images/Profile/profile_6.jpg",
+          alt:"user_profile"
+        } ,
+        "strong": "Chris Evans",
+        "notific_text": "comment your post and started follow you",
+        "timestamp":"1h ago"
+      },
+      {
+        "notific_user":{
+          source:"../../assets/images/Profile/profile_7.jpg",
+          alt:"user_profile"
+        } ,
+        "strong":"James Cameron",
+        "notific_text": "liked your Post",
+        "timestamp":"5h ago"
+
+      },
+      {
+        "notific_user":{
+          source:"../../assets/images/Profile/profile_8.jpg",
+          alt:"user_profile"
+        } ,
+        "strong":"Ratan Tata",
+        "notific_text": "liked your Post",
+        "timestamp":"2d ago"
+      },
+      {
+        "notific_user":{
+          source:"../../assets/images/Profile/profile_9.jpg",
+          alt:"user_profile"
+        } ,
+        "strong":"Bill Gates",
+        "notific_text": "liked your Post",
+        "timestamp":"3d ago"
+      },
+      {
+        "notific_user":{
+          source:"../../assets/images/Profile/profile_10.jpg",
+          alt:"user_profile"
+        } ,
+        "strong":"Sundar Pichai",
+        "br_notific_txt": "liked your Post",
+        "timestamp":"5d ago"
+      },
+
+    ]
+
+    let div_notific;
+    let img_profile;
+    let p_notific_txt;
+    let br_notific_txt;
+    let strong_txt;
+
+    for (let i = 0; i < 10; i++){
+
+    div_notific = document.createElement("div");
+    div_notific.setAttribute("class", "notific_profile");
+    console.log(div_notific);
+
+    img_profile = document.createElement("img");
+    img_profile.setAttribute("src", notific_card[i]["notific_user"]["source"]);
+    img_profile.setAttribute("alt", notific_card[i]["notific_user"]["alt"]);
+    img_profile.setAttribute("class", "profile_pic");
+    div_notific.append(img_profile); 
+
+    p_notific_txt = document.createElement("p");
+    p_notific_txt.setAttribute("class", "post-description");
+    p_notific_txt.innerText = notific_card[i]["notific_text"];
+    div_notific.append(p_notific_txt);
+
+    b_notific_txt = document.createElement("strong");
+    b_notific_txt.setAttribute("class", "bold");
+    b_notific_txt.innerText = notific_card[i]["strong"];
+    p_notific_txt.prepend(b_notific_txt);
+
+    br_notific_txt = document.createElement("br");
+    br_notific_txt.innerText = notific_card[i]["br_notific_text"];
+    b_notific_txt.append(br_notific_txt);
+
+
+    document.querySelector("div.notific_top").append(div_notific);
+
+    }
+  </script>
 </body>
 
 </html>

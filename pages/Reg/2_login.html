@@ -14,31 +14,37 @@
     <div class="form">
         <h1>Login</h1>
         <form class="form_list">
-            <input type="email" placeholder="Email" required="true" id="email" />
-            <input type="password" placeholder="Password" required="true" id="password" />
+            <input type="email" placeholder="Email" required="true" id="user_email" />
+            <input type="password" placeholder="Password" required="true" id="user_password" />
             <label><a href="../Reg/3_forgot_password.html">Forgot Password?</a></label>
         </form>
-        <button class="enter_btn" type="button" onclick="submit()">Enter</button>
+        <button class="enter_btn" type="button" onclick="Login()">Enter</button>
         <p class="Create_new"><a href="../Reg/1_sign-in.html">Create New Account</a></p>
     </div>
 
     <script>
+        function Login()
+        {
+        let email,password;
+        email=document.getElementById("user_email").value;
+        password=document.getElementById("user_password").value;
         
-      function submit() {
-      const email = document.getElementById("email").value
-      const password = document.getElementById("password").value
-
-      console.log(email)
-      console.log(password)
-      
-      // localStorage.getItem("key", value)
-
-      localStorage.setItem("user_email", email)
-      localStorage.setItem("user_password", password)
-
-      window.location.href = "../home/3_home.html"
-
-    }
+        let user_records=new Array();
+        user_records=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
+        
+        if(user_records.some((v)=>{return v.user_email==email && v.user_password==password}))
+        {
+          alert("Login Pass");
+          let current_user=user_records.filter((v)=>{return v.user_email == email && v.user_password==password})[0]
+         localStorage.setItem('email',current_user.user_email);
+         localStorage.setItem('password',current_user.user_password);
+          window.location.href="../home/3_home.html"
+        }
+        else
+        {
+          alert('Login Fail');
+        }
+        }
     </script>
 </body>
 

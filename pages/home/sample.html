@@ -1,99 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .topnav {
-      overflow: hidden;
-      background-color: #333;
-    }
-
-    .topnav a {
-      float: left;
-      display: block;
-      color: #f2f2f2;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-      font-size: 17px;
-    }
-
-    .topnav a:hover {
-      background-color: #ddd;
-      color: black;
-    }
-
-    .topnav a.active {
-      background-color: #04AA6D;
-      color: white;
-    }
-
-    .topnav .icon {
-      display: none;
-    }
-
-    @media screen and (max-width: 600px) {
-      .topnav a:not(:first-child) {
-        display: none;
-      }
-
-      .topnav a.icon {
-        float: right;
-        display: block;
-      }
-    }
-
-    @media screen and (max-width: 600px) {
-      .topnav.responsive {
-        position: relative;
-      }
-
-      .topnav.responsive .icon {
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-
-      .topnav.responsive a {
-        float: none;
-        display: block;
-        text-align: left;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="text-center" data-new-gr-c-s-check-loaded="14.1089.0" data-gr-ext-installed="">
 
-  <div class="topnav" id="myTopnav">
-    <div class="nav_main">
-      <p><a href="#">Ve<span>nom</span></a></p>
-    </div>
-    <a href="#home" class="active"><input type="text" placeholder="Search...." /></a>
-    <a href="#contact"><i class="fa fa-bell" style="color: #000;"></i></a>
-    <a href="#contact"><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem" height="40rem"></a>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-      <i class="fa fa-bars"></i>
-    </a>
-  </div>
+    <main class="container py-5">
 
-  <script>
-    function myFunction() {
-      var x = document.getElementById("myTopnav");
-      if (x.className === "topnav") {
-        x.className += " responsive";
-      } else {
-        x.className = "topnav";
-      }
-    }
-  </script>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            
+
+        </div>
+
+
+    </main>
+
+    <script>
+ 
+        let div_col;
+        let div_card;
+        let img_card;
+        let div_card_body;
+        let h5_card_title;
+        let p_card_text;
+
+
+        const names =["Arun", "Surya", "Ajith", "Deva"];
+      
+        const card_text = ["Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus libero magnam rerum doloremque, error nulla omnis pariatur nesciunt minus fugiat sunt aperiam fuga soluta recusandae eaque asperiores expedita id dolores!"]
+        const card_img = ["https://via.placeholder.com/500x150","https://via.placeholder.com/500x120", "https://via.placeholder.com/500x130", "https://via.placeholder.com/500x180"];
+        
+        for (let i=0; i<=3; i++){
+            console.log(i);
+              //  <div class="col"> </div>
+        div_col = document.createElement("div");
+        div_col.setAttribute("class", "col");
+        console.log(div_col);
+
+        //  <div class="card"> </div>
+        div_card = document.createElement("div");
+        div_card.setAttribute("class", "card");
+        div_col.append(div_card);
+
+        //  <img src="" class="card-img-top" alt=""/>
+        img_card = document.createElement("img");
+        img_card.setAttribute("src", card_img[i]);
+        img_card.setAttribute("alt", "image_placeholder");
+        img_card.setAttribute("class", "card-img-top");
+        div_card.append(img_card);
+
+        //  <div class="card-body"> </div>
+        div_card_body = document.createElement("div");
+        div_card_body.setAttribute("class", "card-body");
+        div_card.append(div_card_body);
+
+
+        //  <h5 class="card-title"> </h5>
+        h5_card_title = document.createElement("h5");
+        h5_card_title.setAttribute("class", "card-title");
+        h5_card_title.innerText = names[i];
+        div_card_body.append(h5_card_title);
+
+        //  <p class="card-text"> </p>
+        p_card_text = document.createElement("p");
+        p_card_text.setAttribute("class", "card-text");
+        p_card_text.innerText = card_text[0];
+        div_card_body.append(p_card_text);
+
+        document.querySelector("div.row.row-cols-1").append(div_col);
+      
+        }
+    </script>
 
 </body>
 
