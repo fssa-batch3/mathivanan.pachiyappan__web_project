@@ -13,38 +13,46 @@
 <body>
     <div class="form">
         <h1>Login</h1>
-        <form class="form_list">
-            <input type="email" placeholder="Email" required="true" id="user_email" />
-            <input type="password" placeholder="Password" required="true" id="user_password" />
+        <form id="login_form" class="form_list" onsubmit="Login(event)">
+            <input type="email" placeholder="Email" id="user_email" />
+            <input type="password" placeholder="Password" id="user_password" />
             <label><a href="../Reg/3_forgot_password.html">Forgot Password?</a></label>
+            <button class="enter_btn" type="submit">Enter</button>
         </form>
-        <button class="enter_btn" type="button" onclick="Login()">Enter</button>
-        <p class="Create_new"><a href="../Reg/1_sign-in.html">Create New Account</a></p>
+        
+        <p class="Create_new"><a href="../Reg/1_sign_Up.html">Create New Account</a></p>
     </div>
 
     <script>
-        function Login()
-        {
-        let email,password;
-        email=document.getElementById("user_email").value;
-        password=document.getElementById("user_password").value;
+        const form = document.getElementById("login_form");
+
+        form.addEventListener("submit",function(e){
+        e.preventDefault();
+        let email=document.getElementById("user_email").value;
+        let password=document.getElementById("user_password").value;
         
-        let user_records=new Array();
-        user_records=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
-        
+        // let user_records=new Array();
+        // user_records=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
+        let user_records
+            if ( JSON.parse(localStorage.getItem("user_records"))) {
+                user_records = JSON.parse(localStorage.getItem("user_records"))
+            }
+            else {
+                user_records =new Array()
+            }
         if(user_records.some((v)=>{return v.user_email==email && v.user_password==password}))
         {
           alert("Login Pass");
-          let current_user=user_records.filter((v)=>{return v.user_email == email && v.user_password==password})[0]
-         localStorage.setItem('email',current_user.user_email);
-         localStorage.setItem('password',current_user.user_password);
+        //   let current_user=user_records.filter((v)=>{return v.user_email == email && v.user_password==password})[0]
+         localStorage.setItem('email_ID',JSON.stringify(email));
           window.location.href="../home/3_home.html"
         }
         else
         {
           alert('Login Fail');
         }
-        }
+        });
+
     </script>
 </body>
 

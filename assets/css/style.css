@@ -56,13 +56,14 @@ div.header {
 }
 
 div.header form input {
-    width: 18vw;
+    width: 17vw;
     height: 5%;
-    padding: 0.8em;
+    padding: 0.7em;
     border-radius: 2em;
-    border: 1.3px solid gray;
+    border: 1.3px solid white;
+    box-shadow: 1px 1px 4px grey;
     font-size: 80%;
-    margin-right: -2.5em;
+    margin-right: -2.3em;
 }
 
 div.header form input:focus {

@@ -54,28 +54,28 @@
     </div>
 </header>
   <div class="header__wrapper">
-    <header></header>
+    <header id="imgBox"></header>
     <div class="round_1">
-      <input type="file">
-      <i class="fa fa-camera" style="color: #000;"></i>
+      <input type="file" accept="image/*" name="image" id="file" style = "display: none" onchange="loadFile(event)">
+      <label for="file"><i class="fa fa-camera" style="color: #000;"></i></label>
     </div>
-    <div class="upload">
-      <img src="../../assets/images/profile_2.jpg" width="100%" height="100%" alt="">
+    <div class="upload" id="imgBox2">
+      <!-- <img src="../../assets/images/profile_2.jpg" width="100%" height="100%" alt=""> -->
       <div class="round">
-        <input type="file">
-        <i class="fa fa-camera" style="color: #000;"></i>
+        <input type="file" accept="image/*" name="image" id="file2" style = "display: none" onchange="loadFile2(event)">
+        <label for="file2"><i class="fa fa-camera" style="color: #000;"></i></label>
       </div>
     </div>
     <h1>User</h1>
     <div class="inputs">
-      <form>
+      <form  onsubmit="saveUpdate(event);">
         <div>
           <p>Name</p>
-          <input type="text" placeholder="Name" id="name"/>
+          <input type="text" placeholder="Name" id="edit_name"/>
         </div>
         <div>
           <p>Email</p>
-          <input type="email" placeholder="Email" id="email"/>
+          <input type="email" placeholder="Email" id="edit_email"/>
         </div>
         <div>
           <p>DOB</p>
@@ -117,14 +117,14 @@
           <p>Tags</p>
           <input type="text" placeholder="#tech #career #design #space" id="tag">
         </div>
+        <div class="textarea_box">
+          <h3>Bio</h3>
+          <textarea placeholder="A short bio..." id="bio"></textarea>
+          <p>(0/30)</p>
+        </div>
+        <button class="save_prfl" type="submit">Save Profile</button>
       </form>
-      <div class="textarea_box">
-        <h3>Bio</h3>
-        <textarea placeholder="A short bio..." id="bio"></textarea>
-        <p>(0/30)</p>
-      </div>
     </div>
-    <button class="save_prfl" type="button" onclick="submit()">Save Profile</button>
   </div>
   <div class="icons">
     <a href="#"><i class="fa fa-facebook" style="color: #000;"></i></a>
@@ -135,37 +135,77 @@
   </div>
 
   <script>
-    function submit() {
-      
-    let name = document.getElementById("name").value
-    let email = document.getElementById("email").value
-    let date = document.getElementById("date").value
-    let country = document.getElementById("country").value
-    let job = document.getElementById("job").value
-    let tag = document.getElementById("tag").value
-    let bio = document.getElementById("bio").value
-
-    console.log(name)
-    console.log(email)
-    console.log(date)
-    console.log(country)
-    console.log(job)
-    console.log(tag)
-    console.log(bio)
-
-    // localStorage.getItem("key", value)
-
-    localStorage.setItem("name", name)
-    localStorage.setItem("email", email)
-    localStorage.setItem("user_date", date)
-    localStorage.setItem("user_country", country)
-    localStorage.setItem("user_job", job)
-    localStorage.setItem("user_tag", tag)
-    localStorage.setItem("user_bio", bio)
-
-    window.location.href = "../Myprofile/6_profile.html"
-
+    var imgBox = document.getElementById("imgBox");
+    
+    var loadFile = function(event){
+      imgBox.style.backgroundImage = "url(" + URL.createObjectURL(event.target.files[0])+")";
     }
+
+    var imgBox2 = document.getElementById("imgBox2");
+
+    var loadFile2 = function(event){
+      imgBox2.style.backgroundImage = "url(" + URL.createObjectURL(event.target.files[0])+")";
+    }
+    
+    //  localStorage.getItem("key", value)
+    let email_ID = JSON.parse(localStorage.getItem('email_ID'));
+    let user_records = JSON.parse(localStorage.getItem("user_records"))
+
+    function login_data(e){
+      return e.user_email == email_ID;
+    }
+    user_data = user_records.find(login_data);
+
+    document.getElementById("edit_name").value = user_data['user_name'];
+    document.getElementById("edit_email").value = user_data['user_email'];
+    document.getElementById("date").value = user_data['user_date'];
+    document.getElementById("country").innerText = user_data['user_country'];
+    document.getElementById("job").value = user_data['user_job'];
+    document.getElementById("tag").value = user_data['user_tag'];
+    document.getElementById("bio").value = user_data['user_bio'];
+
+    function saveUpdate(e) {
+      e.preventDefault();
+      let date = document.getElementById("date").value
+      let country = document.getElementById("country").value
+      let job = document.getElementById("job").value
+      let tag = document.getElementById("tag").value
+      let bio = document.getElementById("bio").value
+      user_data["user_date"] = date;
+      user_data["user_country"] = country;
+      user_data["user_job"] = job;
+      user_data["user_tag"] = tag;
+      user_data["user_bio"] = bio;
+      localStorage.setItem('user_records', JSON.stringify(user_records));
+      alert("Updated successfully");
+      window.location.href = "../Myprofile/6_profile.html"
+      // console.log(user_list);
+    }
+    // function submit(e) {
+    // e.preventDefault()
+    // let date = document.getElementById("date").value
+    // let country = document.getElementById("country").value
+    // let job = document.getElementById("job").value
+    // let tag = document.getElementById("tag").value
+    // let bio = document.getElementById("bio").value
+
+    // console.log(date)
+    // console.log(country)
+    // console.log(job)
+    // console.log(tag)
+    // console.log(bio)
+
+    // // localStorage.getItem("key", value)
+
+    // // localStorage.setItem("user_name", name)
+    // // localStorage.setItem("user_email", email)
+    // localStorage.setItem("user_date", date)
+    // localStorage.setItem("user_country", country)
+    // localStorage.setItem("user_job", job)
+    // localStorage.setItem("user_tag", tag)
+    // localStorage.setItem("user_bio", bio)
+
+    // }
   </script>
 </body>
 

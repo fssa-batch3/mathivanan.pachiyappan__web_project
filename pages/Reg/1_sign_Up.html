@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp-Venom.com</title>
+    <link rel="stylesheet" href="../../assets/css/1_sign-in.css">
+    <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+</head>
+    
+<body>
+    <div class="form">
+        <h1>Register</h1>
+        <form id="signUp_form" class="form_list">
+            <input type="name" placeholder="Name" id="name_1" pattern="[A-Za-z]{3,10}"/>
+            <input type="email" placeholder="Email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
+            <input type="password" placeholder="Password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+            <input type="password" placeholder="Confirm Password" id="password2" />
+            <button class="enter_btn" type="submit">Create Account</button>
+        </form>
+        
+        <p class="login">Or</p>
+        <p><a href="2_login.html">Already have an Account ? Login</a></p>
+
+    </div>
+    <script>
+        
+        const form = document.getElementById("signUp_form");
+
+        form.addEventListener("submit",function(e){
+            e.preventDefault();
+            let user_name = document.getElementById("name_1").value;
+            let user_email = document.getElementById("email").value;
+            let user_password = document.getElementById("password").value;
+            let user_password2 = document.getElementById("password2").value;
+            let user_date = "";
+            let user_job = "";
+            let user_tag = "";
+            let user_bio = "";
+
+            // let users = new Array();
+            // let user_records = JSON.parse(localStorage.getItem("users"))
+            // user_records = JSON.parse(localStorage.getItem("users")) ? JSON.parse(localStorage.getItem("users")) : []
+            let user_records
+            if ( JSON.parse(localStorage.getItem("user_records"))) {
+                user_records = JSON.parse(localStorage.getItem("user_records"))
+            }
+            else {
+                user_records =new Array()
+            }
+            if (user_records.some((v) => { return v.user_email === user_email })) {
+                alert("Already exists user");
+            }
+            else if (name_1.value.length === 0 && email.value.length === 0  && password.value.length === 0 && password2.value.length === 0) {
+                alert('Please fill Details');
+            } else if (name_1.value.length === 0) {
+                alert('Please enter your Name');
+            } else if (email.value.length === 0) {
+                alert('Please enter your email');
+            } else if (password.value.length < 8) {
+                alert('Please enter password attleast 8 characters');
+            }else if (password2.value != password.value) {
+                alert('Confrim password missmatch');
+            }
+            else {
+                user_records.push({
+                    "user_name": user_name,
+                    "user_email": user_email,
+                    "user_password": user_password,
+                    "user_password2": user_password2,
+                    "user_date": "",
+                    "user_job": "",
+                    "user_tag": "",
+                    "user_bio": ""
+                })
+                localStorage.setItem("user_records", JSON.stringify(user_records));
+                alert("Your account has been");
+                window.location.href = "./2_login.html";
+            }
+        });
+        // function Sign_Up() {
+        //     let user_name = document.getElementById("name_1").value;
+        //     let user_email = document.getElementById("email").value;
+        //     let user_password = document.getElementById("password").value;
+        //     let user_password2 = document.getElementById("password2").value;
+        //     let user_records
+        //     if ( JSON.parse(localStorage.getItem("users"))) {
+        //         user_records = JSON.parse(localStorage.getItem("users"))
+        //     }
+        //     else {
+        //         user_records =new Array()
+        //     }
+        //         if (user_email == ["user_email"]) {
+        //             alert("This email is alredy exiest")
+        //             // break;
+        //         }
+        //         else {
+        //             user_records.push({
+        //                 "user_name": user_name,
+        //                 "user_email": user_email,
+        //                 "user_password": user_password,
+        //                 "user_password2": user_password2
+        //             })
+        //             localStorage.setItem("users", JSON.stringify(user_records))
+        //             alert("Your details successfully registed ");
+        //             window.location.href = "../Reg/2_login.html"
+        //         }
+        // }
+    </script>
+</body>
+
+</html>

@@ -61,9 +61,9 @@
           <img src="../../assets/images/profile_2.jpg" alt="JR_profile" />
           <span></span>
         </div>
-        <h2 id="user_name"></h2>
+        <h2 id="profile_name"></h2>
         <p id="user_job"></p>
-        <p id="user_email"></p>
+        <p id="profile_email"></p>
         <p id="user_date"></p>
         <img src="../../assets/images/svg/location-sharp.svg" alt="location_icon" width="20vw" height="20vh" /><p id="user_country"></p>
 
@@ -86,7 +86,7 @@
             <li><a href="./6_savedpost.html">saved items</a></li>
             <li><a href="./6_toptrend.html">Top Trending</a></li>
           </ul>
-          <button><b>Edit Post</b></button>
+          <button type="submit" onclick="deleteData()"><b>Delete</b></button>
         </nav>
 
         <div class="photos">
@@ -113,28 +113,63 @@
 
   <script>
     // localStorage.getItem("key", value)
-    let user_name = localStorage.getItem("user_name");
-    // console.log(user_name);
-    let user_email = localStorage.getItem("user_email");
-    // console.log(user_email);
-    let user_date = localStorage.getItem("user_date");
-    // console.log(user_date);
-    let user_country = localStorage.getItem("user_country");
-    // console.log(user_country);
-    let user_job = localStorage.getItem("user_job");
-    // console.log(user_job);
-    let user_tag = localStorage.getItem("user_tag");
-    // console.log(user_tag);
-    let user_bio = localStorage.getItem("user_bio");
+    let email_ID = JSON.parse(localStorage.getItem('email_ID'));
+    let user_records = JSON.parse(localStorage.getItem("user_records"))
+    function login_data(e){
+      return e.user_email == email_ID;
+    }
+    user_data = user_records.find(login_data);
+
+    
+
+    // let user_name = localStorage.getItem("users");
+    // let a = JSON.parse(user_name);
+
+    // let user_name = localStorage.getItem("name");
+    // let b = a["0"]["user_name"];
+    // document.getElementById("profile_name").innerText = b
+
+    // // localStorage.getItem("key", value)
+    // let user_email = localStorage.getItem("users");
+    // let c = JSON.parse(user_email);
+
+    // let user_email = localStorage.getItem("email");
+    // let d= c["0"]["user_email"];
+    // document.getElementById("profile_email").innerText = d
+
+    // let user_date = localStorage.getItem("user_date");
+    // // console.log(user_date);
+    // let user_country = localStorage.getItem("user_country");
+    // // console.log(user_country);
+    // let user_job = localStorage.getItem("user_job");
+    // // console.log(user_job);
+    // let user_tag = localStorage.getItem("user_tag");
+    // // console.log(user_tag);
+    // let user_bio = localStorage.getItem("user_bio");
     // console.log(user_bio);
 
-    document.getElementById("user_name").innerText = user_name
-    document.getElementById("email").innerText = user_email
-    document.getElementById("user_date").innerText = user_date
-    document.getElementById("user_country").innerText = user_country
-    document.getElementById("user_job").innerText = user_job
-    document.getElementById("user_tag").innerText = user_tag
-    document.getElementById("user_bio").innerText = user_bio
+    document.getElementById("profile_name").innerText = user_data['user_name'];
+    document.getElementById("profile_email").innerText = user_data['user_email'];
+    document.getElementById("user_date").innerText = user_data['user_date'];
+    document.getElementById("user_country").innerText = user_data['user_country'];
+    document.getElementById("user_job").innerText = user_data['user_job'];
+    document.getElementById("user_tag").innerText = user_data['user_tag'];
+    document.getElementById("user_bio").innerText = user_data['user_bio'];
+
+    function deleteData(e) {
+      if (confirm("Are you sure?")) {
+        let email_ID = JSON.parse(localStorage.getItem("email_ID"));
+        let user_records = JSON.parse(localStorage.getItem("user_records"));
+        function login_data(e) {
+          return e.user_email == email_ID;
+        }
+        user_data = user_records.find(login_data);
+        const indexOfUser = user_records.indexOf(user_data);
+        user_records.splice(indexOfUser, 1);
+        localStorage.setItem('user_records', JSON.stringify(user_records));
+        window.location.href = "../../index.html"
+      };
+    }
   
   </script>
 

@@ -102,6 +102,10 @@
             source:"../../assets/images/img/profile-1.jpg",
             alt: "profile_1" 
         } ,
+        "link": { href : "../posts/8-1_post.html"
+        },
+        "profile_link": { href : "../others-profile/6-1_profile.html"
+        },
         "title":"How to learn UI/UX Design? Volume(3)",
         "sub_title":"Design",
         "timestamp": "12 Feb 2022",
@@ -117,6 +121,10 @@
             source:"../../assets/images/img/profile-2.jpg",
             alt: "profile_2" 
         } ,
+        "link": { href : "../posts/9-1_post.html"
+        },
+        "profile_link": { href : "../others-profile/6-2_profile.html"
+        },
         "title":"The World of Networks by Jenni Part-1",
         "sub_title":"Tech",
         "timestamp": "10 Feb 2022",
@@ -132,6 +140,10 @@
             source:"../../assets/images/img/profile-3.jpg",
             alt: "profile_3" 
         } ,
+        "link": { href : "../posts/10-1_post.html"
+        },
+        "profile_link": { href : "../others-profile/6-3_profile.html"
+        },
         "title":"Apple iPhone 13 Pro, iPhone 13 Pro Max Launched",
         "sub_title":"Mobile",
         "timestamp": "05 Feb 2022",
@@ -148,6 +160,10 @@
             source:"../../assets/images/img/profile-1.jpg",
             alt: "profile_1" 
         } ,
+        "link": { href : "../posts/8-2_post.html"
+        },
+        "profile_link": { href : "../others-profile/6-1_profile.html"
+        },
         "title":"How to learn UI/UX Design? Volume(2)",
         "subtitle":"Design",
         "timestamp": "30 Jan 2022",
@@ -156,13 +172,17 @@
     {
         "name": "Jenni Rivera",
         "image": {
-            source:"../../assets/images/img/post-2.jpg",
+            source:"../../assets/images/img/post-5.jpg",
             alt: "post_2" 
         } ,
         "profile": {
             source:"../../assets/images/img/profile-2.jpg",
             alt: "profile_2" 
         } ,
+        "link": { href : "../posts/9-2_post.html"
+        },
+        "profile_link": { href : "../others-profile/6-2_profile.html"
+        },
         "title":"Elements of a network by Jenni Part-1",
         "sub_title":"Tech",
         "timestamp": "24 Jan 2022",
@@ -175,9 +195,13 @@
             alt: "post_6" 
         } ,
         "profile": {
-            source:"../../assets/images/img/profile-1.jpg",
+            source:"../../assets/images/img/profile-3.jpg",
             alt: "profile_1" 
         } ,
+        "link": { href : "../posts/10-2_post.html"
+        },
+        "profile_link": { href : "../others-profile/6-3_profile.html"
+        },
         "title":"Realme 10 Pro+ 5G Review: Excellent Performance",
         "sub_title":"Mobile",
         "timestamp": "18 Jan 2022",
@@ -194,6 +218,10 @@
             source:"../../assets/images/img/profile-1.jpg",
             alt: "profile_1" 
         } ,
+        "link": { href : "../posts/8-3_post.html"
+        },
+        "profile_link": { href : "../others-profile/6-1_profile.html"
+        },
         "title":"How to learn UI/UX Design? Volume(1)",
         "sub_title":"Design",
         "timestamp": "12 Jan 2022",
@@ -209,6 +237,10 @@
             source:"../../assets/images/img/profile-2.jpg",
             alt: "profile_2" 
         } ,
+        "link": { href : "../posts/9-3_post.html"
+        },
+        "profile_link": { href : "../others-profile/6-2_profile.html"
+        },
         "title":"Optical Fibre Cable: Working, Applications & More",
         "sub_title":"Tech",
         "timestamp": "10 Jan 2022",
@@ -224,6 +256,10 @@
             source:"../../assets/images/img/profile-3.jpg",
             alt: "profile_3" 
         } ,
+        "link": { href : "../posts/10-3_post.html"
+        },
+        "profile_link": { href : "../others-profile/6-3_profile.html"
+        },
         "title":"Xiaomi Redmi Pad Review: The Best Budget Android Tablet",
         "sub_title":"Mobile",
         "timestamp": "05 Jan 2022", 
@@ -266,7 +302,7 @@ for (let i = 0; i < 9; i++) {
     //  <div class="card-body"> </div>
     a_tag = document.createElement("a");
     a_tag.setAttribute("class", "post-title"); 
-    a_tag.setAttribute("href", "../posts/8-1_post.html");
+    a_tag.setAttribute("href", name_list[i]["link"]["href"]);
     a_tag.innerText = name_list[i]["title"];
     div_box.append(a_tag);
 
@@ -287,11 +323,15 @@ for (let i = 0; i < 9; i++) {
     div_profile.setAttribute("class", "profile");
     div_box.append(div_profile);
 
+    a_tag2 = document.createElement("a"); 
+    a_tag2.setAttribute("href", name_list[i]["profile_link"]["href"]);
+    div_profile.append(a_tag2);
+    
     profile_img = document.createElement("img");
     profile_img.setAttribute("src", name_list[i]["profile"]["source"]);
     profile_img.setAttribute("alt", name_list[i]["profile"]["alt"]);
     profile_img.setAttribute("class", "profile-img");
-    div_profile.append(profile_img);
+    a_tag2.append(profile_img);
     
     span_txt2 = document.createElement("span");
     span_txt2.setAttribute("class", "profile-name");

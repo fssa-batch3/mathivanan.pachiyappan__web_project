@@ -16,7 +16,7 @@ body {
 
 div.form {
     width: 20rem;
-    height: 45vh;
+    height: 52vh;
     margin: auto;
     background-color: rgba(186, 177, 177, 0.5);
     padding: 2em;
@@ -60,8 +60,10 @@ input:focus {
     outline: none;
 }
 
-button {
+button.enter_btn {
     font-size: 105%;
+    font-weight: bold;
+    font-family: "Poppins", sans-serif;
     width: 100%;
     letter-spacing: 2px;
     padding-top: 0.5em;
@@ -76,8 +78,9 @@ button {
     text-decoration: none;
 }
 
-button:hover {
+button.enter_btn:hover {
     font-size: 105%;
+    font-weight: bold;
     width: 100%;
     letter-spacing: 2px;
     padding-top: 0.5em;

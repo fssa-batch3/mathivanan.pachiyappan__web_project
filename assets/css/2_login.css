@@ -81,6 +81,7 @@ div.form p input {
 
 button.enter_btn {
     font-size: 105%;
+    font-weight: bold;
     width: 100%;
     letter-spacing: 2px;
     padding-top: 0.5em;
@@ -88,7 +89,9 @@ button.enter_btn {
     padding-left: 2em;
     padding-right: 2em;
     margin-bottom: -1em;
+    margin-top: 1rem;
     background-color: #f36d0c;
+    font-family: "Poppins", sans-serif;
     border: none;
     color: white;
     border-radius: 10px;
@@ -96,6 +99,7 @@ button.enter_btn {
 
 button.enter_btn:hover {
     font-size: 105%;
+    font-weight: bold;
     letter-spacing: 2px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -107,6 +111,7 @@ button.enter_btn:hover {
     border-radius: 10px;
 }
 
-p.login {
-    margin-bottom: -1.5em;
+p.Create_new {
+    margin-bottom: 0.5rem;
+    padding-top: 1.5rem;
 }
