@@ -13,7 +13,7 @@
 <body>
     <div class="form">
         <h1>Login</h1>
-        <form id="login_form" class="form_list" onsubmit="Login(event)">
+        <form id="login_form" class="form_list">
             <input type="email" placeholder="Email" id="user_email" />
             <input type="password" placeholder="Password" id="user_password" />
             <label><a href="../Reg/3_forgot_password.html">Forgot Password?</a></label>
@@ -28,6 +28,7 @@
 
         form.addEventListener("submit",function(e){
         e.preventDefault();
+        // let name=document.getElementById("user_name").value;
         let email=document.getElementById("user_email").value;
         let password=document.getElementById("user_password").value;
         
@@ -42,14 +43,14 @@
             }
         if(user_records.some((v)=>{return v.user_email==email && v.user_password==password}))
         {
-          alert("Login Pass");
+          alert("Welcome " + user_records[0]["user_name"] + " ✅");
         //   let current_user=user_records.filter((v)=>{return v.user_email == email && v.user_password==password})[0]
          localStorage.setItem('email_ID',JSON.stringify(email));
           window.location.href="../home/3_home.html"
         }
         else
         {
-          alert('Login Fail');
+          alert("Incorrect email or password ❌");
         }
         });
 

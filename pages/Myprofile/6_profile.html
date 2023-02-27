@@ -54,11 +54,11 @@
     </div>
 </header>
   <div class="header__wrapper">
-    <header></header>
+    <header id="profile_bg"></header>
     <div class="cols__container">
       <div class="left__col">
         <div class="img__container">
-          <img src="../../assets/images/profile_2.jpg" alt="JR_profile" />
+          <p id="profile_image"></p>
           <span></span>
         </div>
         <h2 id="profile_name"></h2>
@@ -113,40 +113,22 @@
 
   <script>
     // localStorage.getItem("key", value)
-    let email_ID = JSON.parse(localStorage.getItem('email_ID'));
+    let email_ID = JSON.parse(localStorage.getItem("email_ID"));
     let user_records = JSON.parse(localStorage.getItem("user_records"))
     function login_data(e){
       return e.user_email == email_ID;
     }
     user_data = user_records.find(login_data);
 
-    
+  
+    var imageURL = localStorage.getItem("imageURL");
+    var imgBox = document.getElementById("profile_bg");
+    profile_bg.style.backgroundImage = "url(" + imageURL + ")";
 
-    // let user_name = localStorage.getItem("users");
-    // let a = JSON.parse(user_name);
+    var imageURL2 = localStorage.getItem("imageURL2");
+    var imgBox2 = document.getElementById("profile_image");
+    profile_image.style.backgroundImage = "url(" + imageURL2 + ")";
 
-    // let user_name = localStorage.getItem("name");
-    // let b = a["0"]["user_name"];
-    // document.getElementById("profile_name").innerText = b
-
-    // // localStorage.getItem("key", value)
-    // let user_email = localStorage.getItem("users");
-    // let c = JSON.parse(user_email);
-
-    // let user_email = localStorage.getItem("email");
-    // let d= c["0"]["user_email"];
-    // document.getElementById("profile_email").innerText = d
-
-    // let user_date = localStorage.getItem("user_date");
-    // // console.log(user_date);
-    // let user_country = localStorage.getItem("user_country");
-    // // console.log(user_country);
-    // let user_job = localStorage.getItem("user_job");
-    // // console.log(user_job);
-    // let user_tag = localStorage.getItem("user_tag");
-    // // console.log(user_tag);
-    // let user_bio = localStorage.getItem("user_bio");
-    // console.log(user_bio);
 
     document.getElementById("profile_name").innerText = user_data['user_name'];
     document.getElementById("profile_email").innerText = user_data['user_email'];
@@ -171,6 +153,27 @@
       };
     }
   
+    // let user_name = localStorage.getItem("users");
+    // let a = JSON.parse(user_name);
+
+    // let user_name = localStorage.getItem("name");
+    // let b = a["0"]["user_name"];
+    // document.getElementById("profile_name").innerText = b
+
+    // // localStorage.getItem("key", value)
+    // let user_email = localStorage.getItem("users");
+    // let c = JSON.parse(user_email);
+
+    // let user_email = localStorage.getItem("email");
+    // let d= c["0"]["user_email"];
+    // document.getElementById("profile_email").innerText = d
+
+    // let user_date = localStorage.getItem("user_date");
+    // // console.log(user_date);
+    // let user_country = localStorage.getItem("user_country");
+    // // console.log(user_country);
+    // let user_job = localStorage.getItem("user_job");
+    // // console.log(user_job);
   </script>
 
 </body>

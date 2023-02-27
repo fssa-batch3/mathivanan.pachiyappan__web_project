@@ -11,6 +11,7 @@
   <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
 </head>
 
 <body>
@@ -54,19 +55,20 @@
         </div>
     </div>
 </header>
-
+<h2 class="create_head">Create Post</h2>
   <div class="container">
-
-    <h2>Create Post</h2>
     <div class="inputs">
       <input type="submit" placeholder="Add a cover image" value="Add a cover image" />
       <input type="file" />
     </div>
     <div class="inputs">
-      <input type="text" placeholder="New post title here..." />
+      <input type="text" placeholder="New post title here..." id="title"/>
     </div>
     <div class="inputs">
-      <input type="search" placeholder="Add top tags..." />
+      <input type="search" placeholder="Post Category..." id="sub_title"/>
+    </div>
+    <div class="input_tag">
+      <input type="search" placeholder="Add top tags..." id="post_tags"/>
     </div>
 
     <div class="options">
@@ -110,9 +112,13 @@
       <button id="unlink" class="option-button">
         <i class="fa fa-unlink"></i>
       </button>
-      <!-- Alignment -->
+      <!-- Upload image -->
       <button id="justifyLeft" class="option-button align">
         <i class="fa-solid fa-align-left"></i>
+      </button>
+      <!-- Alignment -->
+      <button id="justifyLeft" class="option-button align">
+        <i class="fa fa-picture-o"></i>
       </button>
       <button id="justifyCenter" class="option-button align">
         <i class="fa-solid fa-align-center"></i>
@@ -153,8 +159,8 @@
     </div>
     <div id="text-input" contenteditable="true"></div>
 
-    <div class="post_button">
-      <button>Publish</button>
+    <div class="post_button" id="post_box ">
+      <button onclick=" publish()" id="publish">Publish</button>
       <button>Save draft</button>
     </div>
   </div>
@@ -166,9 +172,64 @@
     <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
     <p>© 2022 Venom.com All rights reserved</p>
   </div>
-
-  <script src="/assets/js/script.js"></script>
-
 </body>
 
+<script>
+
+
+function publish(){
+
+let post_title = document.getElementById("title").value;
+let post_subtitle = document.getElementById("sub_title").value;
+let post_tags = document.getElementById("post_tags").value;
+let post_text = document.getElementById("text-input").innerText;
+let post_uuid = uuidv4();
+// let [month, date, year] = new Date().
+// toLocaleDateString("en-IN").split("/");
+// const date= new Date();
+
+// Date.prototype.getDateWithoutTime = function(){
+//   return new Date(this.toDateString());
+// }
+// const timestamp = 1644489600000; // 10 Feb 2022 in milliseconds since Unix epoch
+
+const date = new Date();
+const formattedDate = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
+
+
+let blog_records
+  if ( JSON.parse(localStorage.getItem("blog_records"))) {
+      blog_records = JSON.parse(localStorage.getItem("blog_records"))
+  }
+  else {
+      blog_records =new Array()
+  }
+
+blog_records.push({
+        "post_title":post_title,
+        "post_subtitle":post_subtitle,
+        "content": post_text,
+        "timestamp": formattedDate,
+        "post_id": post_uuid,
+        "post_tags": post_tags,
+        "name": "Tom Holland",
+        "image": {
+            source:"/assets/images/img/post-1.jpg",
+            alt: "post_image" 
+        } ,
+        "profile": {
+            source:"../../assets/images/profile_2.jpg",
+            alt: "profile_image" 
+        } ,
+        "link": { href : "../posts/8-1_post.html"
+        },
+        "profile_link": { href : "../others-profile/6-1_profile.html"
+        }
+  })
+      localStorage.setItem("blog_records", JSON.stringify(blog_records));
+      alert("Successfully Posted ✅");
+      window.location.href = "../home/3_home.html";
+
+};
+</script>
 </html>

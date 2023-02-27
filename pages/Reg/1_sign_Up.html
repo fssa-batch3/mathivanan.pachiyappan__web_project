@@ -8,6 +8,7 @@
     <title>SignUp-Venom.com</title>
     <link rel="stylesheet" href="../../assets/css/1_sign-in.css">
     <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
 </head>
     
 <body>
@@ -35,6 +36,7 @@
             let user_email = document.getElementById("email").value;
             let user_password = document.getElementById("password").value;
             let user_password2 = document.getElementById("password2").value;
+            let uuid = uuidv4();
             let user_date = "";
             let user_job = "";
             let user_tag = "";
@@ -51,7 +53,7 @@
                 user_records =new Array()
             }
             if (user_records.some((v) => { return v.user_email === user_email })) {
-                alert("Already exists user");
+                alert("Already exists user ❌");
             }
             else if (name_1.value.length === 0 && email.value.length === 0  && password.value.length === 0 && password2.value.length === 0) {
                 alert('Please fill Details');
@@ -62,7 +64,7 @@
             } else if (password.value.length < 8) {
                 alert('Please enter password attleast 8 characters');
             }else if (password2.value != password.value) {
-                alert('Confrim password missmatch');
+                alert('Confrim password missmatch ❌');
             }
             else {
                 user_records.push({
@@ -70,44 +72,17 @@
                     "user_email": user_email,
                     "user_password": user_password,
                     "user_password2": user_password2,
+                    "unique_ID": uuid,
                     "user_date": "",
                     "user_job": "",
                     "user_tag": "",
-                    "user_bio": ""
+                    "user_bio": "",
                 })
                 localStorage.setItem("user_records", JSON.stringify(user_records));
-                alert("Your account has been");
+                alert("Your account has been ✅");
                 window.location.href = "./2_login.html";
             }
         });
-        // function Sign_Up() {
-        //     let user_name = document.getElementById("name_1").value;
-        //     let user_email = document.getElementById("email").value;
-        //     let user_password = document.getElementById("password").value;
-        //     let user_password2 = document.getElementById("password2").value;
-        //     let user_records
-        //     if ( JSON.parse(localStorage.getItem("users"))) {
-        //         user_records = JSON.parse(localStorage.getItem("users"))
-        //     }
-        //     else {
-        //         user_records =new Array()
-        //     }
-        //         if (user_email == ["user_email"]) {
-        //             alert("This email is alredy exiest")
-        //             // break;
-        //         }
-        //         else {
-        //             user_records.push({
-        //                 "user_name": user_name,
-        //                 "user_email": user_email,
-        //                 "user_password": user_password,
-        //                 "user_password2": user_password2
-        //             })
-        //             localStorage.setItem("users", JSON.stringify(user_records))
-        //             alert("Your details successfully registed ");
-        //             window.location.href = "../Reg/2_login.html"
-        //         }
-        // }
     </script>
 </body>
 

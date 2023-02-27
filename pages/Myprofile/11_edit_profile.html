@@ -60,7 +60,6 @@
       <label for="file"><i class="fa fa-camera" style="color: #000;"></i></label>
     </div>
     <div class="upload" id="imgBox2">
-      <!-- <img src="../../assets/images/profile_2.jpg" width="100%" height="100%" alt=""> -->
       <div class="round">
         <input type="file" accept="image/*" name="image" id="file2" style = "display: none" onchange="loadFile2(event)">
         <label for="file2"><i class="fa fa-camera" style="color: #000;"></i></label>
@@ -120,7 +119,7 @@
         <div class="textarea_box">
           <h3>Bio</h3>
           <textarea placeholder="A short bio..." id="bio"></textarea>
-          <p>(0/30)</p>
+          <p id="result"></p>
         </div>
         <button class="save_prfl" type="submit">Save Profile</button>
       </form>
@@ -135,17 +134,43 @@
   </div>
 
   <script>
-    var imgBox = document.getElementById("imgBox");
-    
-    var loadFile = function(event){
-      imgBox.style.backgroundImage = "url(" + URL.createObjectURL(event.target.files[0])+")";
-    }
+    var myText = document.getElementById("bio");
+    var result = document.getElementById("result");
+    var limit = 250;
+    result.textContent = 0 + "/" + limit;
 
-    var imgBox2 = document.getElementById("imgBox2");
+    myText.addEventListener("input",function(){
+    var textLength = myText.value.length;
+    result.textContent = textLength + "/" + limit;
 
-    var loadFile2 = function(event){
-      imgBox2.style.backgroundImage = "url(" + URL.createObjectURL(event.target.files[0])+")";
+    if(textLength > limit){
+        myText.style.borderColor = "#ff2851";
+        result.style.color = "#ff2851";
+        alert("Character limit only 250")
     }
+    else{
+        myText.style.borderColor = "#b2b2b2";
+        result.style.color = "#737373";
+    }
+  });
+
+  var imgBox = document.getElementById("imgBox");
+
+   var loadFile = function(event){
+   var imageURL = URL.createObjectURL(event.target.files[0]);
+   imgBox.style.backgroundImage = "url(" + imageURL + ")";
+   localStorage.setItem("imageURL", imageURL);
+   }
+
+
+   var imgBox2 = document.getElementById("imgBox2");
+
+  var loadFile2 = function(event){
+  var imageURL2 = URL.createObjectURL(event.target.files[0]);
+  imgBox2.style.backgroundImage = "url(" + imageURL2 + ")";
+  localStorage.setItem("imageURL2", imageURL2);
+  }
+
     
     //  localStorage.getItem("key", value)
     let email_ID = JSON.parse(localStorage.getItem('email_ID'));

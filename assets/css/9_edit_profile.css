@@ -36,7 +36,7 @@ div.round_1 {
     border: 2px solid white;
     width: 32px;
     height: 32px;
-    line-height: 32px;
+    line-height: 29px;
     text-align: center;
     border-radius: 50%;
     overflow: hidden;
@@ -53,12 +53,13 @@ div.round_1 input[type="file"] {
 
 .header__wrapper header {
     width: 100%;
-    /* background: url("../images/post_7.jpg") no-repeat 50% 20% / cover; */
+    background: url("../images/upload_banner.jpg") no-repeat 50% 20% / cover;
     min-height: calc(100px + 15vw);
     border-radius: 0.5em;
     margin-bottom: -3.2em;
     background-repeat: no-repeat;
     background-size: cover;
+    border: 2px solid orange;
 }
 
 .upload {
@@ -68,6 +69,7 @@ div.round_1 input[type="file"] {
     margin: auto;
     border-radius: 50%;
     border: 4px solid orange;
+    background: url("../images/profile_upload.jpg") no-repeat 50% 20% / cover;
     min-height: calc(7px + 5vw);
     background-repeat: no-repeat;
     background-size: cover;
@@ -86,7 +88,7 @@ div.round_1 input[type="file"] {
     border: 3px solid white;
     width: 32px;
     height: 32px;
-    line-height: 33px;
+    line-height: 28px;
     text-align: center;
     border-radius: 50%;
     overflow: hidden;
@@ -164,6 +166,7 @@ button.save_prfl:hover {
     letter-spacing: 1px;
     font-size: 105%;
     margin: auto;
+    margin-top: 1rem;
 }
 
 div.textarea_box textarea {

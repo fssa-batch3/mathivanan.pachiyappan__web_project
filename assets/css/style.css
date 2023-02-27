@@ -248,6 +248,24 @@ div.nav_main span {
     align-items: center;
     gap: 10px;
 }
+button.edit_btn {
+    background-color: #fd8f44;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 0.3em;
+    letter-spacing: 1px;
+}
+button.delete_btn {
+    background-color: #000000;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 0.3em;
+    letter-spacing: 1px;
+}
 .profile-img {
     width: 35px;
     height: 35px;

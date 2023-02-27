@@ -23,7 +23,7 @@ a {
 
 .header__wrapper header {
   width: 100%;
-  background: url("../images/post_7.jpg") no-repeat 50% 20% / cover;
+  background: url("../images/upload_banner.jpg") no-repeat 50% 20% / cover;
   min-height: calc(100px + 15vw);
   margin-top: 2em;
 }
@@ -43,9 +43,12 @@ a {
   transform: translatex(-50%);
 }
 
-.header__wrapper .cols__container .left__col .img__container img {
+.header__wrapper .cols__container .left__col .img__container p {
   width: 120px;
   height: 120px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background: url("../images/profile_upload.jpg") no-repeat 50% 20% / cover;
   object-fit: cover;
   border-radius: 50%;
   display: block;
