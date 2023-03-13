@@ -1,6 +1,8 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=fssa-batch3_mathivanan.pachiyappan__web_project&metric=bugs)](https://sonarcloud.io/summary/new_code?id=fssa-batch3_mathivanan.pachiyappan__web_project)\
 
-Thism project about blogging site the name is Venom
+# Venom Blog
+
+This project about blogging site the name is Venom
 Problemstatement:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_7o
 UserFlow:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_7o
 Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_7o

@@ -79,7 +79,6 @@
         <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
         <p>© 2022 Venom.com All rights reserved</p>
     </div>
-
 <!-- 
     data["image"]["alt"]
     data["image"]["source"]
@@ -279,13 +278,10 @@ let profile_img;
 let span_txt2;
 
 let name_list = JSON.parse(localStorage.getItem("blog_records"));
-console.log(name_list)
-
-// const date= new date();
 
 for (let i = 0; i < name_list.length ; i++) {
 
-
+   
     //  <div class="col"> </div>
     div_box = document.createElement("div");
     div_box.setAttribute("class", "post-box design");
@@ -301,27 +297,27 @@ for (let i = 0; i < name_list.length ; i++) {
     //  <img src="" class="card-img-top" alt=""/>
     h2_txt = document.createElement("h2");
     h2_txt.setAttribute("class", "category");
-    h2_txt.innerText = name_list[i]["post_tag"];
+    h2_txt.innerText = name_list[i]["category"];
     div_box.append(h2_txt);
-
+    
     //  <div class="card-body"> </div>
     a_tag = document.createElement("a");
     a_tag.setAttribute("class", "post-title"); 
-    a_tag.setAttribute("href", name_list[i]["link"]["href"]);
-    a_tag.innerText = name_list[i]["post_title"];
+    a_tag.setAttribute("href", "../posts/8-1_post.html?post_ID="+ name_list[i]["post_id"]);
+    a_tag.innerText = name_list[i]["title"];
     div_box.append(a_tag);
 
 
     //  <span class="post-date"> </span>
     span_txt = document.createElement("span");
     span_txt.setAttribute("class", "post-date");
-    span_txt.innerText = name_list[i]["timestamp"];
+    span_txt.innerHTML = name_list[i]["timestamp"];
     div_box.append(span_txt);
 
     //  <p class="card-text"> </p>
     p_card_text = document.createElement("p");
     p_card_text.setAttribute("class", "post-description");
-    p_card_text.innerText = name_list[i]["content"];
+    p_card_text.innerHTML = name_list[i]["content"];
     div_box.append(p_card_text);
 
     div_profile = document.createElement("div");
@@ -343,40 +339,13 @@ for (let i = 0; i < name_list.length ; i++) {
     span_txt2.innerText = name_list[i]["name"];
     div_profile.append(span_txt2);
 
-    edit_button = document.createElement("button");
-    edit_button.setAttribute("class", "edit_btn");
-    edit_button.innerText = "Edit";
-    div_profile.append(edit_button);
-
-    // Delete button JSON and JS code
-    // Declare and initialize delete_button before the event listener
-    const delete_button = document.createElement("button");
-    delete_button.setAttribute("class", "delete_btn");
-    delete_button.innerText = "Delete";
-    div_profile.append(delete_button);
     
-    // Add event listener to delete_button
-    delete_button.addEventListener("click", function() {
-      if (confirm("Are you sure to Delete ?")) {
-      let post_id = JSON.parse(localStorage.getItem("post_id"));
-      let blog_records = JSON.parse(localStorage.getItem("blog_records"));
-      function login_data(e) {
-        return e.post_id == post_id;
-      }
-      user_data = blog_records.find(login_data);
-      const indexOfUser = blog_records.indexOf(user_data);
-      blog_records.splice(indexOfUser, 1);
-      localStorage.setItem('blog_records', JSON.stringify(blog_records));
-      window.location.href = "../home/3_home.html"
-      };
-    });
 
+ 
     document.querySelector("section.post.container").append(div_box);
 }
 
-
 </script>
-
 </body>
 
 </html>

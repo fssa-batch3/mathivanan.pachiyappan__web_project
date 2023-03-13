@@ -24,6 +24,7 @@
     </div>
 
     <script>
+        
         const form = document.getElementById("login_form");
 
         form.addEventListener("submit",function(e){
@@ -34,19 +35,14 @@
         
         // let user_records=new Array();
         // user_records=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
-        let user_records
-            if ( JSON.parse(localStorage.getItem("user_records"))) {
-                user_records = JSON.parse(localStorage.getItem("user_records"))
-            }
-            else {
-                user_records =new Array()
-            }
-        if(user_records.some((v)=>{return v.user_email==email && v.user_password==password}))
-        {
-          alert("Welcome " + user_records[0]["user_name"] + " ✅");
-        //   let current_user=user_records.filter((v)=>{return v.user_email == email && v.user_password==password})[0]
-         localStorage.setItem('email_ID',JSON.stringify(email));
-          window.location.href="../home/3_home.html"
+        let user_records = JSON.parse(localStorage.getItem("user_records"));
+            if(user_records.find((v)=>{return v.user_email==email && v.user_password==password}))
+            {
+            let current_user = user_records.find((v)=>{return v.user_email == email && v.user_password==password});
+            alert("Welcome " + current_user.user_name + " ✅");
+           //   let current_user=user_records.filter((v)=>{return v.user_email == email && v.user_password==password})[0]
+           localStorage.setItem('email_ID',JSON.stringify(email));
+           window.location.href="../home/3_home.html"
         }
         else
         {

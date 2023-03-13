@@ -91,8 +91,7 @@ div.side_main {
 div.comment_area {
     background-color: white;
     height: 30rem;
-    width: 100%;
-    max-width: fit-content;
+    max-width: 100%;
     margin-top: 2rem;
     overflow-y: scroll;
     padding: 1.5rem;
@@ -150,7 +149,7 @@ div.comment_area p.comment_txt {
     border-bottom: 1px solid gray;
     padding-bottom: 1rem;
 }
-div.notific_profile a img {
+div.notific_profile a img.profile_img {
     border-radius: 2rem;
     max-width: 2rem;
     max-height: 4.5vh;

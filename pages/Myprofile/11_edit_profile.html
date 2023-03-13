@@ -13,74 +13,71 @@
 </head>
 
 <body>
-   <!--Header-->
-   <header>
+  <!--Header-->
+  <header>
     <!--Nav-->
     <div class="header">
-        <div class="nav_main">
-            <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
-        </div>
-        
-        <div class="navigation_link">
-            <ul>
-                <form>
-                    <input type="text" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000;"></i></span>
-                  </form>
-                </li>
-                <li id="med-blk"><a href="../user_services/4_creat_post.html">Create</a></li>
-                <a href="../user_services/5_notification.html">
-                    <li id="med-blk"><i class="fa fa-bell" style="color: #000;"></i></li>
-                </a>
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem"
-                                height="40rem"></li>
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
-                                style="font-size:15px"></i>Profile</a>
-                        <a id="med-dc" href="../user_services/4_creat_post.html"><i class="fa fa-magic"
-                                style="font-size:18px"></i>Create</a>
-                        <a id="med-dc" href="../user_services/5_notification.html"><i class="fa fa-bell"
-                                style="font-size:13px"></i>Notification</a>
-                        <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear"
-                                style="font-size:15px"></i>Settings</a>
-                        <a href="../../index.html"><i class="fa fa-sign-out"
-                                style="font-size:18px"></i>Log-Out</a>
-                    </div>
-                </div>
-            </ul>
-        </div>
+      <div class="nav_main">
+        <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
+      </div>
+
+      <div class="navigation_link">
+        <ul>
+          <form>
+            <input type="text" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000;"></i></span>
+          </form>
+          </li>
+          <li id="med-blk"><a href="../user_services/4_creat_post.html">Create</a></li>
+          <a href="../user_services/5_notification.html">
+            <li id="med-blk"><i class="fa fa-bell" style="color: #000;"></i></li>
+          </a>
+          <div class="dropdown">
+            <button class="dropbtn">
+              <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem" height="40rem"></li>
+            </button>
+            <div class="dropdown-content">
+              <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
+                  style="font-size:15px"></i>Profile</a>
+              <a id="med-dc" href="../user_services/4_creat_post.html"><i class="fa fa-magic"
+                  style="font-size:18px"></i>Create</a>
+              <a id="med-dc" href="../user_services/5_notification.html"><i class="fa fa-bell"
+                  style="font-size:13px"></i>Notification</a>
+              <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear" style="font-size:15px"></i>Settings</a>
+              <a href="../../index.html"><i class="fa fa-sign-out" style="font-size:18px"></i>Log-Out</a>
+            </div>
+          </div>
+        </ul>
+      </div>
     </div>
-</header>
+  </header>
   <div class="header__wrapper">
     <header id="imgBox"></header>
     <div class="round_1">
-      <input type="file" accept="image/*" name="image" id="file" style = "display: none" onchange="loadFile(event)">
+      <input type="file" accept="image/*" name="image" id="file" style="display: none" onchange="loadFile(event)">
       <label for="file"><i class="fa fa-camera" style="color: #000;"></i></label>
     </div>
     <div class="upload" id="imgBox2">
       <div class="round">
-        <input type="file" accept="image/*" name="image" id="file2" style = "display: none" onchange="loadFile2(event)">
+        <input type="file" accept="image/*" name="image" id="file2" style="display: none" onchange="loadFile2(event)">
         <label for="file2"><i class="fa fa-camera" style="color: #000;"></i></label>
       </div>
     </div>
     <h1>User</h1>
     <div class="inputs">
-      <form  onsubmit="saveUpdate(event);">
+      <form onsubmit="saveUpdate(event);">
         <div>
           <p>Name</p>
-          <input type="text" placeholder="Name" id="edit_name"/>
+          <input type="text" placeholder="Name" id="edit_name" />
         </div>
         <div>
           <p>Email</p>
-          <input type="email" placeholder="Email" id="edit_email"/>
+          <input type="email" placeholder="Email" id="edit_email" />
         </div>
         <div>
           <p>DOB</p>
-          <input type="date" required="true" style="text-transform: uppercase;" id="date"/>
+          <input type="date" required="true" style="text-transform: uppercase;" id="date" />
           <p>Country</p>
-          <input type="text" placeholder="Country" list="count" id="country"/>
+          <input type="text" placeholder="Country" list="count" id="country" />
           <datalist id="count">
             <option>Australia</option>
             <option>Bangladesh</option>
@@ -139,44 +136,44 @@
     var limit = 250;
     result.textContent = 0 + "/" + limit;
 
-    myText.addEventListener("input",function(){
-    var textLength = myText.value.length;
-    result.textContent = textLength + "/" + limit;
+    myText.addEventListener("input", function () {
+      var textLength = myText.value.length;
+      result.textContent = textLength + "/" + limit;
 
-    if(textLength > limit){
+      if (textLength > limit) {
         myText.style.borderColor = "#ff2851";
         result.style.color = "#ff2851";
         alert("Character limit only 250")
-    }
-    else{
+      }
+      else {
         myText.style.borderColor = "#b2b2b2";
         result.style.color = "#737373";
+      }
+    });
+
+    var imgBox = document.getElementById("imgBox");
+
+    var loadFile = function (event) {
+      var imageURL = URL.createObjectURL(event.target.files[0]);
+      imgBox.style.backgroundImage = "url(" + imageURL + ")";
+      localStorage.setItem("imageURL", imageURL);
     }
-  });
-
-  var imgBox = document.getElementById("imgBox");
-
-   var loadFile = function(event){
-   var imageURL = URL.createObjectURL(event.target.files[0]);
-   imgBox.style.backgroundImage = "url(" + imageURL + ")";
-   localStorage.setItem("imageURL", imageURL);
-   }
 
 
-   var imgBox2 = document.getElementById("imgBox2");
+    var imgBox2 = document.getElementById("imgBox2");
 
-  var loadFile2 = function(event){
-  var imageURL2 = URL.createObjectURL(event.target.files[0]);
-  imgBox2.style.backgroundImage = "url(" + imageURL2 + ")";
-  localStorage.setItem("imageURL2", imageURL2);
-  }
+    var loadFile2 = function (event) {
+      var imageURL2 = URL.createObjectURL(event.target.files[0]);
+      imgBox2.style.backgroundImage = "url(" + imageURL2 + ")";
+      localStorage.setItem("imageURL2", imageURL2);
+    }
 
-    
+
     //  localStorage.getItem("key", value)
     let email_ID = JSON.parse(localStorage.getItem('email_ID'));
     let user_records = JSON.parse(localStorage.getItem("user_records"))
 
-    function login_data(e){
+    function login_data(e) {
       return e.user_email == email_ID;
     }
     user_data = user_records.find(login_data);
@@ -206,31 +203,7 @@
       window.location.href = "../Myprofile/6_profile.html"
       // console.log(user_list);
     }
-    // function submit(e) {
-    // e.preventDefault()
-    // let date = document.getElementById("date").value
-    // let country = document.getElementById("country").value
-    // let job = document.getElementById("job").value
-    // let tag = document.getElementById("tag").value
-    // let bio = document.getElementById("bio").value
 
-    // console.log(date)
-    // console.log(country)
-    // console.log(job)
-    // console.log(tag)
-    // console.log(bio)
-
-    // // localStorage.getItem("key", value)
-
-    // // localStorage.setItem("user_name", name)
-    // // localStorage.setItem("user_email", email)
-    // localStorage.setItem("user_date", date)
-    // localStorage.setItem("user_country", country)
-    // localStorage.setItem("user_job", job)
-    // localStorage.setItem("user_tag", tag)
-    // localStorage.setItem("user_bio", bio)
-
-    // }
   </script>
 </body>
 
