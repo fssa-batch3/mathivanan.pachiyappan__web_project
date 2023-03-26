@@ -44,7 +44,7 @@ div.notific_profile img {
     height: 4rem;
 }
 
-div.notific_profile p:nth-child(2) {
+div.notific_profile button {
     background-color: black;
     font-family: "Poppins", sans-serif;
     color: white;

@@ -19,6 +19,7 @@
             <input type="email" placeholder="Email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
             <input type="password" placeholder="Password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
             <input type="password" placeholder="Confirm Password" id="password2" />
+            <label><input type="checkbox" onclick="showPassword()"> Show Password</label>
             <button class="enter_btn" type="submit">Create Account</button>
         </form>
         
@@ -26,8 +27,20 @@
         <p><a href="2_login.html">Already have an Account ? Login</a></p>
 
     </div>
-    <script>
-        
+<script>
+    function showPassword() {
+  const passwordField = document.getElementById("password");
+  const confirmPassword = document.getElementById("password2");
+  const showPasswordCheck = document.querySelector('input[type="checkbox"]');
+  if (showPasswordCheck.checked) {
+    passwordField.type = "text";
+    confirmPassword.type = "text";
+  } else {
+    passwordField.type = "password";
+    confirmPassword.type = "password";
+  }
+}
+
         const form = document.getElementById("signUp_form");
 
         form.addEventListener("submit",function(e){
@@ -41,7 +54,8 @@
             let user_job = "";
             let user_tag = "";
             let user_bio = "";
-
+            let user_profile = "";
+            let user_banner = "";
             // let users = new Array();
             // let user_records = JSON.parse(localStorage.getItem("users"))
             // user_records = JSON.parse(localStorage.getItem("users")) ? JSON.parse(localStorage.getItem("users")) : []
@@ -77,6 +91,8 @@
                     "user_job": "",
                     "user_tag": "",
                     "user_bio": "",
+                    "user_profile": "",
+                    "user_banner": ""
                 })
                 localStorage.setItem("user_records", JSON.stringify(user_records));
                 alert("Your account has been ✅");

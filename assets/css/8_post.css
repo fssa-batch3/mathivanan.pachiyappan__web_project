@@ -88,6 +88,20 @@ div.side_main {
     font-weight: bold;  
 }
 
+button.share_icon {
+    background: none;
+    border-radius: 3em;
+    border-color: red;
+    float: right;
+    margin: 1rem;
+    margin-right: -0.5rem;
+}
+
+button.share_icon ion-icon {
+    font-size: 180%;
+    margin: 0.5rem;
+}
+
 div.comment_area {
     background-color: white;
     height: 30rem;
@@ -100,7 +114,8 @@ div.comment_area {
 div.comment_area textarea {
     resize: none;
     margin-bottom: 1rem;
-    width: 20rem;
+    width: 100%;
+    margin-right: -3rem;
     padding-top: 1rem;
     padding-right: 1rem;
     padding-bottom: 0.2rem;
@@ -109,15 +124,40 @@ div.comment_area textarea {
     box-shadow: 1px 2px 6px 2px rgb(0 0 0 / 15%);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 105%;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
 }
 
+button#heart {
+    background-color: white;
+    border: none;
+  }
+  
+  button#heart.clicked {
+    background-color: pink;
+  }
+
+  
 div.comment_area textarea:focus {
     outline: none;
 }
 
 div.comment_area textarea::-webkit-scrollbar {
     display: none;
+}
+
+form.form_data {
+    display: flex;
+    justify-content: space-between;
+}
+
+form.form_data button {
+    background-color: transparent;
+    width: 3rem;
+    height: 3.5rem;
+    border: none;
+    /* box-shadow: 1px 2px 6px 2px rgb(0 0 0 / 15%); */
+    border-radius: 3rem;
+    font-size: 110%;
 }
 
 div.comment_area h4 {

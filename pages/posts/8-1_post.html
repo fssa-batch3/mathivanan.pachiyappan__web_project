@@ -10,64 +10,28 @@
     <link rel="stylesheet" href="../../assets/css/8_post.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+    <script src="https://unpkg.com/ionicons@latest/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
 </head>
 
 <body>
-   <!--Header-->
-   <header>
-    <!--Nav-->
-    <div class="header">
-        <div class="nav_main">
-            <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
-        </div>
-        
-        <div class="navigation_link">
-            <ul>
-                <form>
-                    <input type="text" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000;"></i></span>
-                  </form>
-                </li>
-                <li id="med-blk"><a href="../user_services/4_creat_post.html">Create</a></li>
-                <a href="../user_services/5_notification.html">
-                    <li id="med-blk"><i class="fa fa-bell" style="color: #000;"></i></li>
-                </a>
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem"
-                                height="40rem"></li>
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
-                                style="font-size:15px"></i>Profile</a>
-                        <a id="med-dc" href="../user_services/4_creat_post.html"><i class="fa fa-magic"
-                                style="font-size:18px"></i>Create</a>
-                        <a id="med-dc" href="../user_services/5_notification.html"><i class="fa fa-bell"
-                                style="font-size:13px"></i>Notification</a>
-                        <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear"
-                                style="font-size:15px"></i>Settings</a>
-                        <a href="../../index.html"><i class="fa fa-sign-out"
-                                style="font-size:18px"></i>Log-Out</a>
-                    </div>
-                </div>
-            </ul>
-        </div>
-    </div>
-</header>
+    <!--Header-->
+    
     <div class="post_page">
-        <div><i class="fa fa-share-alt" aria-hidden="true" style="font-size: 200%;float: right;"></i></div>
         <img src="../../assets/images/img/post-1.jpg" alt="post_1" width="100%" height="30%" />
-        
+        <button class="share_icon" id="shareButton"><ion-icon name="share-social"></ion-icon></button>
         <div id="container"></div>
         <!--Space for HTML elements of Blog Post-->
 
         <div class="react_icons">
             <div class="icon_main">
-                <p><img src="../../assets/images/svg/heart-outline.svg" alt="heart_icon">
-                    0</p>
+                <p id="like_icon"><img src="../../assets/images/svg/heart-outline.svg" alt="heart_icon">
+                    <span id="like_icon_count"></span>
+                </p>
                 <p class="cmt_icon"><img src="../../assets/images/svg/chatbubble-outline.svg" alt="comment_icon">
-                    0</p>
+                    <span id="cmt_icon_count"></span>
+                </p>
             </div>
             <div class="side_main">
                 <p><img src="../../assets/images/svg/bookmark-outline.svg" alt="bookmark_icon">
@@ -75,15 +39,16 @@
             </div>
         </div>
         <div class="comment_area">
-            <h3>Responses (0)</h3>
-            <form>
-            <button onclick="publishCmt()" id="post_cmt"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-            <textarea placeholder="What are your thoughts?" id="cmt_txt" contenteditable="true" style="height: 55px; overflow: auto;"></textarea>
+            <h3 id="cmt_count"></h3>
+            <form class="form_data">
+                <textarea placeholder="What are your thoughts?" id="cmt_txt" contenteditable="true"
+                    style="height: 55px; overflow: auto;"></textarea>
+                <button onclick="publishCmt(event);" id="post_cmt"><ion-icon name="send"></ion-icon></button>
             </form>
             <h4>Others</h4>
             <div id="comment_box"></div>
             <!--Comment data from HTML elements-->
-            
+
         </div>
     </div>
     <div class="icons">
@@ -93,112 +58,147 @@
         <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
         <p>© 2022 Venom.com All rights reserved</p>
     </div>
-<script>
-  
-const params = new URLSearchParams(window.location.search);
-const postId = params.get('post_ID');
+    <script>
 
-function findRecord(e){
-    return e.post_id == postId;
-}
+        const params = new URLSearchParams(window.location.search);
+        const postId = params.get('post_ID');
 
-let blog_records = JSON.parse(localStorage.getItem("blog_records"));
-let converter = new showdown.Converter();
+        let blog_records = JSON.parse(localStorage.getItem("blog_records"));
 
-let blogDetails = blog_records.filter(findRecord);
+        function findRecord(e) {
+            return e.post_id == postId;
+        }
 
+        let converter = new showdown.Converter();
 
-blogDetails.forEach(function(post) {
-  let imageURL = "![alt text](" + post.imageURL + ")";
-  let html = converter.makeHtml(post.content);
-  let postHTML = "<h2>" + post.title + "</h2>" +
-                 "<p><em> Published On : " + post.timestamp + "</em></p>" +
-                 "<p><strong>" + post.category + "</strong></p>" +
-                 "<p><strong>Tags : </strong> " + post.tags.join(", ") + "</p>" +
-                 "<div>" + imageURL + "</div>" + 
-                 "<div>" + html + "</div>";
-  let container = document.getElementById("container");
-  container.innerHTML += postHTML;
-}); 
-
-// User Comment functions
-function publishCmt() {
-
-let comment_txt = document.getElementById("cmt_txt").value;
-let cmt_uuid = uuidv4();
-
-const date = new Date();
-const commentTime = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
+        const blogDetails = blog_records.filter(findRecord);
 
 
-let comment_records = JSON.parse(localStorage.getItem("comment_records")) || [];
+        blogDetails.forEach(function (post) {
+            let html = converter.makeHtml(post.content);
+            let postHTML = "<h2>" + post.title + "</h2>" +
+                "<p><em> Published On : " + post.timestamp + "  by  " + post.name + "</em></p>" +
+                "<p><strong>" + post.category + "</strong></p>" +
+                "<p><strong>Tags : </strong> " + post.tags.join(", ") + "</p>" +
+                "<div>" + html + "</div>";
+            let container = document.getElementById("container");
+            container.innerHTML += postHTML;
 
-comment_records.push({
-    "name": "Linda Merry",
-    "comment_id": cmt_uuid,
-    "profile": {
-        source:"../../assets/images/img/profile-1.jpg",
-        alt: "profile_1" 
-    },
-    "profile_link": { href : "../others-profile/6-1_profile.html"
-    },
-    "comment_time": commentTime,
-    "comment_text": comment_txt
-});
-localStorage.setItem("comment_records", JSON.stringify(comment_records));
-// alert("Your comment added ✅");
-};
-// JSON for user comment
-let comment_list = JSON.parse(localStorage.getItem("comment_records"));
+        });
 
-for (let i = 0; i < comment_list.length ; i++) {
+        // User Comment functions
+        // let comment_btn = document.getElementById("post_cmt");
 
-//  <div class="col"> </div>
-const commentBox = document.getElementById("comment_box");
+        function publishCmt(e) {
+            e.preventDefault()
+            let comment_txt = document.getElementById("cmt_txt").value;
 
-const notificProfile = document.createElement("div");
-notificProfile.setAttribute("class", "notific_profile");
+            let cmt_uuid = uuidv4(); // assuming this function is defined elsewhere
 
-const profileDiv = document.createElement("div");
+            const date = new Date();
+            const commentTime = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
 
-const profileLink = document.createElement("a");
-profileLink.href = "../others-profile/6b_profile-Anand.html";
+            let comment_records = JSON.parse(localStorage.getItem("comment_records")) || [];
+            let email_ID = JSON.parse(localStorage.getItem("email_ID"));
+            let user_records = JSON.parse(localStorage.getItem("user_records"));
 
-const profileImage = document.createElement("img");
-profileImage.src = "../../assets/images/Profile/profile_2.jpg";
-profileImage.alt = "user_image";
-profileImage.setAttribute("class", "profile_img")
+            // get user's name from user_records based on email_ID
+            let user_name = user_records.find((e) => e.user_email == email_ID)?.user_name;
+            let user_email = user_records.find((e) => e.user_email == email_ID)?.user_email;
 
-profileLink.appendChild(profileImage);
+            comment_records.push({
+                "name": user_name,
+                "user_email" : user_email,
+                "comment_id": cmt_uuid,
+                "profile": {
+                    source: "../../assets/images/img/profile-1.jpg",
+                    alt: "profile_1"
+                },
+                "profile_link": {
+                    href: "../others-profile/6-1_profile.html"
+                },
+                "comment_time": commentTime,
+                "comment_text": comment_txt,
+                "comment_post_id": postId
+            });
 
-const profileName = document.createElement("p");
+            localStorage.setItem("comment_records", JSON.stringify(comment_records));
+            location.reload()
+        };
 
-const strong = document.createElement("strong");
-strong.textContent = "Anand Mahindra";
+        // JSON for user comment
+        let comment_list = JSON.parse(localStorage.getItem("comment_records"));
 
-const span = document.createElement("span");
-span.innerText = comment_list[i]["comment_time"];
+        let post_comment = comment_list.filter(comment => comment.comment_post_id === postId);
+        // console.log(post_comment);
 
-profileName.appendChild(strong);
-profileName.appendChild(document.createElement("br"));
-profileName.appendChild(span);
-
-profileDiv.appendChild(profileLink);
-profileDiv.appendChild(profileName);
-
-notificProfile.appendChild(profileDiv); 
-
-const commentTxt = document.createElement("p");
-commentTxt.setAttribute("class", "comment_txt")
-commentTxt.innerText = comment_list[i]["comment_text"];
-
-commentBox.appendChild(notificProfile);
-commentBox.appendChild(commentTxt);
-};
+        let comment_count = post_comment.length;
+        document.getElementById("cmt_count").innerHTML = "Responses (" + comment_count + ")";
+        document.getElementById("cmt_icon_count").innerHTML = comment_count;
 
 
+        for (let i = 0; i < post_comment.length; i++) {
 
-</script>
+            //  <div class="col"> </div>
+            const commentBox = document.getElementById("comment_box");
+
+            const notificProfile = document.createElement("div");
+            notificProfile.setAttribute("class", "notific_profile");
+
+            const profileDiv = document.createElement("div");
+
+            const profileLink = document.createElement("a");
+            profileLink.href = "../Myprofile/6_profile.html?post_ID="+ post_comment[i]["user_email"];
+
+            const profileImage = document.createElement("img");
+            profileImage.src = "../../assets/images/Profile/profile_2.jpg";
+            profileImage.alt = "user_image";
+            profileImage.setAttribute("class", "profile_img")
+
+            profileLink.appendChild(profileImage);
+
+            const profileName = document.createElement("p");
+
+            const strong = document.createElement("strong");
+            strong.textContent = post_comment[i]["name"];
+
+            const span = document.createElement("span");
+            span.innerText = post_comment[i]["comment_time"];
+
+            profileName.appendChild(strong);
+            profileName.appendChild(document.createElement("br"));
+            profileName.appendChild(span);
+
+            profileDiv.appendChild(profileLink);
+            profileDiv.appendChild(profileName);
+
+            notificProfile.appendChild(profileDiv);
+
+            const commentTxt = document.createElement("p");
+            commentTxt.setAttribute("class", "comment_txt")
+            commentTxt.innerText = post_comment[i]["comment_text"];
+
+            commentBox.appendChild(notificProfile);
+            commentBox.appendChild(commentTxt);
+        };
+        // Get the button and count elements from the DOM
+        const likeIcon = document.getElementById("like_icon");
+        const likeCount = document.getElementById("like_icon_count");
+
+        // Set the initial count to 0
+        let count = 0;
+
+        // Add an event listener to the button
+        likeIcon.addEventListener("click", function () {
+            // Increase the count by 1
+            count++;
+
+            // Update the count element with the new count
+            likeCount.innerText = count;
+        });
+
+    </script>
+    <script src="/assets/header.js"></script>
 </body>
 
 </html>

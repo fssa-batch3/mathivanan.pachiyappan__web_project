@@ -17,42 +17,7 @@
 
 <body>
   <!--Header-->
-  <header>
-    <!--Nav-->
-    <div class="header">
-      <div class="nav_main">
-        <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
-      </div>
-
-      <div class="navigation_link">
-        <ul>
-          <form>
-            <input type="text" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000;"></i></span>
-          </form>
-          </li>
-          <li id="med-blk"><a href="../user_services/4_creat_post.html">Create</a></li>
-          <a href="../user_services/5_notification.html">
-            <li id="med-blk"><i class="fa fa-bell" style="color: #000;"></i></li>
-          </a>
-          <div class="dropdown">
-            <button class="dropbtn">
-              <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem" height="40rem"></li>
-            </button>
-            <div class="dropdown-content">
-              <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
-                  style="font-size:15px"></i>Profile</a>
-              <a id="med-dc" href="../user_services/4_creat_post.html"><i class="fa fa-magic"
-                  style="font-size:18px"></i>Create</a>
-              <a id="med-dc" href="../user_services/5_notification.html"><i class="fa fa-bell"
-                  style="font-size:13px"></i>Notification</a>
-              <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear" style="font-size:15px"></i>Settings</a>
-              <a href="../../index.html"><i class="fa fa-sign-out" style="font-size:18px"></i>Log-Out</a>
-            </div>
-          </div>
-        </ul>
-      </div>
-    </div>
-  </header>
+ 
   <h2 class="create_head">Create Post</h2>
   <div class="container">
     <div id="cover_imgBox" class="cover_image"></div>
@@ -189,134 +154,144 @@
       text_image.innerHTML = markdown;
     }
 
-function publish() {
-
-let title = document.getElementById("title").value;
-let sub_title = document.getElementById("sub_title").value;
-let post_tags = document.getElementById("post_tags").value.split(",");
-let post_content = document.getElementById("text-input").innerHTML;
-let post_uuid = uuidv4();
-
-const date = new Date();
-const formattedDate = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
-
-
-let blog_records = JSON.parse(localStorage.getItem("blog_records")) || [];
-let user_data = JSON.parse(localStorage.getItem("email_ID"));
-
-blog_records.push({
-  // "post_content": post_text,
-  "timestamp": formattedDate,
-  "post_id": post_uuid,
-  "title": title,
-  "category": sub_title,
-  "tags": post_tags,
-  "content": post_content,
-  "unique_id" : user_data,
-  "name": "Tom Holland",
-  "image": {
-    source: "/assets/images/img/post-1.jpg",
-    alt: "post_image"
-  },
-  "profile": {
-    source: "../../assets/images/profile_2.jpg",
-    alt: "profile_image"
-  },
-  // "link": { href: "../posts/8-1_post.html" },
-  "profile_link": { href: "/pages/Myprofile/6_profile.html" }
-});
-
-// localStorage.setItem("blog_records", JSON.stringify(blog_records));
-// let blog_records = JSON.parse(localStorage.getItem("blog_records")) || [];
-// blog_records.push(post);
-localStorage.setItem("blog_records", JSON.stringify(blog_records));
-alert("Successfully Posted ✅");
-window.location.href = "../home/3_home.html";
-};
-
-document.getElementById("bold").addEventListener("click", function () {
-document.execCommand("bold", false, null);
-});
-document.getElementById("italic").addEventListener("click", function () {
-document.execCommand("italic", false, null);
-});
-document.getElementById("underline").addEventListener("click", function () {
-document.execCommand("underline", false, null);
-});
-document.getElementById("strikethrough").addEventListener("click", function () {
-document.execCommand("strikethrough", false, null);
-});
-document.getElementById("superscript").addEventListener("click", function () {
-document.execCommand("superscript", false, null);
-});
-document.getElementById("subscript").addEventListener("click", function () {
-document.execCommand("subscript", false, null);
-});
-document.getElementById("insertOrderedList").addEventListener("click", function () {
-document.execCommand("insertOrderedList", false, null);
-});
-document.getElementById("insertUnorderedList").addEventListener("click", function () {
-document.execCommand("insertUnorderedList", false, null);
-});
-document.getElementById("undo").addEventListener("click", function () {
-document.execCommand("undo", false, null);
-});
-document.getElementById("createLink").addEventListener("click", function () {
-  var url = prompt("Enter the URL:");
-  if (url) {
-    document.execCommand("createLink", false, url);
-  }
-}); 
-document.getElementById("redo").addEventListener("click", function () {
-document.execCommand("redo", false, null);
-});
-document.getElementById("justifyLeft").addEventListener("click", function () {
-document.execCommand("justifyLeft", false, null);
-});
-document.getElementById("justifyCenter").addEventListener("click", function () {
-document.execCommand("justifyCenter", false, null);
-});
-document.getElementById("justifyRight").addEventListener("click", function () {
-document.execCommand("justifyRight", false, null);
-});
-document.getElementById("justifyFull").addEventListener("click", function () {
-document.execCommand("justifyFull", false, null);
-});
-document.getElementById("indent").addEventListener("click", function () {
-document.execCommand("indent", false, null);
-});
-document.getElementById("outdent").addEventListener("click", function () {
-document.execCommand("outdent", false, null);
-});
-
-// Heading H1 - H6
-const formatBlock = document.getElementById("formatBlock");
-const editor = document.getElementById("editor");
-
-formatBlock.addEventListener("change", function () {
-  const selection = window.getSelection();
-  const range = selection.getRangeAt(0);
-  const tagName = formatBlock.value;
-  const newElement = document.createElement(tagName);
-  newElement.innerHTML = range.toString();
-  range.deleteContents();
-  range.insertNode(newElement);
-});
-
-
     let post_ID = JSON.parse(localStorage.getItem('post_id'));
-    let blog_records = JSON.parse(localStorage.getItem("blog_records"))
+    
+    function publish() {
 
-    function blog_data(e){
+      let title = document.getElementById("title").value;
+      let sub_title = document.getElementById("sub_title").value;
+      let post_tags = document.getElementById("post_tags").value.split(",");
+      let post_content = document.getElementById("text-input").innerHTML;
+      let post_uuid = uuidv4();
+
+      const date = new Date();
+      const formattedDate = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
+
+
+      let blog_records = JSON.parse(localStorage.getItem("blog_records")) || [];
+      let email_ID = JSON.parse(localStorage.getItem("email_ID"));
+      let user_records = JSON.parse(localStorage.getItem("user_records"));
+      // get user's name from user_records based on email_ID
+      let user_name = user_records.find((e) => e.user_email == email_ID)?.user_name;
+
+
+      blog_records.push({
+        // "post_content": post_text,
+        "timestamp": formattedDate,
+        "post_id": post_uuid,
+        "title": title,
+        "category": sub_title,
+        "tags": post_tags,
+        "content": post_content,
+        "unique_id": email_ID,
+        "name": user_name,
+        "image": {
+          source: "/assets/images/img/post-1.jpg",
+          alt: "post_image"
+        },
+        "profile": {
+          source: "../../assets/images/profile_2.jpg",
+          alt: "profile_image"
+        },
+        // "link": { href: "../posts/8-1_post.html" },
+        "profile_link": { href: "/pages/Myprofile/6_profile.html" }
+      });
+
+      // localStorage.setItem("blog_records", JSON.stringify(blog_records));
+      // let blog_records = JSON.parse(localStorage.getItem("blog_records")) || [];
+      // blog_records.push(post);
+      localStorage.setItem("blog_records", JSON.stringify(blog_records));
+      alert("Successfully Posted ✅");
+      window.location.href = "../home/3_home.html";
+    };
+
+    document.getElementById("bold").addEventListener("click", function () {
+      document.execCommand("bold", false, null);
+    });
+    document.getElementById("italic").addEventListener("click", function () {
+      document.execCommand("italic", false, null);
+    });
+    document.getElementById("underline").addEventListener("click", function () {
+      document.execCommand("underline", false, null);
+    });
+    document.getElementById("strikethrough").addEventListener("click", function () {
+      document.execCommand("strikethrough", false, null);
+    });
+    document.getElementById("superscript").addEventListener("click", function () {
+      document.execCommand("superscript", false, null);
+    });
+    document.getElementById("subscript").addEventListener("click", function () {
+      document.execCommand("subscript", false, null);
+    });
+    document.getElementById("insertOrderedList").addEventListener("click", function () {
+      document.execCommand("insertOrderedList", false, null);
+    });
+    document.getElementById("insertUnorderedList").addEventListener("click", function () {
+      document.execCommand("insertUnorderedList", false, null);
+    });
+    document.getElementById("undo").addEventListener("click", function () {
+      document.execCommand("undo", false, null);
+    });
+    document.getElementById("createLink").addEventListener("click", function () {
+      var url = prompt("Enter the URL:");
+      if (url) {
+        document.execCommand("createLink", false, url);
+      }
+    });
+    document.getElementById("redo").addEventListener("click", function () {
+      document.execCommand("redo", false, null);
+    });
+    document.getElementById("justifyLeft").addEventListener("click", function () {
+      document.execCommand("justifyLeft", false, null);
+    });
+    document.getElementById("justifyCenter").addEventListener("click", function () {
+      document.execCommand("justifyCenter", false, null);
+    });
+    document.getElementById("justifyRight").addEventListener("click", function () {
+      document.execCommand("justifyRight", false, null);
+    });
+    document.getElementById("justifyFull").addEventListener("click", function () {
+      document.execCommand("justifyFull", false, null);
+    });
+    document.getElementById("indent").addEventListener("click", function () {
+      document.execCommand("indent", false, null);
+    });
+    document.getElementById("outdent").addEventListener("click", function () {
+      document.execCommand("outdent", false, null);
+    });
+
+    // Heading H1 - H6
+    const formatBlock = document.getElementById("formatBlock");
+    const editor = document.getElementById("editor");
+
+    formatBlock.addEventListener("change", function () {
+      const selection = window.getSelection();
+      const range = selection.getRangeAt(0);
+      const tagName = formatBlock.value;
+      const newElement = document.createElement(tagName);
+      newElement.innerHTML = range.toString();
+      range.deleteContents();
+      range.insertNode(newElement);
+    });
+
+    let blog_records = JSON.parse(localStorage.getItem("blog_records"));
+
+    if(post_ID.length == 0){
+      document.querySelector("#saveUpdate").setAttribute("style", "display:none");
+    }
+    
+    function blog_data(e) {
       return e.post_id == post_ID;
-    }    
+    }
     let post_find = blog_records.find(blog_data);
 
     document.getElementById("title").value = post_find["title"];
     document.getElementById("sub_title").value = post_find['category'];
     document.getElementById("text-input").innerHTML = post_find['content'];
     document.getElementById("post_tags").value = post_find['tags'];
-    
+
+    document.querySelector("#publish").setAttribute("style", "display:none");
+
     function saveUpdate(e) {
       // e.preventDefault();
       let title = document.getElementById("title").value;
@@ -325,22 +300,23 @@ formatBlock.addEventListener("change", function () {
       let tags = document.getElementById("post_tags").value.split(",");
       post_find["title"] = title;
       post_find["category"] = category;
-      post_find["content"] = content; 
+      post_find["content"] = content;
       post_find["tags"] = tags;
       localStorage.setItem('blog_records', JSON.stringify(blog_records));
-      localStorage.setItem('post_id', "");
+      localStorage.setItem('post_id', "[]");
       alert("Updated successfully");
-      
+
       window.location.href = "../home/3_home.html"
       // console.log(user_list);
     };
- 
+
 // let converter = new showdown.Converter(),
   //   text      = '# hello, markdown!',
   //   html      = converter.makeHtml(text);
 
   </script>
 
+<script src="/assets/header.js"></script>
 </body>
 
 </html>

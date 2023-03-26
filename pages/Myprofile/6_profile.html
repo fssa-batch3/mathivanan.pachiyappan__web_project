@@ -14,42 +14,7 @@
 
 <body>
   <!--Header-->
-  <header>
-    <!--Nav-->
-    <div class="header">
-      <div class="nav_main">
-        <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
-      </div>
 
-      <div class="navigation_link">
-        <ul>
-          <form>
-            <input type="text" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000;"></i></span>
-          </form>
-          </li>
-          <li id="med-blk"><a href="../user_services/4_creat_post.html">Create</a></li>
-          <a href="../user_services/5_notification.html">
-            <li id="med-blk"><i class="fa fa-bell"></i></li>
-          </a>
-          <div class="dropdown">
-            <button class="dropbtn">
-              <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem" height="40rem"></li>
-            </button>
-            <div class="dropdown-content">
-              <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
-                  style="font-size:15px"></i>Profile</a>
-              <a id="med-dc" href="../user_services/4_creat_post.html"><i class="fa fa-magic"
-                  style="font-size:18px"></i>Create</a>
-              <a id="med-dc" href="../user_services/5_notification.html"><i class="fa fa-bell"
-                  style="font-size:13px"></i>Notification</a>
-              <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear" style="font-size:15px"></i>Settings</a>
-              <a href="../../index.html"><i class="fa fa-sign-out" style="font-size:18px"></i>Log-Out</a>
-            </div>
-          </div>
-        </ul>
-      </div>
-    </div>
-  </header>
   <div class="header__wrapper">
     <header id="profile_bg"></header>
     <div class="cols__container">
@@ -66,9 +31,9 @@
         <p id="user_country"></p>
 
         <ul class="about">
-          <li><a href="../follow/7_follow.html"><span>4,053</span>Followers</a></li>
-          <li><a href="../follow/7_follow.html"><span>345</span>Following</a></li>
-          <li><a href="#"><span>200</span>Totall Post</a></li>
+          <li><a href="../follow/7_follow.html"><span id="followers">0</span>Followers</a></li>
+          <li><a href="../follow/7_follow.html"><span id="following">0</span>Following</a></li>
+          <li><a href="#"><span id="totall_post"></span>Totall Post</a></li>
         </ul>
 
         <div class="content">
@@ -101,7 +66,6 @@
   </div>
 
   <script>
-
     let email_ID = JSON.parse(localStorage.getItem("email_ID"));
 
     // filter user posts///////////////////
@@ -109,6 +73,8 @@
 
     let user_post = all_post.filter(post => post.unique_id == email_ID);
     // console.log(user_post);
+    let post_count = document.getElementById("totall_post");
+    post_count.innerText = user_post.length;
 
     for (let i = 0; i < user_post.length; i++) {
 
@@ -119,17 +85,21 @@
       // Create the h2 element for the post content
       const postContentH2 = document.createElement("h2");
       postContentH2.classList.add("post_content");
-      postContentH2.innerText = user_post[i]["title"];
+
+      a_tag = document.createElement("a");
+      a_tag.setAttribute("href", "../posts/8-1_post.html?post_ID=" + user_post[i]["post_id"]);
+      a_tag.innerText = user_post[i]["title"];
+      postContentH2.append(a_tag);
 
       // Create the p element for the time and date
       const timeDateP = document.createElement("p");
       timeDateP.setAttribute("class", "time_date");
-      timeDateP.innerHTML = "Published On : " + user_post[i]["timestamp"]; 
+      timeDateP.innerHTML = "Published On : " + user_post[i]["timestamp"];
 
       // Create the second p element for the post content
       const postContentP = document.createElement("p");
       postContentP.classList.add("post_content");
-      postContentP.innerHTML = user_post[i]["content"]; 
+      postContentP.innerHTML = user_post[i]["content"];
 
       // Append the h2 and p elements to the post_box div
       postBoxDiv.appendChild(postContentH2);
@@ -188,12 +158,12 @@
     user_data = user_records.find(login_data);
 
 
-    var imageURL = localStorage.getItem("imageURL");
-    var imgBox = document.getElementById("profile_bg");
+    let imageURL = localStorage.getItem("imageURL");
+    let imgBox = document.getElementById("profile_bg");
     profile_bg.style.backgroundImage = "url(" + imageURL + ")";
 
-    var imageURL2 = localStorage.getItem("imageURL2");
-    var imgBox2 = document.getElementById("profile_image");
+    let imageURL2 = localStorage.getItem("imageURL2");
+    let imgBox2 = document.getElementById("profile_image");
     profile_image.style.backgroundImage = "url(" + imageURL2 + ")";
 
 
@@ -219,14 +189,10 @@
         window.location.href = "../../index.html"
       };
     }
-
-
-console.log("Hello World!");
-console.log("Welcome!");
-
     // let comment_list = JSON.parse(localStorage.getItem("comment_records"));
 
   </script>
+  <script src="/assets/header.js"></script>
 </body>
 
 </html>

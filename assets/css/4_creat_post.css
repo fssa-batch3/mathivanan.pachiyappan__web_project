@@ -79,6 +79,18 @@ div.post_button button:nth-child(2) {
   padding: 8px 12px;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
+  font-size: 90%;
+  background-color: blue;
+  margin-right: 0.5em;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+div.post_button button:nth-child(3) {
+  padding: 8px 12px;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
   font-size: 80%;
   background-color: white;
   margin-right: 0.5em;
