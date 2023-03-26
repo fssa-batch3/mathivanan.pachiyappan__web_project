@@ -151,7 +151,22 @@
       }
     });
 
+    var imgBox = document.getElementById("imgBox");
 
+    var loadFile = function (event) {
+      var imageURL = URL.createObjectURL(event.target.files[0]);
+      imgBox.style.backgroundImage = "url(" + imageURL + ")";
+      localStorage.setItem("imageURL", imageURL);
+    }
+
+
+    var imgBox2 = document.getElementById("imgBox2");
+
+    var loadFile2 = function (event) {
+      var imageURL2 = URL.createObjectURL(event.target.files[0]);
+      imgBox2.style.backgroundImage = "url(" + imageURL2 + ")";
+      localStorage.setItem("imageURL2", imageURL2);
+    }
 
     //  localStorage.getItem("key", value)
     let email_ID = JSON.parse(localStorage.getItem('email_ID'));
@@ -169,21 +184,6 @@
     document.getElementById("job").value = user_data['user_job'];
     document.getElementById("tag").value = user_data['user_tag'];
     document.getElementById("bio").value = user_data['user_bio'];
-    var imgBox2 = document.getElementById("imgBox2");
-
-    var loadFile2 = function (event) {
-      var imageURL2 = URL.createObjectURL(event.target.files[0]);
-      imgBox2.style.backgroundImage = "url(" + imageURL2 + ")";
-      imageURL2.src = user_data['user_profile'];
-
-    }
-    var imgBox = document.getElementById("imgBox");
-
-    var loadFile = function (event) {
-      var imageURL = URL.createObjectURL(event.target.files[0]);
-      imgBox.style.backgroundImage = "url(" + imageURL + ")";
-      imageURL.src = user_data['user_banner'];
-    }
 
     function saveUpdate(e) {
       e.preventDefault();
@@ -192,17 +192,11 @@
       let job = document.getElementById("job").value
       let tag = document.getElementById("tag").value
       let bio = document.getElementById("bio").value
-      let userProf = imageURL.src
-      let userThumb = imageURL2.src
       user_data["user_date"] = date;
       user_data["user_country"] = country;
       user_data["user_job"] = job;
       user_data["user_tag"] = tag;
       user_data["user_bio"] = bio;
-      user_data["user_tag"] = tag;
-      user_data["user_bio"] = bio;
-      user_data["user_profile"] = userProf;
-      user_data["user_banner"] = userThumb;
       localStorage.setItem('user_records', JSON.stringify(user_records));
       alert("Updated successfully");
       window.location.href = "../Myprofile/6_profile.html"
