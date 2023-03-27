@@ -10,7 +10,7 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
 
 ## Web project 
 
-#####Create an account
+##### Create an account
  * Scenario 1: Successfully create an account
    * Steps: 
         a. Navigate to the registration page.
@@ -19,7 +19,7 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
    * Expected Result:
      * The user is redirected to the login page. 
 
-#####Login account
+##### Login account
  * Scenario 1: Successfully login in to account
    * Steps: 
         a. Navigate to the login page.
@@ -28,7 +28,7 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
    * Expected Result:
      * The user is redirected to the home page.
 
-#####User Profile
+##### User Profile
  * Scenario 1: Successfully view User profile
    * Steps: 
         a. Navigate to the user profile page.
@@ -37,7 +37,7 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
    * Expected Result:
      * The user is redirected to the Edit profile page.
 
-#####Edit Profile
+##### Edit Profile
  * Scenario 1: Successfully Update Edit profile
    * Steps: 
         a. Navigate to the Edit profile page.
@@ -46,7 +46,7 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
    * Expected Result:
      * The user is redirected to the User profile page.
 
-#####Create Post
+##### Create Post
  * Scenario 1: Successfully Create a blog post
    * Steps: 
         a. Navigate to the Create post page.
@@ -55,7 +55,7 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
    * Expected Result:
      * The user is redirected to the Home page.
 
-#####Edit Post
+##### Edit Post
  * Scenario 1: Successfully Edit your blog post
    * Steps: 
         a. Navigate to the User profile page.
@@ -66,7 +66,7 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
    * Expected Result:
      * The user is redirected to the Home page.
 
-#####Delete Post
+##### Delete Post
  * Scenario 1: Successfully Delete your blog post
    * Steps: 
         a. Navigate to the User profile page.
@@ -74,7 +74,7 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
    * Expected Result:
      * The Post will be Deleted.
 
-#####Create Comment
+##### Create Comment
  * Scenario 1: Successfully Create comment in blog posts
    * Steps: 
         a. Navigate to the Post page.
