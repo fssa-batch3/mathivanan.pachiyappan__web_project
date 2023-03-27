@@ -13,12 +13,12 @@
 </head>
 
 <body>
-   <!--Header-->
-   
+  <!--Header-->
+
   <div class="notific_main">
     <h1>Notifications<sup><i class="fa fa-bell" style="color: #000;"></i></sup></h1>
     <div class="notific_top">
-     <!--Notification_content_Js-->
+      <!--Notification_content_Js-->
     </div>
   </div>
   <div class="icons">
@@ -32,98 +32,99 @@
   <script>
     const notific_card = [
       {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_1.jpg",
-          alt:"user_profile"
-        } ,
-        "strong" : "Elon Musk",
+        "notific_user": {
+          source: "../../assets/images/Profile/profile_1.jpg",
+          alt: "user_profile"
+        },
+        "strong": "Elon Musk",
         "notific_text": "liked your post",
-        "timestamp" : "3m ago"
+        "timestamp": "3m ago"
       },
       {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_2.jpg",
-          alt:"user_profile"
-        } ,
-        "strong" : "Anand Mahindra",
+        "notific_user": {
+          source: "../../assets/images/Profile/profile_2.jpg",
+          alt: "user_profile"
+        },
+        "strong": "Anand Mahindra",
         "notific_text": "comment your post and started follow you",
-        "timestamp":"5m ago"
+        "timestamp": "5m ago"
       },
       {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_3.jpg",
-          alt:"user_profile"
-        } ,
+        "notific_user": {
+          source: "../../assets/images/Profile/profile_3.jpg",
+          alt: "user_profile"
+        },
         "strong": "Kamala Harris",
         "notific_text": "like and comment your post",
         "timestamp": "7m ago"
       },
       {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_4.jpg",
-          alt:"user_profile"
-        } ,
-        "strong" :"Girish Mathrubootham",
+        "notific_user": {
+          source: "../../assets/images/Profile/profile_4.jpg",
+          alt: "user_profile"
+        },
+        "strong": "Girish Mathrubootham",
         "notific_text": "like your post and started follow you",
         "timestamp": " 8m ago"
       },
       {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_5.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Johnny Depp",
+        "notific_user": {
+          source: "../../assets/images/Profile/profile_5.jpg",
+          alt: "user_profile"
+        },
+        "strong": "Johnny Depp",
         "notific_text": "react your post with shocking emoji",
-        "timestamp":"15m ago"
+        "timestamp": "15m ago"
       },
       {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_6.jpg",
-          alt:"user_profile"
-        } ,
+        "notific_user": {
+          source: "../../assets/images/Profile/profile_6.jpg",
+          alt: "user_profile"
+        },
         "strong": "Chris Evans",
         "notific_text": "comment your post and started follow you",
-        "timestamp":"1h ago"
+        "timestamp": "1h ago"
       },
       {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_7.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"James Cameron",
+        "notific_user": {
+          source: "../../assets/images/Profile/profile_7.jpg",
+          alt: "user_profile"
+        },
+        "strong": "James Cameron",
         "notific_text": "liked your Post",
-        "timestamp":"5h ago"
+        "timestamp": "5h ago"
 
       },
       {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_8.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Ratan Tata",
+        "notific_user": {
+          source: "../../assets/images/Profile/profile_8.jpg",
+          alt: "user_profile"
+        },
+        "strong": "Ratan Tata",
         "notific_text": "liked your Post",
-        "timestamp":"2d ago"
+        "timestamp": "2d ago"
       },
       {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_9.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Bill Gates",
+        "notific_user": {
+          source: "../../assets/images/Profile/profile_9.jpg",
+          alt: "user_profile"
+        },
+        "strong": "Bill Gates",
         "notific_text": "liked your Post",
-        "timestamp":"3d ago"
+        "timestamp": "3d ago"
       },
       {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_10.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Sundar Pichai",
+        "notific_user": {
+          source: "../../assets/images/Profile/profile_10.jpg",
+          alt: "user_profile"
+        },
+        "strong": "Sundar Pichai",
         "br_notific_txt": "liked your Post",
-        "timestamp":"5d ago"
+        "timestamp": "5d ago"
       },
 
     ]
+
 
     let div_notific;
     let img_profile;
@@ -131,39 +132,45 @@
     let br_notific_txt;
     let strong_txt;
 
-    for (let i = 0; i < 10; i++){
+    for (let i = 0; i <= notific_card.length; i++) {
 
-    div_notific = document.createElement("div");
-    div_notific.setAttribute("class", "notific_profile");
-    console.log(div_notific);
+      div_notific = document.createElement("div");
+      div_notific.setAttribute("class", "notific_profile");
+      console.log(div_notific);
 
-    img_profile = document.createElement("img");
-    img_profile.setAttribute("src", notific_card[i]["notific_user"]["source"]);
-    img_profile.setAttribute("alt", notific_card[i]["notific_user"]["alt"]);
-    img_profile.setAttribute("class", "profile_pic");
-    div_notific.append(img_profile); 
+      img_profile = document.createElement("img");
+      img_profile.setAttribute("src", notific_card[i]["notific_user"]["source"]);
+      img_profile.setAttribute("alt", notific_card[i]["notific_user"]["alt"]);
+      img_profile.setAttribute("class", "profile_pic");
+      div_notific.append(img_profile);
 
-    p_notific_txt = document.createElement("p");
-    p_notific_txt.setAttribute("class", "post-description");
-    p_notific_txt.innerText = notific_card[i]["notific_text"];
-    div_notific.append(p_notific_txt);
+      p_notific_txt = document.createElement("p");
+      p_notific_txt.setAttribute("class", "post-description");
+      p_notific_txt.innerText = notific_card[i]["notific_text"];
+      div_notific.append(p_notific_txt);
 
-    b_notific_txt = document.createElement("strong");
-    b_notific_txt.setAttribute("class", "bold");
-    b_notific_txt.innerText = notific_card[i]["strong"];
-    p_notific_txt.prepend(b_notific_txt);
+      b_notific_txt = document.createElement("strong");
+      b_notific_txt.setAttribute("class", "bold");
+      b_notific_txt.innerText = notific_card[i]["strong"];
+      p_notific_txt.prepend(b_notific_txt);
 
-    br_notific_txt = document.createElement("br");
-    br_notific_txt.innerText = notific_card[i]["br_notific_text"];
-    b_notific_txt.append(br_notific_txt);
+      br_notific_txt = document.createElement("br");
+      br_notific_txt.innerText = notific_card[i]["br_notific_text"];
+      b_notific_txt.append(br_notific_txt);
 
 
-    document.querySelector("div.notific_top").append(div_notific);
+      document.querySelector("div.notific_top").append(div_notific);
+
+      // Get the notification count element
+      // let notific_count = notific_card.length;
+      // document.getElementById("notific").innerHTML = notific_count;
 
     }
+
+
   </script>
 
-<script src="/assets/header.js"></script>
+  <script src="/assets/header.js"></script>
 </body>
 
 </html>

@@ -39,7 +39,7 @@
 
   <script>
 
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 2; i++) {
       let div_follow = document.getElementById("follow_main");
 
       let div_box = document.createElement("div");
@@ -83,36 +83,30 @@
       img_area2.setAttribute("alt", "profile_image");
       p_txt2.prepend(img_area2);
 
-      let button_elem = document.createElement("button");
-      button_elem.setAttribute("class", "follow-btn");
-       button_elem.setAttribute("onclick", "followers()");
-      button_elem.innerText = "Following";
-      div_box2.append(button_elem2);
-
       let button_elem2 = document.createElement("button");
       button_elem2.setAttribute("class", "follow-btn2");
-      button_elem2.setAttribute("onclick", "following()");
+      // button_elem2.setAttribute("onclick", "following()");
       button_elem2.innerText = "Following";
       div_box2.append(button_elem2);
     };
 
-    function followers() {
-      let followButton = document.getElementsByClassName("follow-btn");
-      if (followButton.innerText === "Follow") {
-        followButton.innerText = "Following";
-      } else {
-        followButton.innerText = "Follow";
-      }
-    }
+    // function followers() {
+    //   let followButton = document.getElementsByClassName("follow-btn");
+    //   if (followButton.innerText === "Follow") {
+    //     followButton.innerText = "Following";
+    //   } else {
+    //     followButton.innerText = "Follow";
+    //   }
+    // }
 
-    function following() {
-      let followButton2 = document.getElementsByClassName("follow-btn2");
-      if (followButton2.innerText === "Following") {
-        followButton2.innerText = "Follow";
-      } else {
-        followButton2.innerText = "Following";
-      }
-    }
+    // function following() {
+    //   let followButton2 = document.getElementsByClassName("follow-btn2");
+    //   if (followButton2.innerText === "Following") {
+    //     followButton2.innerText = "Follow";
+    //   } else {
+    //     followButton2.innerText = "Following";
+    //   }
+    // }
 // } 
 
   </script>

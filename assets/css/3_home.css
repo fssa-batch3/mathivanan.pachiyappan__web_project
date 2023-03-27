@@ -361,6 +361,18 @@ div.icons {
     /* z-index: 1; */
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
 }
+
+span.notific_count {
+   background-color: red;
+   color: white;
+   padding: 3px 5px 3px 5px;
+   border-radius: 1rem;
+   font-size: 60%;
+   position: relative;
+   right: 25%;
+   top: -0.5rem;
+}
+
 div.icons p {
     font-family: 'Poppins', sans-serif;
     font-size: 85%;

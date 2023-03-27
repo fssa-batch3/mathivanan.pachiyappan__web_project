@@ -35,7 +35,7 @@ const AfterLogin = `<header>
             </li>
             <li id="med-blk"><a href="${rootPath}/pages/user_services/4_creat_post.html">Create</a></li>
             <a href="${rootPath}/pages/user_services/5_notification.html">
-                <li id="med-blk"><i class="fa fa-bell" style="color: #000;"></i></li>
+                <li id="med-blk"><i class="fa fa-bell" style="color: #000;"></i><span id="notific" class="notific_count">0</span></li>
             </a>
             <div class="dropdown">
                 <button class="dropbtn">
@@ -65,13 +65,11 @@ const AfterLogin = `<header>
 //     profile_bg.style.backgroundImage = "url(" + imageURL + ")";
 
 const loginUser = JSON.parse(localStorage.getItem("email_ID"));
-console.log(loginUser);
+// console.log(loginUser);
 if(loginUser) {
   document.body.insertAdjacentHTML("afterbegin", AfterLogin);
   const userLoginElement = document.getElementById("login_btn");
   userLoginElement?.addEventListener("click", () => document.body.innerHTML = beforeLogin);
-//   const beforeLoginElement = document.querySelector(".all_header");
-//   beforeLoginElement?.remove();
   const userLogoutElement = document.getElementById("logout_btn");
   userLogoutElement?.addEventListener("click", () => {
     localStorage.removeItem("email_ID");
@@ -81,8 +79,6 @@ if(loginUser) {
   document.body.insertAdjacentHTML("afterbegin", beforeLogin);
   const userLoginElement = document.getElementById("logout_btn");
   userLoginElement?.removeEventListener("click", () => document.body.innerHTML = AfterLogin);
-//   const afterLoginElement = document.querySelector(".user_header");
-//   afterLoginElement?.remove();
   localStorage.removeItem("email_ID");
 }
 
