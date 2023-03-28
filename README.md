@@ -10,6 +10,20 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
 
 ## Web project 
 
+#### User CRUD
+
+ * Create user CRUD
+ * Read user CRUD
+ * Update user CRUD
+ * Delete user CRUD
+ 
+#### Blog CRUD
+
+ * Create Blog CRUD
+ * Read Blog CRUD
+ * Update Blog CRUD
+ * Delete Blog CRUD
+
 ##### Create an account [Completed]
  * Scenario 1: Successfully create an account
    * Steps: 
