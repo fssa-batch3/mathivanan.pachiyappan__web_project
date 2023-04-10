@@ -57,6 +57,7 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
         a. Navigate to the Edit profile page.
         b. See the user details name and email and add additional details dob, country, designation, tags and bio.
         c. Click the "Save Profile" button.
+Note : You don't access to select and store images from your local drive for Profile background image and Profile image.
    * Expected Result:
      * The user is redirected to the User profile page.
 
@@ -66,6 +67,7 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
         a. Navigate to the Create post page.
         b. Fill in the relevant data like Post Title, Category, tags and Type your content in the text box.
         c. Click the "Publish" button.
+Note : You don't access to select and store images from your local drive for Cover image and content image (image Icon).
    * Expected Result:
      * The user is redirected to the Home page.
 
@@ -97,6 +99,10 @@ Wireframe:https://drive.google.com/drive/folders/1N_wDAyPcASqMdHjg3_XPNLHQnndLz_
    * Expected Result:
      * Your comment will be added relevant posts.
 
+##### Sticky Notes Module [Yet to work]
+##### Voice-to-Text convertor [Yet to work]
+##### Text-to-Voice convertor [Yet to work]
+##### Automatic tagline generator [Yet to work]
 ##### Like module [Yet to work]
 ##### Follow module [Yet to work]
 ##### Notification module [Yet to work]
