@@ -44,11 +44,18 @@ div.notific_profile img.profile_pic{
     height: 4rem;
 }
 
-div.notific_profile p.post-description{
+div.notific_profile p.post-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     opacity: 100%;
     font-size: 80%;
     text-align: left;
     max-width: 20rem;
+}
+
+p.time_data {
+    float: right;
 }
 
 div.notific_profile strong.bold {

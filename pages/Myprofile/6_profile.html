@@ -33,14 +33,16 @@
         <ul class="about">
           <li><a href="../follow/7_follow.html"><span id="followers">0</span>Followers</a></li>
           <li><a href="../follow/7_follow.html"><span id="following">0</span>Following</a></li>
-          <li><a href="#"><span id="totall_post"></span>Totall Post</a></li>
+          <li><a href="#"><span id="totall_post">0</span>Totall Post</a></li>
         </ul>
 
         <div class="content">
           <p id="user_tag" class="tag_line"></p>
           <p id="user_bio"></p>
         </div>
-        <button><a href="./11_edit_profile.html">Edit Profile</a></button>
+        <div id="editBtn">
+          <!-- <button><a href="./11_edit_profile.html">Edit Profile</a></button> -->
+        </div>
       </div>
       <div class="right__col">
         <nav>
@@ -49,7 +51,7 @@
             <li><a href="./6_savedpost.html">saved items</a></li>
             <li><a href="./6_toptrend.html">Top Trending</a></li>
           </ul>
-          <button type="submit" onclick="deleteData()"><b>Delete</b></button>
+          <button type="submit" id="follow_btn">Follow</button>
         </nav>
 
         <div id="posts" class="post_list"></div>
@@ -61,18 +63,49 @@
     <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
     <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
     <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-    <p>© 2022 Venom.com All rights reserved</p>
+    <p>© 2023 Venom.com All rights reserved</p>
   </div>
   </div>
 
   <script>
+
+    // let imageURL2 = localStorage.getItem("imageURL2");
+    // let imgBox2 = document.getElementById("profile_image");
+    // imgBox2.style.backgroundImage = "url(" + imageURL2 + ")";
+
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get('user_ID');
+
     let email_ID = JSON.parse(localStorage.getItem("email_ID"));
+    let user_records = JSON.parse(localStorage.getItem("user_records"));
+
+    function login_data(e) {
+      return e.user_email == userId;
+    }
+
+    user_data = user_records.find(login_data);
+
+
+    let profile_banner = user_data['user_banner'];
+    document.getElementById("profile_bg").style.backgroundImage = "url(" + profile_banner + ")";
+    let profile_image = user_data['user_profile'];
+    document.getElementById("profile_image").style.backgroundImage = "url(" + profile_image + ")";
+    document.getElementById("profile_name").innerText = user_data['user_name'];
+    document.getElementById("profile_email").innerText = user_data['user_email'];
+    document.getElementById("user_date").innerText = user_data['user_date'];
+    document.getElementById("user_country").innerText = user_data['user_country'];
+    document.getElementById("user_job").innerText = user_data['user_job'];
+    document.getElementById("user_tag").innerText = user_data['user_tag'];
+    document.getElementById("user_bio").innerText = user_data['user_bio'];
+    
+    // let profile_banner 
+    // let imgBox2 = 
+    // imgBox2.style.backgroundImage = "url(" + profile_banner + ")";
 
     // filter user posts///////////////////
     let all_post = JSON.parse(localStorage.getItem("blog_records"));
 
-    let user_post = all_post.filter(post => post.unique_id == email_ID);
-    // console.log(user_post);
+    let user_post = all_post.filter(post => post.unique_id == userId);
     let post_count = document.getElementById("totall_post");
     post_count.innerText = user_post.length;
 
@@ -110,7 +143,7 @@
       const postsDiv = document.getElementById("posts");
       postsDiv.appendChild(postBoxDiv);
 
-      edit_button = document.createElement("button");
+      let edit_button = document.createElement("button");
       edit_button.setAttribute("class", "edit_btn");
       edit_button.setAttribute("data-id", user_post[i]["post_id"]);
       edit_button.innerText = "Edit";
@@ -128,17 +161,19 @@
         if (confirm("Are you sure to Delete ?")) {
           let post_ID = localStorage.getItem("post_id");
           let blog_records = JSON.parse(localStorage.getItem("blog_records"));
-          function login_data(e) {
-            return e.post_id == post_ID;
+
+          // Find the index of the post to delete
+          const indexOfUser = blog_records.find(e => e.post_id == post_ID);
+
+          // Remove the post from the array
+          if (indexOfUser !== -1) {
+            blog_records.splice(indexOfUser, 1);
           }
-          user_data = blog_records.find(login_data);
-          const indexOfUser = blog_records.indexOf(user_data);
-          blog_records.splice(indexOfUser, 1);
+
           localStorage.setItem('blog_records', JSON.stringify(blog_records));
           location.reload();
-        };
+        }
       });
-
       let edit = document.querySelectorAll("button.edit_btn");
       edit.forEach(function (find_post) {
         find_post.addEventListener("click", function () {
@@ -148,48 +183,100 @@
           window.location.href = "../user_services/4_creat_post.html";
         })
       });
+
+      if (userId === email_ID) {
+        delete_button.style.display = 'block';
+        edit_button.style.display = 'block';
+      } else {
+        delete_button.style.display = 'none';
+        edit_button.style.display = 'none';
+      }
     };
     // localStorage.getItem("key", value)
 
-    let user_records = JSON.parse(localStorage.getItem("user_records"))
-    function login_data(e) {
-      return e.user_email == email_ID;
+
+    // const userID = JSON.parse(localStorage.getItem('email_ID'));
+
+    // get the follow data from local storage or initialize it as an empty array
+    let follow_Data = JSON.parse(localStorage.getItem('follow_data')) || [];
+
+    // check if the user is already following
+    let isFollowing = follow_Data.filter(data => data.userId !== email_ID);
+
+    // update the button state based on whether the user is following or not
+    const followBtn = document.getElementById('follow_btn');
+    // followBtn.textContent = isFollowing ? 'Follow' : 'Following';
+
+    // add event listener to the follow button
+    followBtn.addEventListener('click', () => {
+      if (isFollowing) {
+
+        // add the user id to the follow data array
+        follow_Data.push({ email_ID, userId});
+
+        // update the local storage
+        localStorage.setItem('follow_data', JSON.stringify(follow_Data));
+
+        // update the button state
+        followBtn.innerText = 'Following';
+
+        // set isFollowing to true
+        isFollowing = false;
+
+        // location.reload();
+
+      } else {
+        // remove the user id from the follow data array
+        follow_Data = follow_Data.filter(data => data.userId === email_ID);
+
+        // update the local storage
+        localStorage.setItem('follow_data', JSON.stringify(follow_Data));
+
+        // update the button state
+        followBtn.innerText = 'Follow';
+
+        // set isFollowing to false
+        isFollowing = true;
+      }
+      // location.reload();
+
+    });
+
+    if (userId === email_ID) {
+      followBtn.style.display = 'none';
+    } else {
+      followBtn.style.display = 'block';
     }
-    user_data = user_records.find(login_data);
 
 
-    let imageURL = localStorage.getItem("imageURL");
-    let imgBox = document.getElementById("profile_bg");
-    profile_bg.style.backgroundImage = "url(" + imageURL + ")";
+    let editBtn = document.getElementById("editBtn");
 
-    let imageURL2 = localStorage.getItem("imageURL2");
-    let imgBox2 = document.getElementById("profile_image");
-    profile_image.style.backgroundImage = "url(" + imageURL2 + ")";
+    button_tag = document.createElement("button");
+    a_tag = document.createElement("a");
+    a_tag.setAttribute("href", "./11_edit_profile.html?user_ID=" + user_data["user_email"]);
+    a_tag.innerHTML = "Edit Profile";
+    button_tag.appendChild(a_tag);
 
+    editBtn.append(button_tag);
 
-    document.getElementById("profile_name").innerText = user_data['user_name'];
-    document.getElementById("profile_email").innerText = user_data['user_email'];
-    document.getElementById("user_date").innerText = user_data['user_date'];
-    document.getElementById("user_country").innerText = user_data['user_country'];
-    document.getElementById("user_job").innerText = user_data['user_job'];
-    document.getElementById("user_tag").innerText = user_data['user_tag'];
-    document.getElementById("user_bio").innerText = user_data['user_bio'];
-
-    function deleteData(e) {
-      if (confirm("Are you sure?")) {
-        let email_ID = JSON.parse(localStorage.getItem("email_ID"));
-        let user_records = JSON.parse(localStorage.getItem("user_records"));
-        function login_data(e) {
-          return e.user_email == email_ID;
-        }
-        user_data = user_records.find(login_data);
-        const indexOfUser = user_records.indexOf(user_data);
-        user_records.splice(indexOfUser, 1);
-        localStorage.setItem('user_records', JSON.stringify(user_records));
-        window.location.href = "../../index.html"
-      };
+    if (userId === email_ID) {
+      editBtn.style.display = 'block';
+    } else {
+      editBtn.style.display = 'none';
     }
-    // let comment_list = JSON.parse(localStorage.getItem("comment_records"));
+
+    let followRc = JSON.parse(localStorage.getItem("follow_data"));
+
+    let followData = followRc.filter(follow => follow.email_ID == email_ID);
+    let follow_count = document.getElementById("followers");
+    let following_count = document.getElementById("following");
+
+    if(userId !== email_ID){
+    follow_count.innerText = followData.length;
+    }
+    if(userId === email_ID){
+    following_count.innerText = followData.length;
+    }
 
   </script>
   <script src="/assets/header.js"></script>

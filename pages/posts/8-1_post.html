@@ -17,20 +17,21 @@
 
 <body>
     <!--Header-->
-    
+
     <div class="post_page">
         <img src="../../assets/images/img/post-1.jpg" alt="post_1" width="100%" height="30%" />
         <button class="share_icon" id="shareButton"><ion-icon name="share-social"></ion-icon></button>
+        <button onclick="showStickyNotes()" class="notes"><i class="fa fa-sticky-note-o" aria-hidden="true"></i>  Take Notes</button>
         <div id="container"></div>
         <!--Space for HTML elements of Blog Post-->
 
         <div class="react_icons">
             <div class="icon_main">
                 <p id="like_icon"><img src="../../assets/images/svg/heart-outline.svg" alt="heart_icon">
-                    <span id="like_icon_count"></span>
+                    <span id="like_icon_count">0</span>
                 </p>
                 <p class="cmt_icon"><img src="../../assets/images/svg/chatbubble-outline.svg" alt="comment_icon">
-                    <span id="cmt_icon_count"></span>
+                    <span id="cmt_icon_count">0</span>
                 </p>
             </div>
             <div class="side_main">
@@ -39,7 +40,7 @@
             </div>
         </div>
         <div class="comment_area">
-            <h3 id="cmt_count"></h3>
+            <h3>Responses (<span id="cmt_count">0</span>)</h3>
             <form class="form_data">
                 <textarea placeholder="What are your thoughts?" id="cmt_txt" contenteditable="true"
                     style="height: 55px; overflow: auto;"></textarea>
@@ -56,7 +57,7 @@
         <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
         <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
         <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-        <p>© 2022 Venom.com All rights reserved</p>
+        <p>© 2023 Venom.com All rights reserved</p>
     </div>
     <script>
 
@@ -108,7 +109,7 @@
 
             comment_records.push({
                 "name": user_name,
-                "user_email" : user_email,
+                "user_email": user_email,
                 "comment_id": cmt_uuid,
                 "profile": {
                     source: "../../assets/images/img/profile-1.jpg",
@@ -119,7 +120,8 @@
                 },
                 "comment_time": commentTime,
                 "comment_text": comment_txt,
-                "comment_post_id": postId
+                "comment_post_id": postId,
+                "message" : "Comment your post"
             });
 
             localStorage.setItem("comment_records", JSON.stringify(comment_records));
@@ -133,7 +135,7 @@
         // console.log(post_comment);
 
         let comment_count = post_comment.length;
-        document.getElementById("cmt_count").innerHTML = "Responses (" + comment_count + ")";
+        document.getElementById("cmt_count").innerHTML = comment_count;
         document.getElementById("cmt_icon_count").innerHTML = comment_count;
 
 
@@ -148,7 +150,7 @@
             const profileDiv = document.createElement("div");
 
             const profileLink = document.createElement("a");
-            profileLink.href = "../Myprofile/6_profile.html?post_ID="+ post_comment[i]["user_email"];
+            profileLink.href = "../Myprofile/6_profile.html?post_ID=" + post_comment[i]["user_email"];
 
             const profileImage = document.createElement("img");
             profileImage.src = "../../assets/images/Profile/profile_2.jpg";
@@ -178,8 +180,8 @@
             commentTxt.setAttribute("class", "comment_txt")
             commentTxt.innerText = post_comment[i]["comment_text"];
 
-            commentBox.appendChild(notificProfile);
-            commentBox.appendChild(commentTxt);
+            commentBox.prepend(commentTxt);
+            commentBox.prepend(notificProfile);
         };
         // Get the button and count elements from the DOM
         const likeIcon = document.getElementById("like_icon");
@@ -197,7 +199,21 @@
             likeCount.innerText = count;
         });
 
+        function showStickyNotes() {
+            var stickyNote = document.createElement("textarea");
+            stickyNote.setAttribute("placeholder", "Take a note...");
+
+            stickyNote.classList.add("sticky-note");
+
+            // Add some content to the sticky note
+            stickyNote.innerHTML = "";
+
+            // Add the sticky note to the HTML body
+            document.body.appendChild(stickyNote);
+        }
+
     </script>
+
     <script src="/assets/header.js"></script>
 </body>
 

@@ -52,7 +52,6 @@ div.header__wrapper {
   height: 120px;
   background-repeat: no-repeat;
   background-size: cover;
-  /* background: url("../images/profile_upload.jpg") no-repeat 50% 20% / cover; */
   object-fit: cover;
   border-radius: 50%;
   display: block;
@@ -84,7 +83,7 @@ div.header__wrapper {
 }
 
 .header__wrapper .cols__container .left__col .about {
-  justify-content: space-between;
+  justify-content: space-evenly;
   position: relative;
   margin: 35px 0;
 }
@@ -92,6 +91,7 @@ div.header__wrapper {
 .header__wrapper .cols__container .left__col .about li a {
   display: flex;
   flex-direction: column;
+  margin: 1rem;
   color: #818181;
   font-size: 0.9rem;
 }
@@ -260,6 +260,7 @@ button.delete_btn {
   letter-spacing: 1px;
   float: right;
   font-family: 'Poppins', sans-serif;
+  margin-top: -2rem;
 }
 
 /* Responsiveness */

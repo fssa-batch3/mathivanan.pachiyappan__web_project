@@ -127,6 +127,32 @@ div.comment_area textarea {
     border-radius: 1.5rem;
 }
 
+.sticky-note {
+    font-size: 90%;
+    font-family: "Poppins", sans-serif;;
+    position: fixed;
+    top: 100px;
+    left: 100px;
+    color: white;
+    background-color: black;
+    padding: 10px;
+    border-radius: 8PX;
+    border-top: 1.5rem solid orange;
+    width: 20%;
+    height: 25%;
+}
+
+button.notes {
+    padding: 7px 11px 7px 11px;
+    font-size: 80%;
+    border-radius: 1.5rem;
+    margin-top: 1.5rem;
+    border: none;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    float: right;
+}
+
 button#heart {
     background-color: white;
     border: none;

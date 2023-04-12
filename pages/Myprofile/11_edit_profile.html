@@ -14,42 +14,7 @@
 
 <body>
   <!--Header-->
-  <header>
-    <!--Nav-->
-    <div class="header">
-      <div class="nav_main">
-        <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
-      </div>
 
-      <div class="navigation_link">
-        <ul>
-          <form>
-            <input type="text" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000;"></i></span>
-          </form>
-          </li>
-          <li id="med-blk"><a href="../user_services/4_creat_post.html">Create</a></li>
-          <a href="../user_services/5_notification.html">
-            <li id="med-blk"><i class="fa fa-bell" style="color: #000;"></i></li>
-          </a>
-          <div class="dropdown">
-            <button class="dropbtn">
-              <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem" height="40rem"></li>
-            </button>
-            <div class="dropdown-content">
-              <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
-                  style="font-size:15px"></i>Profile</a>
-              <a id="med-dc" href="../user_services/4_creat_post.html"><i class="fa fa-magic"
-                  style="font-size:18px"></i>Create</a>
-              <a id="med-dc" href="../user_services/5_notification.html"><i class="fa fa-bell"
-                  style="font-size:13px"></i>Notification</a>
-              <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear" style="font-size:15px"></i>Settings</a>
-              <a href="../../index.html"><i class="fa fa-sign-out" style="font-size:18px"></i>Log-Out</a>
-            </div>
-          </div>
-        </ul>
-      </div>
-    </div>
-  </header>
   <div class="header__wrapper">
     <header id="imgBox"></header>
     <div class="round_1">
@@ -127,17 +92,17 @@
     <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
     <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
     <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-    <p>© 2022 Venom.com All rights reserved</p>
+    <p>© 2023 Venom.com All rights reserved</p>
   </div>
 
   <script>
-    var myText = document.getElementById("bio");
-    var result = document.getElementById("result");
-    var limit = 250;
+    let myText = document.getElementById("bio");
+    let result = document.getElementById("result");
+    let limit = 250;
     result.textContent = 0 + "/" + limit;
 
     myText.addEventListener("input", function () {
-      var textLength = myText.value.length;
+      let textLength = myText.value.length;
       result.textContent = textLength + "/" + limit;
 
       if (textLength > limit) {
@@ -151,19 +116,19 @@
       }
     });
 
-    var imgBox = document.getElementById("imgBox");
+    let imgBox = document.getElementById("imgBox");
 
-    var loadFile = function (event) {
-      var imageURL = URL.createObjectURL(event.target.files[0]);
+    let loadFile = function (event) {
+      let imageURL = URL.createObjectURL(event.target.files[0]);
       imgBox.style.backgroundImage = "url(" + imageURL + ")";
       localStorage.setItem("imageURL", imageURL);
     }
 
 
-    var imgBox2 = document.getElementById("imgBox2");
+    let imgBox2 = document.getElementById("imgBox2");
 
-    var loadFile2 = function (event) {
-      var imageURL2 = URL.createObjectURL(event.target.files[0]);
+    let loadFile2 = function (event) {
+      let imageURL2 = URL.createObjectURL(event.target.files[0]);
       imgBox2.style.backgroundImage = "url(" + imageURL2 + ")";
       localStorage.setItem("imageURL2", imageURL2);
     }
@@ -184,9 +149,13 @@
     document.getElementById("job").value = user_data['user_job'];
     document.getElementById("tag").value = user_data['user_tag'];
     document.getElementById("bio").value = user_data['user_bio'];
+    document.getElementById("imgBox").value = user_data['user_banner'];
+    document.getElementById("imgBox2").value = user_data['user_profile'];
 
     function saveUpdate(e) {
       e.preventDefault();
+      let img2 = localStorage.getItem("imageURL");
+      let img = localStorage.getItem("imageURL2")
       let date = document.getElementById("date").value
       let country = document.getElementById("country").value
       let job = document.getElementById("job").value
@@ -197,13 +166,17 @@
       user_data["user_job"] = job;
       user_data["user_tag"] = tag;
       user_data["user_bio"] = bio;
+      user_data["user_banner"] = img2;
+      user_data["user_profile"] = img;
       localStorage.setItem('user_records', JSON.stringify(user_records));
       alert("Updated successfully");
-      window.location.href = "../Myprofile/6_profile.html"
+      window.location.href = "../Myprofile/6_profile.html?user_ID="+ user_data["user_email"];
       // console.log(user_list);
     }
 
   </script>
+
+<script src="/assets/header.js"></script>
 </body>
 
 </html>

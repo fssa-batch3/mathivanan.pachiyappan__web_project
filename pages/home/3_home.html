@@ -38,7 +38,7 @@
         <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
         <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
         <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-        <p>© 2022 Venom.com All rights reserved</p>
+        <p>© 2023 Venom.com All rights reserved</p>
     </div>
 <!-- 
     data["image"]["alt"]
@@ -52,7 +52,7 @@
     } -->
 <script>
     
-//     const name_list = [
+//     const blog_data = [
 //     {
 //         "name": "Linda Merry",
 //         "image": {
@@ -239,10 +239,10 @@ let a_link;
 let profile_img;
 let span_txt2;
 
-let name_list = JSON.parse(localStorage.getItem("blog_records"));
+let blog_data = JSON.parse(localStorage.getItem("blog_records"));
+// const shorterLength = blog_data.length < user_data.length ? blog_data.length : user_data.length;
 
-for (let i = 0; i < name_list.length ; i++) {
-
+for (let i = 0; i < blog_data.length; i++) {
     //  <div class="col"> </div>
     div_box = document.createElement("div");
     div_box.setAttribute("class", "post-box design");
@@ -250,35 +250,35 @@ for (let i = 0; i < name_list.length ; i++) {
 
     //  <div class="card"> </div>
     img_card = document.createElement("img");
-    img_card.setAttribute("src", name_list[i]["image"]["source"]);
-    img_card.setAttribute("alt", name_list[i]["image"]["alt"]);
+    img_card.setAttribute("src", blog_data[i]["image"]["source"]);
+    img_card.setAttribute("alt", blog_data[i]["image"]["alt"]);
     img_card.setAttribute("class", "post-img");
     div_box.append(img_card);
 
     //  <img src="" class="card-img-top" alt=""/>
     h2_txt = document.createElement("h2");
     h2_txt.setAttribute("class", "category");
-    h2_txt.innerText = name_list[i]["category"];
+    h2_txt.innerText = blog_data[i]["category"];
     div_box.append(h2_txt);
     
     //  <div class="card-body"> </div>
     a_tag = document.createElement("a");
     a_tag.setAttribute("class", "post-title"); 
-    a_tag.setAttribute("href", "../posts/8-1_post.html?post_ID="+ name_list[i]["post_id"]);
-    a_tag.innerText = name_list[i]["title"];
+    a_tag.setAttribute("href", "../posts/8-1_post.html?post_ID="+ blog_data[i]["post_id"]);
+    a_tag.innerText = blog_data[i]["title"];
     div_box.append(a_tag);
 
 
     //  <span class="post-date"> </span>
     span_txt = document.createElement("span");
     span_txt.setAttribute("class", "post-date");
-    span_txt.innerHTML = name_list[i]["timestamp"];
+    span_txt.innerHTML = blog_data[i]["timestamp"];
     div_box.append(span_txt);
 
     //  <p class="card-text"> </p>
     p_card_text = document.createElement("p");
     p_card_text.setAttribute("class", "post-description");
-    p_card_text.innerHTML = name_list[i]["content"];
+    p_card_text.innerHTML = blog_data[i]["content"];
     div_box.append(p_card_text);
 
     div_profile = document.createElement("div");
@@ -286,24 +286,21 @@ for (let i = 0; i < name_list.length ; i++) {
     div_box.append(div_profile);
 
     a_tag2 = document.createElement("a"); 
-    a_tag2.setAttribute("href", name_list[i]["profile_link"]["href"]);
+    a_tag2.setAttribute("href",  "../Myprofile/6_profile.html?user_ID="+ blog_data[i]["unique_id"]);
     div_profile.append(a_tag2);
     
     profile_img = document.createElement("img");
-    profile_img.setAttribute("src", name_list[i]["profile"]["source"]);
-    profile_img.setAttribute("alt", name_list[i]["profile"]["alt"]);
+    profile_img.setAttribute("src", blog_data[i]["profile"]["source"]);
+    profile_img.setAttribute("alt", blog_data[i]["profile"]["alt"]);
     profile_img.setAttribute("class", "profile-img");
     a_tag2.append(profile_img);
     
     span_txt2 = document.createElement("span");
     span_txt2.setAttribute("class", "profile-name");
-    span_txt2.innerText = name_list[i]["name"];
+    span_txt2.innerText = blog_data[i]["name"];
     div_profile.append(span_txt2);
-
     
-
- 
-    document.querySelector("section.post.container").append(div_box);
+    document.querySelector("section.post.container").prepend(div_box);
 }
 
 </script>

@@ -34,12 +34,12 @@
     <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
     <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
     <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-    <p>© 2022 Venom.com All rights reserved</p>
+    <p>© 2023 Venom.com All rights reserved</p>
   </div>
 
   <script>
 
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 1; i++) {
       let div_follow = document.getElementById("follow_main");
 
       let div_box = document.createElement("div");
@@ -58,14 +58,14 @@
       p_txt.prepend(img_area);
 
       let button_elem = document.createElement("button");
-      button_elem.setAttribute("id", "follow-btn");
+      button_elem.setAttribute("id", "follow-button");
       // button_elem.setAttribute("onclick", "followers()");
       button_elem.innerText = "Follow";
       div_box.append(button_elem);
+
     };
 
-
-    for (let j = 0; j < 2; j++) {
+    for (let j = 0; j < 1; j++) {
       let div_follow2 = document.getElementById("follow_side");
 
       let div_box2 = document.createElement("div");
@@ -84,11 +84,57 @@
       p_txt2.prepend(img_area2);
 
       let button_elem2 = document.createElement("button");
-      button_elem2.setAttribute("class", "follow-btn2");
+      button_elem2.setAttribute("id", "unfollow-button");
       // button_elem2.setAttribute("onclick", "following()");
       button_elem2.innerText = "Following";
       div_box2.append(button_elem2);
     };
+
+    // get the user id from local storage
+const userId = localStorage.getItem('email_ID');
+
+// get the follow data from local storage or initialize it as an empty array
+let followData = JSON.parse(localStorage.getItem('follow_data')) || [];
+
+// check if the user is already following
+const isFollowing = followData.some(data => data.userId === userId);
+
+// update the button states based on whether the user is following or not
+const followButton = document.getElementById('follow-button');
+const unfollowButton = document.getElementById('unfollow-button');
+if (isFollowing) {
+  followButton.style.display = 'none';
+  unfollowButton.style.display = 'block';
+} else {
+  followButton.style.display = 'block';
+  unfollowButton.style.display = 'none';
+}
+
+// add event listeners to the follow and unfollow buttons
+followButton.addEventListener('click', () => {
+  // add the user id to the follow data array
+  followData.push({ userId });
+
+  // update the local storage
+  localStorage.setItem('follow_data', JSON.stringify(followData));
+
+  // update the button states
+  followButton.style.display = 'none';
+  unfollowButton.style.display = 'block';
+});
+
+unfollowButton.addEventListener('click', () => {
+  // remove the user id from the follow data array
+  followData = followData.filter(data => data.userId !== userId);
+
+  // update the local storage
+  localStorage.setItem('follow_data', JSON.stringify(followData));
+
+  // update the button states
+  followButton.style.display = 'block';
+  unfollowButton.style.display = 'none';
+});
+
 
     // function followers() {
     //   let followButton = document.getElementsByClassName("follow-btn");

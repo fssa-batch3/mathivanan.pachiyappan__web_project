@@ -117,8 +117,14 @@ div.navigation_link ul li a:hover {
     text-decoration: none;
 }
 
-div.navigation_link ul li img {
+div.navigation_link ul li.profile_img {
     border-radius: 2em;
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 2px solid orange;
 }
 
 div.nav_main {
@@ -300,7 +306,7 @@ div.dropdown:hover .dropdown-content {
     color: var(--text-color);
     /* To Remove Title In 2 Lines */
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -367,7 +373,8 @@ span.notific_count {
    color: white;
    padding: 3px 5px 3px 5px;
    border-radius: 1rem;
-   font-size: 60%;
+   font-size: 70%;
+   font-weight: bold;
    position: relative;
    right: 25%;
    top: -0.5rem;

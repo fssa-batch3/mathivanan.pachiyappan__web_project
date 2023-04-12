@@ -37,13 +37,18 @@
         // let user_records=new Array();
         // user_records=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
         let user_records = JSON.parse(localStorage.getItem("user_records"));
+        let user_email = user_records.find((e) => e.user_email == email)?.user_email;
+
             if(user_records.find((v)=>{return v.user_email==email && v.user_password==password}))
             {
             let current_user = user_records.find((v)=>{return v.user_email == email && v.user_password==password});
             alert("Welcome " + current_user.user_name + " ✅");
            //   let current_user=user_records.filter((v)=>{return v.user_email == email && v.user_password==password})[0]
            localStorage.setItem('email_ID',JSON.stringify(email));
-           window.location.href="../home/3_home.html"
+
+           let user_data = JSON.parse(localStorage.getItem("user_records"));
+
+           window.location.href="../home/3_home.html?user_ID="+ user_email;
         }
         else
         {

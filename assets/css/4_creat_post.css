@@ -206,7 +206,16 @@ input[type="color"]::-moz-color-swatch {
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #020929;
 }
 
-#text-input {
+button.mic {
+  padding: 7px 11px 7px 11px;
+  font-size: 120%;
+  border-radius: 1.5rem;
+  border: none;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  float: right;
+}
+
+#text_input {
   margin-top: 10px;
   border: 1px solid #dddddd;
   padding: 20px;
