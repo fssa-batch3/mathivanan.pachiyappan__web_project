@@ -102,7 +102,6 @@ Note : You don't access to select and store images from your local drive for Cov
 ##### Sticky Notes Module [Yet to work]
 ##### Voice-to-Text convertor [Yet to work]
 ##### Text-to-Voice convertor [Yet to work]
-##### Automatic tagline generator [Yet to work]
 ##### Like module [Yet to work]
 ##### Follow module [Yet to work]
 ##### Notification module [Yet to work]
