@@ -14,7 +14,7 @@ div.post_page {
     text-align: justify;
     background-color: white;
     padding: 1.5rem;
-    padding-top: 7rem;
+    padding-top: 3rem;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
 }
 
@@ -26,6 +26,14 @@ div.post_page h2 {
     margin-top: 1rem;
     margin-bottom: 1rem;
     color: orange;
+}
+
+p#cover_image {
+    width: 100%;
+    background: url() no-repeat 50% 20% / cover;
+    min-height: calc(200px + 20vw);
+    margin-top: 2em;
+    border-radius: 5px;
 }
 
 div.post_page p {

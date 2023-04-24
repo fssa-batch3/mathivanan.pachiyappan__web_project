@@ -21,7 +21,7 @@
 
   <h2 class="create_head">Create Post</h2>
   <div class="container">
-    <div class="cover_image"><img id="cover_imgBox" alt="Banner" style="padding: 0.5rem;" /></div>
+    <div class="cover_image"><img id="cover_imgBox" alt="" style="padding: 0.5rem;" /></div>
     <div class="cover_inputs">
       <input type="file" accept="image/*" name="image" id="cover-upload" style="display: none">
       <label for="cover-upload">Add Cover image<i class="fa-solid fa-circle-plus"></i></label>
@@ -325,6 +325,7 @@
       document.querySelector("#saveUpdate").setAttribute("style", "display:none");
     }
 
+    else{
     function blog_data(e) {
       return e.post_id == post_ID;
     }
@@ -353,7 +354,8 @@
 
       window.location.href = "../home/3_home.html"
       // console.log(user_list);
-    };
+    }
+  };
 
   </script>
 

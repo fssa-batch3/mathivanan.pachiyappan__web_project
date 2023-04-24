@@ -16,8 +16,7 @@
   <!--Header-->
 
   <div class="profile_image">
-    <a href="../Myprofile/6_profile.html"><img src="../../assets/images/profile_2.jpg" alt="profile_img" width="10rem"
-        height="10rem"></a>
+    <p id="profile_image"></p>
   </div>
   <div class="follow_content" id="follow_content">
 
@@ -91,7 +90,12 @@
     };
 
     // get the user id from local storage
-const userId = localStorage.getItem('email_ID');
+const userId = JSON.parse(localStorage.getItem('email_ID'));
+
+let userDta = JSON.parse(localStorage.getItem("user_records"));
+let profilePic = userDta.find((e) => e.user_email == userId)?.user_profile;
+let profImage = document.getElementById("profile_image");
+profImage.style.backgroundImage = "url(" + profilePic + ")";
 
 // get the follow data from local storage or initialize it as an empty array
 let followData = JSON.parse(localStorage.getItem('follow_data')) || [];

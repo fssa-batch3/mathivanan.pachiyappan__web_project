@@ -50,10 +50,12 @@ div.cover_inputs label {
   border-bottom-right-radius: 2em;
   border-top-right-radius: 2em;
 }
+
 div.cover_inputs label i {
   margin-left: 0.3rem;
   margin-bottom: 1em;
 }
+
 input:focus {
   outline: none;
   border: none;

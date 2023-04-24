@@ -8,9 +8,9 @@
     <title>Venom.com</title>
     <link rel="stylesheet" href="../../assets/css/3_home.css">
     <link rel="stylesheet" href="../../assets/css/8_post.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
-    <script src="https://unpkg.com/ionicons@latest/dist/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
 </head>
@@ -19,7 +19,7 @@
     <!--Header-->
 
     <div class="post_page">
-        <img src="../../assets/images/img/post-1.jpg" alt="post_1" width="100%" height="30%" />
+        <p id="cover_image"></p>
         <button class="share_icon" id="shareButton"><ion-icon name="share-social"></ion-icon></button>
         <button onclick="showStickyNotes()" class="notes"><i class="fa fa-sticky-note-o" aria-hidden="true"></i> Take
             Notes</button>
@@ -28,8 +28,7 @@
 
         <div class="react_icons">
             <div class="icon_main">
-                <p id="like_icon"><ion-icon name="heart-outline"></ion-icon>
-                    <span id="afterLike" style="color: red; transition: 3s;"><ion-icon name="heart"></ion-icon></span>
+                <p id="like_icon"><ion-icon name="heart-outline" id="heart_icon_c"></ion-icon>
                     <span id="like_icon_count">0</span>
                 </p>
                 <p class="cmt_icon"><ion-icon name="chatbubble-outline"></ion-icon>
@@ -63,6 +62,8 @@
     </div>
     <script>
 
+let email_ID = JSON.parse(localStorage.getItem("email_ID"));
+
         let params = new URLSearchParams(window.location.search);
         let postId = params.get('post_ID');
 
@@ -89,8 +90,9 @@
 
         });
 
-        // User Comment functions
-        // let comment_btn = document.getElementById("post_cmt");
+        let coverImage = blog_records.find((e) => e.post_id == postId)?.image.source;
+        let coverImg = document.getElementById("cover_image");
+        coverImg.style.backgroundImage = "url(" + coverImage + ")";
 
         function publishCmt(e) {
             e.preventDefault()
@@ -157,7 +159,7 @@
             profileLink.href = "../Myprofile/6_profile.html?user_ID=" + post_comment[i]["user_email"];
 
             let profileImage = document.createElement("img");
-            profileImage.src = "../../assets/images/Profile/profile_2.jpg";
+            profileImage.src = post_comment[i].profile.source;
             profileImage.alt = "user_image";
             profileImage.setAttribute("class", "profile_img")
 
@@ -187,24 +189,11 @@
             commentBox.prepend(commentTxt);
             commentBox.prepend(notificProfile);
         };
-        // Get the button and count elements from the DOM
-        const likeIcon = document.getElementById("like_icon");
-        const afterLike = document.getElementById("afterLike");
-        const likeIconCount = document.getElementById("like_icon_count");
 
-        let isLiked = false;
-
-        likeIcon.addEventListener("click", function () {
-            if (isLiked) {
-                afterLike.style.display = "none";
-                likeIconCount.textContent = parseInt(likeIconCount.textContent) - 1;
-            } else {
-                afterLike.style.display = "inline";
-                likeIconCount.textContent = parseInt(likeIconCount.textContent) + 1;
-            }
-
-            isLiked = !isLiked;
-        });
+        // Like count JS code
+        let likeCount = JSON.parse(localStorage.getItem("like_records")) || []
+        
+        
 
 
         function showStickyNotes() {
@@ -219,6 +208,72 @@
             // Add the sticky note to the HTML body
             document.body.appendChild(stickyNote);
         }
+
+        let like_records = JSON.parse(localStorage.getItem("like_records")) || [];
+
+        let heart_icon=document.getElementById("heart_icon_c");
+        
+        let likeFind = like_records.find(like => like.user_id == email_ID && like.post_id == postId);
+        if(likeFind == undefined){
+            heart_icon.setAttribute("name","heart-outline");
+            heart_icon.style.color = 'black';
+        }
+        else{
+            heart_icon.setAttribute("name","heart");
+            heart_icon.style.color = 'red';
+        }
+       
+        // like count inner text
+        let heart_icon_count=document.getElementById("like_icon_count");
+       let  like_count=like_records.filter(e=>e.post_id==postId);
+        heart_icon_count.innerText = like_count.length;
+
+        // Like count JS;
+
+        heart_icon.addEventListener("click", function(e){
+        let like_records = JSON.parse(localStorage.getItem("like_records")) || [];
+        if(like_records.length === 0){
+            like_records.push({
+                "user_id" : email_ID,
+                "post_id" : postId,
+                "notific" : false
+            })
+            localStorage.setItem("like_records", JSON.stringify(like_records));
+            heart_icon.setAttribute("name","heart");
+            heart_icon.style.color = 'red';
+            let  like_count=like_records.filter(e=>e.post_id==postId);
+        heart_icon_count.innerText = like_count.length;
+
+        }
+        else{
+            let likeFind = like_records.find(like => like.user_id == email_ID && like.post_id == postId);
+            let findIndex  = like_records.indexOf(likeFind);
+
+            if(likeFind == undefined){
+                like_records.push({
+                "user_id" : email_ID,
+                "post_id" : postId,
+                "notific" : false
+            }) 
+            localStorage.setItem("like_records", JSON.stringify(like_records));
+            heart_icon.setAttribute("name","heart");
+            heart_icon.style.color = 'red';
+            let  like_count=like_records.filter(e=>e.post_id==postId);
+        heart_icon_count.innerText = like_count.length;
+            }
+            else {
+            like_records.splice(findIndex, 1)
+            localStorage.setItem("like_records", JSON.stringify(like_records));
+            heart_icon.setAttribute("name","heart-outline");
+            heart_icon.style.color = 'black';
+            let  like_count=like_records.filter(e=>e.post_id==postId);
+        heart_icon_count.innerText = like_count.length; 
+            }
+
+        }
+        });
+
+        
 
     </script>
 
