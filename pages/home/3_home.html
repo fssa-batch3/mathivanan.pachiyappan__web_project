@@ -244,9 +244,10 @@ let blog_data = JSON.parse(localStorage.getItem("blog_records"));
 
 for (let i = 0; i < blog_data.length; i++) {
     //  <div class="col"> </div>
-    div_box = document.createElement("div");
+    // a tag is difind for click the post to redirect the post page
+    div_box = document.createElement("a");
     div_box.setAttribute("class", "post-box design");
-    console.log(div_box);
+    div_box.setAttribute("href", "../posts/8-1_post.html?post_ID="+ blog_data[i]["post_id"]);
 
     //  <div class="card"> </div>
     img_card = document.createElement("img");
@@ -262,11 +263,10 @@ for (let i = 0; i < blog_data.length; i++) {
     div_box.append(h2_txt);
     
     //  <div class="card-body"> </div>
-    a_tag = document.createElement("a");
-    a_tag.setAttribute("class", "post-title"); 
-    a_tag.setAttribute("href", "../posts/8-1_post.html?post_ID="+ blog_data[i]["post_id"]);
-    a_tag.innerText = blog_data[i]["title"];
-    div_box.append(a_tag);
+    h3_tag = document.createElement("h3_tag");
+    h3_tag.setAttribute("class", "post-title"); 
+    h3_tag.innerText = blog_data[i]["title"];
+    div_box.append(h3_tag);
 
 
     //  <span class="post-date"> </span>

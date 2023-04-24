@@ -68,12 +68,18 @@ div.icon_main {
     max-height: 2rem;
 }
 
-div.icon_main p {
+div.icon_main p  {
     font-size: 80%;
     font-weight: bold;
 }
 
-div.icon_main p img {
+div.icon_main p ion-icon {
+    font-size: 200%;
+    width: 1.5rem;
+}
+
+div.icon_main span ion-icon {
+    font-size: 200%;
     width: 1.5rem;
 }
 
@@ -82,16 +88,20 @@ div.icon_main p.cmt_icon {
     margin-left: 2rem;
 }
 
-div.side_main {
+div.side_main p {
     max-width: 1.5rem;
     font-size: 80%;
     font-weight: bold;  
 }
 
+div.side_main p ion-icon {
+    font-size: 180%;
+}
+
 button.share_icon {
     background: none;
     border-radius: 3em;
-    border-color: red;
+    border : none;
     float: right;
     margin: 1rem;
     margin-right: -0.5rem;

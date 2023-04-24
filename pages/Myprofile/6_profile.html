@@ -49,7 +49,7 @@
           <ul>
             <li><a href="#">posts</a></li>
             <li><a href="./6_savedpost.html">saved items</a></li>
-            <li><a href="./6_toptrend.html">Top Trending</a></li>
+            <li><a href="./6_toptrend.html">Notes</a></li>
           </ul>
           <button type="submit" id="follow_btn">Follow</button>
         </nav>
@@ -76,6 +76,13 @@
     const params = new URLSearchParams(window.location.search);
     const userId = params.get('user_ID');
 
+
+    let all_post = JSON.parse(localStorage.getItem("blog_records"));
+
+    let user_post = all_post.filter(post => post.unique_id == userId);
+    let post_count = document.getElementById("totall_post");
+    post_count.innerText = user_post.length;
+
     let email_ID = JSON.parse(localStorage.getItem("email_ID"));
     let user_records = JSON.parse(localStorage.getItem("user_records"));
 
@@ -84,7 +91,6 @@
     }
 
     user_data = user_records.find(login_data);
-
 
     let profile_banner = user_data['user_banner'];
     document.getElementById("profile_bg").style.backgroundImage = "url(" + profile_banner + ")";
@@ -98,16 +104,6 @@
     document.getElementById("user_tag").innerText = user_data['user_tag'];
     document.getElementById("user_bio").innerText = user_data['user_bio'];
     
-    // let profile_banner 
-    // let imgBox2 = 
-    // imgBox2.style.backgroundImage = "url(" + profile_banner + ")";
-
-    // filter user posts///////////////////
-    let all_post = JSON.parse(localStorage.getItem("blog_records"));
-
-    let user_post = all_post.filter(post => post.unique_id == userId);
-    let post_count = document.getElementById("totall_post");
-    post_count.innerText = user_post.length;
 
     for (let i = 0; i < user_post.length; i++) {
 
@@ -141,7 +137,7 @@
 
       // Append the post_box div to the div with id "posts"
       const postsDiv = document.getElementById("posts");
-      postsDiv.appendChild(postBoxDiv);
+      postsDiv.prepend(postBoxDiv);
 
       let edit_button = document.createElement("button");
       edit_button.setAttribute("class", "edit_btn");
@@ -153,18 +149,19 @@
       // Declare and initialize delete_button before the event listener
       const delete_button = document.createElement("button");
       delete_button.setAttribute("class", "delete_btn");
+      delete_button.setAttribute("id",  user_post[i]["post_id"]);
       delete_button.innerText = "Delete";
       postBoxDiv.append(delete_button);
 
       // Add event listener to delete_button
       delete_button.addEventListener("click", function () {
         if (confirm("Are you sure to Delete ?")) {
-          let post_ID = localStorage.getItem("post_id");
+          let post_d_id = this.id;
           let blog_records = JSON.parse(localStorage.getItem("blog_records"));
 
           // Find the index of the post to delete
-          const indexOfUser = blog_records.find(e => e.post_id == post_ID);
-
+          const find_post = blog_records.find(e => e.post_id == post_d_id);
+          const indexOfUser=blog_records.indexOf(find_post);
           // Remove the post from the array
           if (indexOfUser !== -1) {
             blog_records.splice(indexOfUser, 1);
@@ -174,6 +171,7 @@
           location.reload();
         }
       });
+
       let edit = document.querySelectorAll("button.edit_btn");
       edit.forEach(function (find_post) {
         find_post.addEventListener("click", function () {
@@ -212,7 +210,7 @@
       if (isFollowing) {
 
         // add the user id to the follow data array
-        follow_Data.push({ email_ID, userId});
+        follow_Data.push({ email_ID, userId });
 
         // update the local storage
         localStorage.setItem('follow_data', JSON.stringify(follow_Data));
@@ -225,18 +223,6 @@
 
         // location.reload();
 
-      } else {
-        // remove the user id from the follow data array
-        follow_Data = follow_Data.filter(data => data.userId === email_ID);
-
-        // update the local storage
-        localStorage.setItem('follow_data', JSON.stringify(follow_Data));
-
-        // update the button state
-        followBtn.innerText = 'Follow';
-
-        // set isFollowing to false
-        isFollowing = true;
       }
       // location.reload();
 
@@ -271,11 +257,11 @@
     let follow_count = document.getElementById("followers");
     let following_count = document.getElementById("following");
 
-    if(userId !== email_ID){
-    follow_count.innerText = followData.length;
+    if (userId !== email_ID) {
+      follow_count.innerText = followData.length;
     }
-    if(userId === email_ID){
-    following_count.innerText = followData.length;
+    if (userId === email_ID) {
+      following_count.innerText = followData.length;
     }
 
   </script>

@@ -21,21 +21,23 @@
     <div class="post_page">
         <img src="../../assets/images/img/post-1.jpg" alt="post_1" width="100%" height="30%" />
         <button class="share_icon" id="shareButton"><ion-icon name="share-social"></ion-icon></button>
-        <button onclick="showStickyNotes()" class="notes"><i class="fa fa-sticky-note-o" aria-hidden="true"></i>  Take Notes</button>
+        <button onclick="showStickyNotes()" class="notes"><i class="fa fa-sticky-note-o" aria-hidden="true"></i> Take
+            Notes</button>
         <div id="container"></div>
         <!--Space for HTML elements of Blog Post-->
 
         <div class="react_icons">
             <div class="icon_main">
-                <p id="like_icon"><img src="../../assets/images/svg/heart-outline.svg" alt="heart_icon">
+                <p id="like_icon"><ion-icon name="heart-outline"></ion-icon>
+                    <span id="afterLike" style="color: red; transition: 3s;"><ion-icon name="heart"></ion-icon></span>
                     <span id="like_icon_count">0</span>
                 </p>
-                <p class="cmt_icon"><img src="../../assets/images/svg/chatbubble-outline.svg" alt="comment_icon">
+                <p class="cmt_icon"><ion-icon name="chatbubble-outline"></ion-icon>
                     <span id="cmt_icon_count">0</span>
                 </p>
             </div>
             <div class="side_main">
-                <p><img src="../../assets/images/svg/bookmark-outline.svg" alt="bookmark_icon">
+                <p><ion-icon name="bookmark-outline"></ion-icon>
                     Save</p>
             </div>
         </div>
@@ -61,8 +63,8 @@
     </div>
     <script>
 
-        const params = new URLSearchParams(window.location.search);
-        const postId = params.get('post_ID');
+        let params = new URLSearchParams(window.location.search);
+        let postId = params.get('post_ID');
 
         let blog_records = JSON.parse(localStorage.getItem("blog_records"));
 
@@ -72,7 +74,7 @@
 
         let converter = new showdown.Converter();
 
-        const blogDetails = blog_records.filter(findRecord);
+        let blogDetails = blog_records.filter(findRecord);
 
 
         blogDetails.forEach(function (post) {
@@ -96,8 +98,8 @@
 
             let cmt_uuid = uuidv4(); // assuming this function is defined elsewhere
 
-            const date = new Date();
-            const commentTime = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
+            let date = new Date();
+            let commentTime = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
 
             let comment_records = JSON.parse(localStorage.getItem("comment_records")) || [];
             let email_ID = JSON.parse(localStorage.getItem("email_ID"));
@@ -106,24 +108,26 @@
             // get user's name from user_records based on email_ID
             let user_name = user_records.find((e) => e.user_email == email_ID)?.user_name;
             let user_email = user_records.find((e) => e.user_email == email_ID)?.user_email;
+            let profileImage = user_records.find((e) => e.user_email == email_ID)?.user_profile;
 
-            comment_records.push({
-                "name": user_name,
-                "user_email": user_email,
-                "comment_id": cmt_uuid,
-                "profile": {
-                    source: "../../assets/images/img/profile-1.jpg",
-                    alt: "profile_1"
-                },
-                "profile_link": {
-                    href: "../others-profile/6-1_profile.html"
-                },
-                "comment_time": commentTime,
-                "comment_text": comment_txt,
-                "comment_post_id": postId,
-                "message" : "Comment your post"
-            });
-
+            if (comment_txt == 0) {
+                alert("Please Write your Comment!");
+            }
+            else {
+                comment_records.push({
+                    "name": user_name,
+                    "user_email": user_email,
+                    "comment_id": cmt_uuid,
+                    "profile": {
+                        source: profileImage,
+                        alt: "profile_1"
+                    },
+                    "comment_time": commentTime,
+                    "comment_text": comment_txt,
+                    "comment_post_id": postId,
+                    "message": "Comment your post"
+                });
+            }
             localStorage.setItem("comment_records", JSON.stringify(comment_records));
             location.reload()
         };
@@ -142,29 +146,29 @@
         for (let i = 0; i < post_comment.length; i++) {
 
             //  <div class="col"> </div>
-            const commentBox = document.getElementById("comment_box");
+            let commentBox = document.getElementById("comment_box");
 
-            const notificProfile = document.createElement("div");
+            let notificProfile = document.createElement("div");
             notificProfile.setAttribute("class", "notific_profile");
 
-            const profileDiv = document.createElement("div");
+            let profileDiv = document.createElement("div");
 
-            const profileLink = document.createElement("a");
-            profileLink.href = "../Myprofile/6_profile.html?post_ID=" + post_comment[i]["user_email"];
+            let profileLink = document.createElement("a");
+            profileLink.href = "../Myprofile/6_profile.html?user_ID=" + post_comment[i]["user_email"];
 
-            const profileImage = document.createElement("img");
+            let profileImage = document.createElement("img");
             profileImage.src = "../../assets/images/Profile/profile_2.jpg";
             profileImage.alt = "user_image";
             profileImage.setAttribute("class", "profile_img")
 
             profileLink.appendChild(profileImage);
 
-            const profileName = document.createElement("p");
+            let profileName = document.createElement("p");
 
-            const strong = document.createElement("strong");
+            let strong = document.createElement("strong");
             strong.textContent = post_comment[i]["name"];
 
-            const span = document.createElement("span");
+            let span = document.createElement("span");
             span.innerText = post_comment[i]["comment_time"];
 
             profileName.appendChild(strong);
@@ -176,7 +180,7 @@
 
             notificProfile.appendChild(profileDiv);
 
-            const commentTxt = document.createElement("p");
+            let commentTxt = document.createElement("p");
             commentTxt.setAttribute("class", "comment_txt")
             commentTxt.innerText = post_comment[i]["comment_text"];
 
@@ -185,22 +189,26 @@
         };
         // Get the button and count elements from the DOM
         const likeIcon = document.getElementById("like_icon");
-        const likeCount = document.getElementById("like_icon_count");
+        const afterLike = document.getElementById("afterLike");
+        const likeIconCount = document.getElementById("like_icon_count");
 
-        // Set the initial count to 0
-        let count = 0;
+        let isLiked = false;
 
-        // Add an event listener to the button
         likeIcon.addEventListener("click", function () {
-            // Increase the count by 1
-            count++;
+            if (isLiked) {
+                afterLike.style.display = "none";
+                likeIconCount.textContent = parseInt(likeIconCount.textContent) - 1;
+            } else {
+                afterLike.style.display = "inline";
+                likeIconCount.textContent = parseInt(likeIconCount.textContent) + 1;
+            }
 
-            // Update the count element with the new count
-            likeCount.innerText = count;
+            isLiked = !isLiked;
         });
 
+
         function showStickyNotes() {
-            var stickyNote = document.createElement("textarea");
+            let stickyNote = document.createElement("textarea");
             stickyNote.setAttribute("placeholder", "Take a note...");
 
             stickyNote.classList.add("sticky-note");

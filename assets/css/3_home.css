@@ -278,11 +278,12 @@ div.dropdown:hover .dropdown-content {
     gap: 1.5rem;
 }
 
-.post-box {
+a.post-box {
     background: var(--bg-color);
     box-shadow: 0 4px 14px hsl(355deg 25% 15% / 10%);
     padding: 15px;
     border-radius: 0.5rem;
+    color: #000000;
 }
 
 .post-img {

@@ -10,21 +10,23 @@
   <link rel="stylesheet" href="../../assets/css/9_edit_profile.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
   <!--Header-->
 
   <div class="header__wrapper">
-    <header id="imgBox"></header>
+    <header><img id="imgBox" alt="Banner" style="padding: 0.5rem;" /></header>
     <div class="round_1">
-      <input type="file" accept="image/*" name="image" id="file" style="display: none" onchange="loadFile(event)">
-      <label for="file"><i class="fa fa-camera" style="color: #000;"></i></label>
+      <input type="file" accept="image/*" name="image" id="banner-upload" style="display: none">
+      <label for="banner-upload"><i class="fa fa-camera" style="color: #000;"></i></label>
     </div>
-    <div class="upload" id="imgBox2">
+    <div class="upload">
+      <img id="imgBox2" alt="Profile" style="padding: 1rem;" />
       <div class="round">
-        <input type="file" accept="image/*" name="image" id="file2" style="display: none" onchange="loadFile2(event)">
-        <label for="file2"><i class="fa fa-camera" style="color: #000;"></i></label>
+        <input type="file" accept="image/*" name="image" id="profile-upload" style="display: none">
+        <label for="profile-upload"><i class="fa fa-camera" style="color: #000;"></i></label>
       </div>
     </div>
     <h1>User</h1>
@@ -96,6 +98,7 @@
   </div>
 
   <script>
+
     let myText = document.getElementById("bio");
     let result = document.getElementById("result");
     let limit = 250;
@@ -116,22 +119,64 @@
       }
     });
 
-    let imgBox = document.getElementById("imgBox");
+    // Profile image Upload API
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dvb2bkrx9/upload'
+    let CLOUDINARY_UPLOAD_PRESET = 'sk3iuzma';
 
-    let loadFile = function (event) {
-      let imageURL = URL.createObjectURL(event.target.files[0]);
-      imgBox.style.backgroundImage = "url(" + imageURL + ")";
-      localStorage.setItem("imageURL", imageURL);
-    }
+    let imgPreview = document.getElementById("imgBox2");
+    let fileUpload = document.getElementById("profile-upload");
 
+    fileUpload.addEventListener("change", function (event) {
+      let file = event.target.files[0];
+      let formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
 
-    let imgBox2 = document.getElementById("imgBox2");
+      axios({
+        url: CLOUDINARY_URL,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: formData
+      }).then(function (res) {
+        console.log(res);
+        imgPreview.src = res.data.secure_url;
+        // Store the URL in localStorage
+        let userRecords = res.data.secure_url;
+        localStorage.setItem('profile_image', userRecords);
+      }).catch(function (err) {
+        console.error(err);
+      });
+    });
 
-    let loadFile2 = function (event) {
-      let imageURL2 = URL.createObjectURL(event.target.files[0]);
-      imgBox2.style.backgroundImage = "url(" + imageURL2 + ")";
-      localStorage.setItem("imageURL2", imageURL2);
-    }
+    // Profile banner Upload API
+
+    let imgPreview2 = document.getElementById("imgBox");
+    let fileUpload2 = document.getElementById("banner-upload");
+
+    fileUpload2.addEventListener("change", function (event) {
+      let file2 = event.target.files[0];
+      let formData = new FormData();
+      formData.append('file', file2);
+      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+      axios({
+        url: CLOUDINARY_URL,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: formData
+      }).then(function (res) {
+        console.log(res);
+        imgPreview2.src = res.data.secure_url;
+        let userRecords_bi = res.data.secure_url;
+        localStorage.setItem('profile_banner', userRecords_bi);
+      }).catch(function (err) {
+        console.error(err);
+      });
+    });
 
     //  localStorage.getItem("key", value)
     let email_ID = JSON.parse(localStorage.getItem('email_ID'));
@@ -143,7 +188,9 @@
     user_data = user_records.find(login_data);
 
     document.getElementById("edit_name").value = user_data['user_name'];
+    edit_name.readOnly = true;
     document.getElementById("edit_email").value = user_data['user_email'];
+    edit_email.readOnly = true;
     document.getElementById("date").value = user_data['user_date'];
     document.getElementById("country").innerText = user_data['user_country'];
     document.getElementById("job").value = user_data['user_job'];
@@ -154,8 +201,8 @@
 
     function saveUpdate(e) {
       e.preventDefault();
-      let img2 = localStorage.getItem("imageURL");
-      let img = localStorage.getItem("imageURL2")
+      let img2 = localStorage.getItem("profile_banner")
+      let img = localStorage.getItem("profile_image")
       let date = document.getElementById("date").value
       let country = document.getElementById("country").value
       let job = document.getElementById("job").value
@@ -170,13 +217,13 @@
       user_data["user_profile"] = img;
       localStorage.setItem('user_records', JSON.stringify(user_records));
       alert("Updated successfully");
-      window.location.href = "../Myprofile/6_profile.html?user_ID="+ user_data["user_email"];
+      window.location.href = "../Myprofile/6_profile.html?user_ID=" + user_data["user_email"];
       // console.log(user_list);
     }
 
   </script>
 
-<script src="/assets/header.js"></script>
+  <script src="/assets/header.js"></script>
 </body>
 
 </html>

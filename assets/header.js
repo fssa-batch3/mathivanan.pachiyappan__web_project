@@ -73,9 +73,11 @@ if (loginUser) {
     localStorage.removeItem("email_ID");
 }
 
-let profilePic = localStorage.getItem("imageURL2");
+let userRecords = JSON.parse(localStorage.getItem("user_records"));
+let profileImage = userRecords.find((e) => e.user_email == loginUser)?.user_profile;
 let profImg = document.getElementById("profile_img");
-profImg.style.backgroundImage = "url(" + profilePic + ")";
+profImg.style.backgroundImage = "url(" + profileImage + ")";
+
 
 let profileLink = document.getElementById("drop_down");
 
@@ -111,6 +113,12 @@ divElement.appendChild(paragraphElement);
 
 document.querySelector("div.header").prepend(divElement);
 
+let notific_card = JSON.parse(localStorage.getItem("comment_records"));
+let notific_length = document.getElementById("notific");
+notific_length.innerText = notific_card.length;
+if (notific_card.length <= 0) {
+    notific_length.style.display = 'none';
+}
 
 let editProfile = document.getElementById("drop_down");
 
@@ -125,13 +133,3 @@ a_Tag.appendChild(document.createTextNode("Settings"));
 
 editProfile.prepend(a_Tag);
 profileLink.prepend(aTag);
-
-let notific_card = JSON.parse(localStorage.getItem("comment_records"));
-let notific_length = document.getElementById("notific");
-    notific_length.innerText = notific_card.length;
-    if (notific_card.length <= 0) {
-        notific_length.style.display = 'none';
-    }
-
-
-

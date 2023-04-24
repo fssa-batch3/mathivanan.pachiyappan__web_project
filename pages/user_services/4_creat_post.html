@@ -13,17 +13,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
   <!--Header-->
- 
+
   <h2 class="create_head">Create Post</h2>
   <div class="container">
-    <div id="cover_imgBox" class="cover_image"></div>
+    <div class="cover_image"><img id="cover_imgBox" alt="Banner" style="padding: 0.5rem;" /></div>
     <div class="cover_inputs">
-      <input type="file" accept="image/*" name="image" id="file" style="display: none" onchange="loadFile(event)">
-      <label for="file">Add Cover image<i class="fa-solid fa-circle-plus"></i></label>
+      <input type="file" accept="image/*" name="image" id="cover-upload" style="display: none">
+      <label for="cover-upload">Add Cover image<i class="fa-solid fa-circle-plus"></i></label>
     </div>
     <div class="inputs">
       <input type="text" placeholder="New post title here..." id="title" />
@@ -138,44 +139,66 @@
   </div>
   <script>
 
-text_convert.addEventListener('click', function(){
-  let speech = true;
-  window.SpeechRecognition = window.webkitSpeechRecognition;
-  const recognition = new SpeechRecognition();
-  recognition.interimResults = true;
-  
-  recognition.addEventListener('result', e=>{
-    const transcript = Array.from(e.results)
-    .map(result => result[0])
-    .map(result => result.transcript)
+    text_convert.addEventListener('click', function () {
+      let speech = true;
+      window.SpeechRecognition = window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.interimResults = true;
 
-    text_input.innerHTML = transcript;
-  })
+      recognition.addEventListener('result', e => {
+        const transcript = Array.from(e.results)
+          .map(result => result[0])
+          .map(result => result.transcript)
 
-  if(speech == true){
-    recognition.start();
-  }
-})
+        text_input.innerHTML = transcript;
+      })
 
-    let cover_imgBox = document.getElementById("cover_imgBox");
+      if (speech == true) {
+        recognition.start();
+      }
+    })
 
-    let loadFile = function (event) {
-      let imageURL = URL.createObjectURL(event.target.files[0]);
-      cover_imgBox.style.backgroundImage = "url(" + imageURL + ")";
-      localStorage.setItem("cover_imageURL", imageURL);
-    }
+    // Cover image Upload API
+    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dvb2bkrx9/upload'
+    let CLOUDINARY_UPLOAD_PRESET = 'sk3iuzma';
 
-    let loadFile2 = function (event) {
-      let text_image = document.getElementById("text_input");
-      let text_imageURL = URL.createObjectURL(event.target.files[0]);
-      text_image.style.textAlignLast = "url(" + text_imageURL + ")";
-      localStorage.setItem("text_image", text_imageURL);
-      let markdown = "![" + text_image + "](" + text_imageURL + ")";
-      text_image.innerHTML = markdown;
-    }
+    let imgPreview3 = document.getElementById("cover_imgBox");
+    let fileUpload3 = document.getElementById("cover-upload");
+
+    fileUpload3.addEventListener("change", function (event) {
+      let file2 = event.target.files[0];
+      let formData = new FormData();
+      formData.append('file', file2);
+      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+      axios({
+        url: CLOUDINARY_URL,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: formData
+      }).then(function (res) {
+        console.log(res);
+        imgPreview3.src = res.data.secure_url;
+        let userRecords_bi = res.data.secure_url;
+        localStorage.setItem('cover_image', userRecords_bi);
+      }).catch(function (err) {
+        console.error(err);
+      });
+    });
+
+    // let loadFile2 = function (event) {
+    //   let text_image = document.getElementById("text_input");
+    //   let text_imageURL = URL.createObjectURL(event.target.files[0]);
+    //   text_image.style.textAlignLast = "url(" + text_imageURL + ")";
+    //   localStorage.setItem("text_image", text_imageURL);
+    //   let markdown = "![" + text_image + "](" + text_imageURL + ")";
+    //   text_image.innerHTML = markdown;
+    // }
 
     let post_ID = JSON.parse(localStorage.getItem('post_id'));
-    
+
     function publish() {
 
       let title = document.getElementById("title").value;
@@ -191,38 +214,41 @@ text_convert.addEventListener('click', function(){
       let blog_records = JSON.parse(localStorage.getItem("blog_records")) || [];
       let email_ID = JSON.parse(localStorage.getItem("email_ID"));
       let user_records = JSON.parse(localStorage.getItem("user_records"));
+      let cover_image = localStorage.getItem("cover_image");
       // get user's name from user_records based on email_ID
       let user_email = user_records.find((e) => e.user_email == email_ID)?.user_email;
       let user_name = user_records.find((e) => e.user_email == email_ID)?.user_name;
+      let profile_image = user_records.find((e) => e.user_email == email_ID)?.user_profile;
 
+      if (title == 0 && sub_title == 0 && post_tags == 0 && post_content == 0) {
+        alert("Oops! Title: Can't be blank")
+      }
+      else {
+        blog_records.push({
+          // "post_content": post_text,
+          "timestamp": formattedDate,
+          "post_id": post_uuid,
+          "title": title,
+          "category": sub_title,
+          "tags": post_tags,
+          "content": post_content,
+          "unique_id": email_ID,
+          "name": user_name,
+          "image": {
+            source: cover_image,
+            alt: "post_image"
+          },
+          "profile": {
+            source: profile_image,
+            alt: "profile_image"
+          },
+        });
 
-      blog_records.push({
-        // "post_content": post_text,
-        "timestamp": formattedDate,
-        "post_id": post_uuid,
-        "title": title,
-        "category": sub_title,
-        "tags": post_tags,
-        "content": post_content,
-        "unique_id": email_ID,
-        "name": user_name,
-        "image": {
-          source: "/assets/images/img/post-1.jpg",
-          alt: "post_image"
-        },
-        "profile": {
-          source: "../../assets/images/profile_2.jpg",
-          alt: "profile_image"
-        },
-        // "link": { href: "../posts/8-1_post.html" },
-        "profile_link": { href: "/pages/Myprofile/6_profile.html" }
-      });
-
-
-      localStorage.setItem("blog_records", JSON.stringify(blog_records));
-      alert("Successfully Posted ✅");
-      window.location.href = "../home/3_home.html?user_ID="+ user_email;
-    };
+        localStorage.setItem("blog_records", JSON.stringify(blog_records));
+        alert("Successfully Posted ✅");
+        window.location.href = "../home/3_home.html?user_ID=" + user_email;
+      };
+    }
 
     document.getElementById("bold").addEventListener("click", function () {
       document.execCommand("bold", false, null);
@@ -295,16 +321,15 @@ text_convert.addEventListener('click', function(){
 
     let blog_records = JSON.parse(localStorage.getItem("blog_records"));
 
-    if(post_ID.length == 0){
+    if (post_ID.length == 0) {
       document.querySelector("#saveUpdate").setAttribute("style", "display:none");
     }
-    
+
     function blog_data(e) {
       return e.post_id == post_ID;
     }
     let post_find = blog_records.find(blog_data);
 
-    document.getElementById("title").value = post_find['title'];
     document.getElementById("title").value = post_find['title'];
     document.getElementById("sub_title").value = post_find['category'];
     document.getElementById("text_input").innerHTML = post_find['content'];
@@ -332,7 +357,7 @@ text_convert.addEventListener('click', function(){
 
   </script>
 
-<script src="/assets/header.js"></script>
+  <script src="/assets/header.js"></script>
 </body>
 
 </html>
