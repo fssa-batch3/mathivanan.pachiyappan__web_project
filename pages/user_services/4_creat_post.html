@@ -1,365 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CreatPost-Venom.com</title>
-  <link rel="stylesheet" href="../../assets/css/3_home.css">
-  <link rel="stylesheet" href="../../assets/css/4_creat_post.css">
-  <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CreatPost-Venom.com</title>
+        <link rel="stylesheet" href="../../assets/css/3_home.css">
+        <link rel="stylesheet" href="../../assets/css/4_creat_post.css">
+        <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
 
-<body>
-  <!--Header-->
+    <body>
+        <!--Header-->
 
-  <h2 class="create_head">Create Post</h2>
-  <div class="container">
-    <div class="cover_image"><img id="cover_imgBox" alt="" style="padding: 0.5rem;" /></div>
-    <div class="cover_inputs">
-      <input type="file" accept="image/*" name="image" id="cover-upload" style="display: none">
-      <label for="cover-upload">Add Cover image<i class="fa-solid fa-circle-plus"></i></label>
-    </div>
-    <div class="inputs">
-      <input type="text" placeholder="New post title here..." id="title" />
-    </div>
-    <div class="inputs">
-      <input type="search" placeholder="Post Category..." id="sub_title" />
-    </div>
-    <div class="input_tag">
-      <input type="search" placeholder="Add top tags..." id="post_tags" />
-    </div>
+        <h2 class="create_head">Create Post</h2>
+        <div class="container">
+            <div class="cover_image">
+                <img id="cover_imgBox" alt="" style="padding: 0.5rem;">
+            </div>
+            <div class="cover_inputs">
+                <input type="file" accept="image/*" name="image" id="cover-upload" style="display: none">
+                <label for="cover-upload">
+                    Add Cover image<i class="fa-solid fa-circle-plus"></i>
+                </label>
+            </div>
+            <div class="inputs">
+                <input type="text" placeholder="New post title here..." id="title">
+            </div>
+            <div class="inputs">
+                <input type="search" placeholder="Post Category..." id="sub_title">
+            </div>
+            <div class="input_tag">
+                <input type="search" placeholder="Add top tags..." id="post_tags">
+            </div>
 
-    <div class="options">
-      <!-- Text Format -->
-      <button id="bold" class="option-button format">
-        <i class="fa-solid fa-bold"></i>
-      </button>
-      <button id="italic" class="option-button format">
-        <i class="fa-solid fa-italic"></i>
-      </button>
-      <button id="underline" class="option-button format">
-        <i class="fa-solid fa-underline"></i>
-      </button>
-      <button id="strikethrough" class="option-button format">
-        <i class="fa-solid fa-strikethrough"></i>
-      </button>
-      <button id="superscript" class="option-button script">
-        <i class="fa-solid fa-superscript"></i>
-      </button>
-      <button id="subscript" class="option-button script">
-        <i class="fa-solid fa-subscript"></i>
-      </button>
-      <!-- List -->
-      <button id="insertOrderedList" class="option-button">
-        <div class="fa-solid fa-list-ol"></div>
-      </button>
-      <button id="insertUnorderedList" class="option-button">
-        <i class="fa-solid fa-list"></i>
-      </button>
-      <!-- Undo/Redo -->
-      <button id="undo" class="option-button">
-        <i class="fa-solid fa-rotate-left"></i>
-      </button>
-      <button id="redo" class="option-button">
-        <i class="fa-solid fa-rotate-right"></i>
-      </button>
-      <!-- Image Upload -->
-      <div>
-        <input type="file" accept="image/*" name="image" id="text_image" style="display: none"
-          onchange="loadFile2(event)">
-        <label for="text_image"><i class="fa-solid fa-image" style="color: #000;"></i></label>
-      </div>
-      <!-- Link -->
-      <button id="createLink" class="adv-option-button">
-        <i class="fa fa-link"></i>
-      </button>
-      <!-- Alignment -->
-      <button id="justifyLeft" class="option-button align">
-        <i class="fa-solid fa-align-left"></i>
-      </button>
-      <button id="justifyCenter" class="option-button align">
-        <i class="fa-solid fa-align-center"></i>
-      </button>
-      <button id="justifyRight" class="option-button align">
-        <i class="fa-solid fa-align-right"></i>
-      </button>
-      <button id="justifyFull" class="option-button align">
-        <i class="fa-solid fa-align-justify"></i>
-      </button>
-      <button id="indent" class="option-button spacing">
-        <i class="fa-solid fa-indent"></i>
-      </button>
-      <button id="outdent" class="option-button spacing">
-        <i class="fa-solid fa-outdent"></i>
-      </button>
-      <!-- Headings -->
-      <select id="formatBlock" class="adv-option-button">
-        <option value="H1">H1</option>
-        <option value="H2">H2</option>
-        <option value="H3">H3</option>
-        <option value="H4">H4</option>
-        <option value="H5">H5</option>
-        <option value="H6">H6</option>
-      </select>
-      <!-- Font -->
-      <select id="fontName" class="adv-option-button"></select>
-      <select id="fontSize" class="adv-option-button"></select>
-      <!-- Color -->
-      <div class="input-wrapper">
-        <input type="color" id="foreColor" class="adv-option-button" />
-        <label for="foreColor">Font Color</label>
-      </div>
-      <div class="input-wrapper">
-        <input type="color" id="backColor" class="adv-option-button" />
-        <label for="backColor">Highlight Color</label>
-      </div>
-    </div>
-    <div id="text_input" contenteditable="true" style="height: 400px; overflow: auto;"></div>
-    <div class="post_button" id="post_box ">
-      <button onclick="publish()" id="publish">Publish</button>
-      <button onclick="saveUpdate()" id="saveUpdate">Save Edit</button>
-      <button>Save draft</button>
-      <button id="text_convert" class="mic"><i class="fa fa-microphone" aria-hidden="true"></i></button>
-    </div>
-  </div>
+            <div class="options">
+                <!-- Text Format -->
+                <button id="bold" class="option-button format">
+                    <i class="fa-solid fa-bold"></i>
+                </button>
+                <button id="italic" class="option-button format">
+                    <i class="fa-solid fa-italic"></i>
+                </button>
+                <button id="underline" class="option-button format">
+                    <i class="fa-solid fa-underline"></i>
+                </button>
+                <button id="strikethrough" class="option-button format">
+                    <i class="fa-solid fa-strikethrough"></i>
+                </button>
+                <button id="superscript" class="option-button script">
+                    <i class="fa-solid fa-superscript"></i>
+                </button>
+                <button id="subscript" class="option-button script">
+                    <i class="fa-solid fa-subscript"></i>
+                </button>
+                <!-- List -->
+                <button id="insertOrderedList" class="option-button">
+                    <div class="fa-solid fa-list-ol"></div>
+                </button>
+                <button id="insertUnorderedList" class="option-button">
+                    <i class="fa-solid fa-list"></i>
+                </button>
+                <!-- Undo/Redo -->
+                <button id="undo" class="option-button">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </button>
+                <button id="redo" class="option-button">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+                <!-- Image Upload -->
+                <div>
+                    <input type="file" accept="image/*" name="image" id="text_image" style="display: none"
+                        onchange="loadFile2(event)">
+                    <label for="text_image">
+                        <i class="fa-solid fa-image" style="color: #000;"></i>
+                    </label>
+                </div>
+                <!-- Link -->
+                <button id="createLink" class="adv-option-button">
+                    <i class="fa fa-link"></i>
+                </button>
+                <!-- Alignment -->
+                <button id="justifyLeft" class="option-button align">
+                    <i class="fa-solid fa-align-left"></i>
+                </button>
+                <button id="justifyCenter" class="option-button align">
+                    <i class="fa-solid fa-align-center"></i>
+                </button>
+                <button id="justifyRight" class="option-button align">
+                    <i class="fa-solid fa-align-right"></i>
+                </button>
+                <button id="justifyFull" class="option-button align">
+                    <i class="fa-solid fa-align-justify"></i>
+                </button>
+                <button id="indent" class="option-button spacing">
+                    <i class="fa-solid fa-indent"></i>
+                </button>
+                <button id="outdent" class="option-button spacing">
+                    <i class="fa-solid fa-outdent"></i>
+                </button>
+                <!-- Headings -->
+                <select id="formatBlock" class="adv-option-button">
+                    <option value="H1">H1</option>
+                    <option value="H2">H2</option>
+                    <option value="H3">H3</option>
+                    <option value="H4">H4</option>
+                    <option value="H5">H5</option>
+                    <option value="H6">H6</option>
+                </select>
+                <!-- Font -->
+                <select id="fontName" class="adv-option-button"></select>
+                <select id="fontSize" class="adv-option-button"></select>
+                <!-- Color -->
+                <div class="input-wrapper">
+                    <input type="color" id="foreColor" class="adv-option-button">
+                    <label for="foreColor">Font Color</label>
+                </div>
+                <div class="input-wrapper">
+                    <input type="color" id="backColor" class="adv-option-button">
+                    <label for="backColor">Highlight Color</label>
+                </div>
+            </div>
+            <div id="text_input" contenteditable="true" style="height: 400px; overflow: auto;"></div>
+            <div class="post_button" id="post_box ">
+                <button onclick="publish()" id="publish">Publish</button>
+                <button onclick="saveUpdate()" id="saveUpdate">Save Edit</button>
+                <button>Save draft</button>
+                <button id="text_convert" class="mic">
+                    <i class="fa fa-microphone" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
 
-  <div class="icons">
-    <a href="#"><i class="fa fa-facebook" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-    <p>© 2022 Venom.com All rights reserved</p>
-  </div>
-  <script>
+        <div class="icons">
+            <a href="#">
+                <i class="fa fa-facebook" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-instagram" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-twitter" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-github" style="color: #000;"></i>
+            </a>
+            <p>© 2022 Venom.com All rights reserved</p>
+        </div>
+        <script>text_convert.addEventListener("click", function () {
+        const speech = true;
+  window.SpeechRecognition = window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
 
-    text_convert.addEventListener('click', function () {
-      let speech = true;
-      window.SpeechRecognition = window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      recognition.interimResults = true;
+  recognition.addEventListener("result", (e) => {
+            const transcript = Array.from(e.results)
+              .map((result) => result[0])
+              .map((result) => result.transcript);
 
-      recognition.addEventListener('result', e => {
-        const transcript = Array.from(e.results)
-          .map(result => result[0])
-          .map(result => result.transcript)
+            text_input.innerHTML = transcript;
+  });
 
-        text_input.innerHTML = transcript;
-      })
+  if (speech == true) {
+            recognition.start();
+  }
+});
 
-      if (speech == true) {
-        recognition.start();
-      }
-    })
+// Cover image Upload API
+const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dvb2bkrx9/upload";
+const CLOUDINARY_UPLOAD_PRESET = "sk3iuzma";
 
-    // Cover image Upload API
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dvb2bkrx9/upload'
-    let CLOUDINARY_UPLOAD_PRESET = 'sk3iuzma';
+const imgPreview3 = document.getElementById("cover_imgBox");
+const fileUpload3 = document.getElementById("cover-upload");
 
-    let imgPreview3 = document.getElementById("cover_imgBox");
-    let fileUpload3 = document.getElementById("cover-upload");
+fileUpload3.addEventListener("change", function (event) {
+        const file2 = event.target.files[0];
+        const formData = new FormData();
+  formData.append("file", file2);
+  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
-    fileUpload3.addEventListener("change", function (event) {
-      let file2 = event.target.files[0];
-      let formData = new FormData();
-      formData.append('file', file2);
-      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  axios({
+            url: CLOUDINARY_URL,
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+        data: formData,
+  })
+    .then(function (res) {
+              console.log(res);
+              imgPreview3.src = res.data.secure_url;
+              const userRecords_bi = res.data.secure_url;
+              localStorage.setItem("cover_image", userRecords_bi);
+            })
+    .catch(function (err) {
+              console.error(err);
+            });
+});
 
-      axios({
-        url: CLOUDINARY_URL,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: formData
-      }).then(function (res) {
-        console.log(res);
-        imgPreview3.src = res.data.secure_url;
-        let userRecords_bi = res.data.secure_url;
-        localStorage.setItem('cover_image', userRecords_bi);
-      }).catch(function (err) {
-        console.error(err);
-      });
-    });
+// let loadFile2 = function (event) {
+//   let text_image = document.getElementById("text_input");
+//   let text_imageURL = URL.createObjectURL(event.target.files[0]);
+//   text_image.style.textAlignLast = "url(" + text_imageURL + ")";
+//   localStorage.setItem("text_image", text_imageURL);
+//   let markdown = "![" + text_image + "](" + text_imageURL + ")";
+//   text_image.innerHTML = markdown;
+// }
 
-    // let loadFile2 = function (event) {
-    //   let text_image = document.getElementById("text_input");
-    //   let text_imageURL = URL.createObjectURL(event.target.files[0]);
-    //   text_image.style.textAlignLast = "url(" + text_imageURL + ")";
-    //   localStorage.setItem("text_image", text_imageURL);
-    //   let markdown = "![" + text_image + "](" + text_imageURL + ")";
-    //   text_image.innerHTML = markdown;
-    // }
+const post_ID = JSON.parse(localStorage.getItem("post_id"));
 
-    let post_ID = JSON.parse(localStorage.getItem('post_id'));
+function publish() {
+        const title = document.getElementById("title").value;
+        const sub_title = document.getElementById("sub_title").value;
+        const post_tags = document.getElementById("post_tags").value.split(",");
+        const post_content = document.getElementById("text_input").innerHTML;
+        const post_uuid = uuidv4();
 
-    function publish() {
+  const date = new Date();
+  const formattedDate = `${date
+    .getDate()
+    .toString()
+    .padStart(2, "0")} ${date.toLocaleString("default", {
+    month: "short",
+  })} ${date.getFullYear()}`;
 
-      let title = document.getElementById("title").value;
-      let sub_title = document.getElementById("sub_title").value;
-      let post_tags = document.getElementById("post_tags").value.split(",");
-      let post_content = document.getElementById("text_input").innerHTML;
-      let post_uuid = uuidv4();
+        const blog_records = JSON.parse(localStorage.getItem("blog_records")) || [];
+        const email_ID = JSON.parse(localStorage.getItem("email_ID"));
+        const user_records = JSON.parse(localStorage.getItem("user_records"));
+        const cover_image = localStorage.getItem("cover_image");
+  // get user's name from user_records based on email_ID
+        const user_email = user_records.find(
+    (e) => e.user_email == email_ID
+  )?.user_email;
+        const user_name = user_records.find(
+    (e) => e.user_email == email_ID
+  )?.user_name;
+        const profile_image = user_records.find(
+    (e) => e.user_email == email_ID
+  )?.user_profile;
 
-      const date = new Date();
-      const formattedDate = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
-
-
-      let blog_records = JSON.parse(localStorage.getItem("blog_records")) || [];
-      let email_ID = JSON.parse(localStorage.getItem("email_ID"));
-      let user_records = JSON.parse(localStorage.getItem("user_records"));
-      let cover_image = localStorage.getItem("cover_image");
-      // get user's name from user_records based on email_ID
-      let user_email = user_records.find((e) => e.user_email == email_ID)?.user_email;
-      let user_name = user_records.find((e) => e.user_email == email_ID)?.user_name;
-      let profile_image = user_records.find((e) => e.user_email == email_ID)?.user_profile;
-
-      if (title == 0 && sub_title == 0 && post_tags == 0 && post_content == 0) {
-        alert("Oops! Title: Can't be blank")
-      }
-      else {
-        blog_records.push({
-          // "post_content": post_text,
-          "timestamp": formattedDate,
-          "post_id": post_uuid,
-          "title": title,
-          "category": sub_title,
-          "tags": post_tags,
-          "content": post_content,
-          "unique_id": email_ID,
-          "name": user_name,
-          "image": {
-            source: cover_image,
-            alt: "post_image"
-          },
-          "profile": {
-            source: profile_image,
-            alt: "profile_image"
-          },
-        });
+  if (title == 0 && sub_title == 0 && post_tags == 0 && post_content == 0) {
+            alert("Oops! Title: Can't be blank");
+  } else {
+            blog_records.push({
+              // "post_content": post_text,
+              timestamp: formattedDate,
+              post_id: post_uuid,
+              title,
+              category: sub_title,
+              tags: post_tags,
+              content: post_content,
+              unique_id: email_ID,
+              name: user_name,
+              image: {
+                source: cover_image,
+                alt: "post_image",
+              },
+              profile: {
+                source: profile_image,
+                alt: "profile_image",
+              },
+            });
 
         localStorage.setItem("blog_records", JSON.stringify(blog_records));
-        alert("Successfully Posted ✅");
-        window.location.href = "../home/3_home.html?user_ID=" + user_email;
-      };
-    }
+            alert("Successfully Posted ✅");
+            window.location.href = `../home/3_home.html?user_ID=${user_email}`;
+        }
+}
 
-    document.getElementById("bold").addEventListener("click", function () {
-      document.execCommand("bold", false, null);
-    });
-    document.getElementById("italic").addEventListener("click", function () {
-      document.execCommand("italic", false, null);
-    });
-    document.getElementById("underline").addEventListener("click", function () {
-      document.execCommand("underline", false, null);
-    });
-    document.getElementById("strikethrough").addEventListener("click", function () {
-      document.execCommand("strikethrough", false, null);
-    });
-    document.getElementById("superscript").addEventListener("click", function () {
-      document.execCommand("superscript", false, null);
-    });
-    document.getElementById("subscript").addEventListener("click", function () {
-      document.execCommand("subscript", false, null);
-    });
-    document.getElementById("insertOrderedList").addEventListener("click", function () {
-      document.execCommand("insertOrderedList", false, null);
-    });
-    document.getElementById("insertUnorderedList").addEventListener("click", function () {
-      document.execCommand("insertUnorderedList", false, null);
-    });
-    document.getElementById("undo").addEventListener("click", function () {
-      document.execCommand("undo", false, null);
-    });
-    document.getElementById("createLink").addEventListener("click", function () {
-      var url = prompt("Enter the URL:");
-      if (url) {
-        document.execCommand("createLink", false, url);
-      }
-    });
-    document.getElementById("redo").addEventListener("click", function () {
-      document.execCommand("redo", false, null);
-    });
-    document.getElementById("justifyLeft").addEventListener("click", function () {
-      document.execCommand("justifyLeft", false, null);
-    });
-    document.getElementById("justifyCenter").addEventListener("click", function () {
-      document.execCommand("justifyCenter", false, null);
-    });
-    document.getElementById("justifyRight").addEventListener("click", function () {
-      document.execCommand("justifyRight", false, null);
-    });
-    document.getElementById("justifyFull").addEventListener("click", function () {
-      document.execCommand("justifyFull", false, null);
-    });
-    document.getElementById("indent").addEventListener("click", function () {
-      document.execCommand("indent", false, null);
-    });
-    document.getElementById("outdent").addEventListener("click", function () {
-      document.execCommand("outdent", false, null);
-    });
+document.getElementById("bold").addEventListener("click", function () {
+  document.execCommand("bold", false, null);
+});
+document.getElementById("italic").addEventListener("click", function () {
+  document.execCommand("italic", false, null);
+});
+document.getElementById("underline").addEventListener("click", function () {
+  document.execCommand("underline", false, null);
+});
+document.getElementById("strikethrough").addEventListener("click", function () {
+  document.execCommand("strikethrough", false, null);
+});
+document.getElementById("superscript").addEventListener("click", function () {
+  document.execCommand("superscript", false, null);
+});
+document.getElementById("subscript").addEventListener("click", function () {
+  document.execCommand("subscript", false, null);
+});
+document
+  .getElementById("insertOrderedList")
+  .addEventListener("click", function () {
+            document.execCommand("insertOrderedList", false, null);
+  });
+document
+  .getElementById("insertUnorderedList")
+  .addEventListener("click", function () {
+            document.execCommand("insertUnorderedList", false, null);
+  });
+document.getElementById("undo").addEventListener("click", function () {
+  document.execCommand("undo", false, null);
+});
+document.getElementById("createLink").addEventListener("click", function () {
+  const url = prompt("Enter the URL:");
+  if (url) {
+          document.execCommand("createLink", false, url);
+  }
+});
+document.getElementById("redo").addEventListener("click", function () {
+  document.execCommand("redo", false, null);
+});
+document.getElementById("justifyLeft").addEventListener("click", function () {
+  document.execCommand("justifyLeft", false, null);
+});
+document.getElementById("justifyCenter").addEventListener("click", function () {
+  document.execCommand("justifyCenter", false, null);
+});
+document.getElementById("justifyRight").addEventListener("click", function () {
+  document.execCommand("justifyRight", false, null);
+});
+document.getElementById("justifyFull").addEventListener("click", function () {
+  document.execCommand("justifyFull", false, null);
+});
+document.getElementById("indent").addEventListener("click", function () {
+  document.execCommand("indent", false, null);
+});
+document.getElementById("outdent").addEventListener("click", function () {
+  document.execCommand("outdent", false, null);
+});
 
-    // Heading H1 - H6
-    const formatBlock = document.getElementById("formatBlock");
-    const editor = document.getElementById("editor");
+// Heading H1 - H6
+const formatBlock = document.getElementById("formatBlock");
+const editor = document.getElementById("editor");
 
-    formatBlock.addEventListener("change", function () {
-      const selection = window.getSelection();
-      const range = selection.getRangeAt(0);
-      const tagName = formatBlock.value;
-      const newElement = document.createElement(tagName);
-      newElement.innerHTML = range.toString();
-      range.deleteContents();
-      range.insertNode(newElement);
-    });
+formatBlock.addEventListener("change", function () {
+  const selection = window.getSelection();
+  const range = selection.getRangeAt(0);
+  const tagName = formatBlock.value;
+  const newElement = document.createElement(tagName);
+  newElement.innerHTML = range.toString();
+  range.deleteContents();
+  range.insertNode(newElement);
+});
 
-    let blog_records = JSON.parse(localStorage.getItem("blog_records"));
+const blog_records = JSON.parse(localStorage.getItem("blog_records"));
 
-    if (post_ID.length == 0) {
-      document.querySelector("#saveUpdate").setAttribute("style", "display:none");
-    }
+if (post_ID.length == 0) {
+  document.querySelector("#saveUpdate").setAttribute("style", "display:none");
+} else {
+  function blog_data(e) {
+            return e.post_id == post_ID;
+  }
+  const post_find = blog_records.find(blog_data);
 
-    else{
-    function blog_data(e) {
-      return e.post_id == post_ID;
-    }
-    let post_find = blog_records.find(blog_data);
+  document.getElementById("title").value = post_find.title;
+  document.getElementById("sub_title").value = post_find.category;
+  document.getElementById("text_input").innerHTML = post_find.content;
+  document.getElementById("post_tags").value = post_find.tags;
 
-    document.getElementById("title").value = post_find['title'];
-    document.getElementById("sub_title").value = post_find['category'];
-    document.getElementById("text_input").innerHTML = post_find['content'];
-    document.getElementById("post_tags").value = post_find['tags'];
+  document.querySelector("#publish").setAttribute("style", "display:none");
 
-    document.querySelector("#publish").setAttribute("style", "display:none");
+  function saveUpdate(e) {
+        // e.preventDefault();
+          const title = document.getElementById("title").value;
+        const category = document.getElementById("sub_title").value;
+            const content = document.getElementById("text_input").innerHTML;
+        const tags = document.getElementById("post_tags").value.split(",");
+            post_find.title = title;
+        post_find.category = category;
+        post_find.content = content;
+            post_find.tags = tags;
+        localStorage.setItem("blog_records", JSON.stringify(blog_records));
+            localStorage.setItem("post_id", "[]");
+        alert("Updated successfully");
 
-    function saveUpdate(e) {
-      // e.preventDefault();
-      let title = document.getElementById("title").value;
-      let category = document.getElementById("sub_title").value;
-      let content = document.getElementById("text_input").innerHTML;
-      let tags = document.getElementById("post_tags").value.split(",");
-      post_find["title"] = title;
-      post_find["category"] = category;
-      post_find["content"] = content;
-      post_find["tags"] = tags;
-      localStorage.setItem('blog_records', JSON.stringify(blog_records));
-      localStorage.setItem('post_id', "[]");
-      alert("Updated successfully");
-
-      window.location.href = "../home/3_home.html"
-      // console.log(user_list);
-    }
-  };
-
+            window.location.href = "../home/3_home.html";
+        // console.log(user_list);
+  }
+}
   </script>
 
-  <script src="/assets/header.js"></script>
-</body>
+        <script src="/assets/header.js"></script>
+    </body>
 
 </html>

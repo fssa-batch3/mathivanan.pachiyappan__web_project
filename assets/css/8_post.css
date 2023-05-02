@@ -36,6 +36,59 @@ p#cover_image {
     border-radius: 5px;
 }
 
+.sticky-note {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    margin-top: 10rem;
+    font-size: 90%;
+    font-family: "Poppins", sans-serif;
+    position: fixed;
+    top: 100px;
+    left: 100px;
+    color: white;
+    background-color: black;
+    padding: 10px;
+    border-radius: 10PX;
+    border-top: 1.8rem solid orange;
+    max-width: 20rem;
+    height: 25%;
+}
+
+.sticky-note textarea {
+    width: 100%;
+    height: 80%;
+    border: none;
+    resize: none;
+    color: white;
+    background-color: black;
+    font-size: 14px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.saveBtn {
+    background-color: #0091ff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.closeBtn {
+    position: absolute;
+    color: white;
+    background-color:black;
+    padding: 4px 7px;
+    border-radius: 1rem;
+    top: -25px;
+    right: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
 div.post_page p {
     margin-bottom: 1rem;
 }
@@ -143,21 +196,6 @@ div.comment_area textarea {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 105%;
     border-radius: 1.5rem;
-}
-
-.sticky-note {
-    font-size: 90%;
-    font-family: "Poppins", sans-serif;;
-    position: fixed;
-    top: 100px;
-    left: 100px;
-    color: white;
-    background-color: black;
-    padding: 10px;
-    border-radius: 8PX;
-    border-top: 1.5rem solid orange;
-    width: 20%;
-    height: 25%;
 }
 
 button.notes {

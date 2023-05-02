@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="en">  <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,11 +28,11 @@
         <i class="fa fa-map-marker" aria-hidden="true" id="map_icon"></i>
         <p id="user_country"></p>
 
-        <ul class="about">
-          <li><a href="../follow/7_follow.html"><span id="followers">0</span>Followers</a></li>
-          <li><a href="../follow/7_follow.html"><span id="following">0</span>Following</a></li>
-          <li><a href="#"><span id="totall_post">0</span>Totall Post</a></li>
-        </ul>
+          <ul class="about" id="countContent">
+            <li><a href="../follow/7_follow.html"><span id="followers">0</span>Followers</a></li>
+            <li><a href="../follow/7_follow.html"><span id="following">0</span>Following</a></li>
+            <li><a href="#posts"><span id="totall_post">0</span>Totall Post</a></li>
+          </ul>
 
         <div class="content">
           <p id="user_tag" class="tag_line"></p>
@@ -48,8 +46,8 @@
         <nav>
           <ul>
             <li><a href="#">posts</a></li>
-            <li><a href="./6_savedpost.html">saved items</a></li>
-            <li><a href="./6_toptrend.html">Notes</a></li>
+            <li><a href="#">saved items</a></li>
+            <li><a href="#">Notes</a></li>
           </ul>
           <button type="submit" id="follow_btn">Follow</button>
         </nav>
@@ -68,23 +66,23 @@
   </div>
 
   <script>
+    
 
-    // let imageURL2 = localStorage.getItem("imageURL2");
-    // let imgBox2 = document.getElementById("profile_image");
-    // imgBox2.style.backgroundImage = "url(" + imageURL2 + ")";
-
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get('user_ID');
-
+    let params = new URLSearchParams(window.location.search);
+    let userId = params.get('user_ID');
 
     let all_post = JSON.parse(localStorage.getItem("blog_records"));
+    let savedPost = JSON.parse(localStorage.getItem("save_records"));
 
     let user_post = all_post.filter(post => post.unique_id == userId);
+    let saveItems = savedPost.filter(save => save.user_id == userId);
     let post_count = document.getElementById("totall_post");
     post_count.innerText = user_post.length;
 
     let email_ID = JSON.parse(localStorage.getItem("email_ID"));
     let user_records = JSON.parse(localStorage.getItem("user_records"));
+    let user_name = user_records.find((e) => e.user_email !== email_ID)?.user_name;
+    let profile_Image = user_records.find((e) => e.user_email !== email_ID)?.user_profile;
 
     function login_data(e) {
       return e.user_email == userId;
@@ -103,16 +101,15 @@
     document.getElementById("user_job").innerText = user_data['user_job'];
     document.getElementById("user_tag").innerText = user_data['user_tag'];
     document.getElementById("user_bio").innerText = user_data['user_bio'];
-    
 
     for (let i = 0; i < user_post.length; i++) {
 
       // Create the post_box div element
-      const postBoxDiv = document.createElement("div");
+      let postBoxDiv = document.createElement("div");
       postBoxDiv.classList.add("post_box");
 
       // Create the h2 element for the post content
-      const postContentH2 = document.createElement("h2");
+      let postContentH2 = document.createElement("h2");
       postContentH2.classList.add("post_content");
 
       a_tag = document.createElement("a");
@@ -121,12 +118,12 @@
       postContentH2.append(a_tag);
 
       // Create the p element for the time and date
-      const timeDateP = document.createElement("p");
+      let timeDateP = document.createElement("p");
       timeDateP.setAttribute("class", "time_date");
       timeDateP.innerHTML = "Published On : " + user_post[i]["timestamp"];
 
       // Create the second p element for the post content
-      const postContentP = document.createElement("p");
+      let postContentP = document.createElement("p");
       postContentP.classList.add("post_content");
       postContentP.innerHTML = user_post[i]["content"];
 
@@ -136,7 +133,7 @@
       postBoxDiv.appendChild(postContentP);
 
       // Append the post_box div to the div with id "posts"
-      const postsDiv = document.getElementById("posts");
+      let postsDiv = document.getElementById("posts");
       postsDiv.prepend(postBoxDiv);
 
       let edit_button = document.createElement("button");
@@ -147,9 +144,9 @@
 
       // Delete button JSON and JS code
       // Declare and initialize delete_button before the event listener
-      const delete_button = document.createElement("button");
+      let delete_button = document.createElement("button");
       delete_button.setAttribute("class", "delete_btn");
-      delete_button.setAttribute("id",  user_post[i]["post_id"]);
+      delete_button.setAttribute("id", user_post[i]["post_id"]);
       delete_button.innerText = "Delete";
       postBoxDiv.append(delete_button);
 
@@ -160,8 +157,8 @@
           let blog_records = JSON.parse(localStorage.getItem("blog_records"));
 
           // Find the index of the post to delete
-          const find_post = blog_records.find(e => e.post_id == post_d_id);
-          const indexOfUser=blog_records.indexOf(find_post);
+          let find_post = blog_records.find(e => e.post_id == post_d_id);
+          let indexOfUser = blog_records.indexOf(find_post);
           // Remove the post from the array
           if (indexOfUser !== -1) {
             blog_records.splice(indexOfUser, 1);
@@ -175,7 +172,7 @@
       let edit = document.querySelectorAll("button.edit_btn");
       edit.forEach(function (find_post) {
         find_post.addEventListener("click", function () {
-          const id = this.dataset.id
+          let id = this.dataset.id
 
           localStorage.setItem("post_id", JSON.stringify(id));
           window.location.href = "../user_services/4_creat_post.html";
@@ -190,54 +187,10 @@
         edit_button.style.display = 'none';
       }
     };
-    // localStorage.getItem("key", value)
-
-
-    // const userID = JSON.parse(localStorage.getItem('email_ID'));
-
-    // get the follow data from local storage or initialize it as an empty array
-    let follow_Data = JSON.parse(localStorage.getItem('follow_data')) || [];
-
-    // check if the user is already following
-    let isFollowing = follow_Data.filter(data => data.userId !== email_ID);
-
-    // update the button state based on whether the user is following or not
-    const followBtn = document.getElementById('follow_btn');
-    // followBtn.textContent = isFollowing ? 'Follow' : 'Following';
-
-    // add event listener to the follow button
-    followBtn.addEventListener('click', () => {
-      if (isFollowing) {
-
-        // add the user id to the follow data array
-        follow_Data.push({ email_ID, userId });
-
-        // update the local storage
-        localStorage.setItem('follow_data', JSON.stringify(follow_Data));
-
-        // update the button state
-        followBtn.innerText = 'Following';
-
-        // set isFollowing to true
-        isFollowing = false;
-
-        // location.reload();
-
-      }
-      // location.reload();
-
-    });
-
-    if (userId === email_ID) {
-      followBtn.style.display = 'none';
-    } else {
-      followBtn.style.display = 'block';
-    }
-
 
     let editBtn = document.getElementById("editBtn");
 
-    button_tag = document.createElement("button");
+    let button_tag = document.createElement("button");
     a_tag = document.createElement("a");
     a_tag.setAttribute("href", "./11_edit_profile.html?user_ID=" + user_data["user_email"]);
     a_tag.innerHTML = "Edit Profile";
@@ -251,17 +204,93 @@
       editBtn.style.display = 'none';
     }
 
-    let followRc = JSON.parse(localStorage.getItem("follow_data"));
+    // get the follow data from local storage or initialize it as an empty array
+    let follow_records = JSON.parse(localStorage.getItem("follow_records")) || [];
 
-    let followData = followRc.filter(follow => follow.email_ID == email_ID);
-    let follow_count = document.getElementById("followers");
-    let following_count = document.getElementById("following");
+    let follow_btn = document.getElementById("follow_btn");
 
-    if (userId !== email_ID) {
-      follow_count.innerText = followData.length;
+    let followFind = follow_records.find(follow => follow.follower_id == email_ID && follow.following_id == userId);
+    if (followFind == undefined) {
+      follow_btn.innerText = 'Follow';
     }
-    if (userId === email_ID) {
-      following_count.innerText = followData.length;
+    else {
+      follow_btn.innerText = 'Following';
+    }
+
+    // like count inner text
+    let follow_btn_count = document.getElementById("followers");
+    let follow_count = follow_records.filter(e => e.following_id == userId);
+    follow_btn_count.innerText = follow_count.length;
+
+    let following_btn_count = document.getElementById("following");
+    let following_count = follow_records.filter(e => e.follower_id == userId);
+    following_btn_count.innerText = following_count.length;
+
+    // Like count JS;
+
+    follow_btn.addEventListener("click", function (e) {
+      let follow_records = JSON.parse(localStorage.getItem("follow_records")) || [];
+      if (follow_records.length === 0) {
+        follow_records.push({
+          "follower_id": email_ID,
+          "following_id": userId,
+          "user_name": user_name,
+          "user_profile": profile_Image,
+          "notific": false
+        })
+        localStorage.setItem("follow_records", JSON.stringify(follow_records));
+        follow_btn.innerText = 'Following';
+        let follow_count = follow_records.filter(e => e.following_id == userId);
+        follow_btn_count.innerText = follow_count.length;
+
+      }
+      else {
+        let followFind = follow_records.find(follow => follow.following_id == userId);
+        let findIndex = follow_records.indexOf(followFind);
+
+        if (followFind == undefined) {
+          follow_records.push({
+            "follower_id": email_ID,
+            "following_id": userId,
+            "user_name": user_name,
+            "user_profile": profile_Image,
+            "notific": false
+          })
+          localStorage.setItem("follow_records", JSON.stringify(follow_records));
+          follow_btn.innerText = 'Following';
+          let follow_count = follow_records.filter(e => e.following_id == userId);
+          follow_btn_count.innerText = follow_count.length;
+        }
+        else {
+          follow_records.splice(findIndex, 1)
+          localStorage.setItem("follow_records", JSON.stringify(follow_records));
+          follow_btn.innerText = 'Follow';
+          let follow_count = follow_records.filter(e => e.following_id == userId);
+          follow_btn_count.innerText = follow_count.length;
+        }
+
+      }
+    });
+
+    if (userId == email_ID) {
+      follow_btn.style.display = 'none'
+    } else {
+      follow_btn.style.display = 'block'
+    }
+
+  </script>
+  <script src="/assets/header.js"></script>
+</body>
+_btn_count.innerText = follow_count.length;
+        }
+
+      }
+    });
+
+    if (userId == email_ID) {
+      follow_btn.style.display = 'none'
+    } else {
+      follow_btn.style.display = 'block'
     }
 
   </script>

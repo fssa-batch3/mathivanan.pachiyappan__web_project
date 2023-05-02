@@ -1,283 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venom.com</title>
-    <link rel="stylesheet" href="../../assets/css/3_home.css">
-    <link rel="stylesheet" href="../../assets/css/8_post.css">
-    <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Venom.com</title>
+        <link rel="stylesheet" href="../../assets/css/3_home.css">
+        <link rel="stylesheet" href="../../assets/css/8_post.css">
+        <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+    </head>
 
-<body>
-    <!--Header-->
+    <body>
+        <!--Header-->
 
-    <div class="post_page">
-        <p id="cover_image"></p>
-        <button class="share_icon" id="shareButton"><ion-icon name="share-social"></ion-icon></button>
-        <button onclick="showStickyNotes()" class="notes"><i class="fa fa-sticky-note-o" aria-hidden="true"></i> Take
-            Notes</button>
-        <div id="container"></div>
-        <!--Space for HTML elements of Blog Post-->
+        <div class="post_page">
+            <p id="cover_image"></p>
+            <button class="share_icon" id="shareButton">
+                <ion-icon name="share-social"></ion-icon>
+            </button>
+            <button onclick="showStickyNotes()" class="notes">
+                <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Take
+                Notes</button>
+            <div id="container"></div>
+            <!--Space for HTML elements of Blog Post-->
 
-        <div class="react_icons">
-            <div class="icon_main">
-                <p id="like_icon"><ion-icon name="heart-outline" id="heart_icon_c"></ion-icon>
-                    <span id="like_icon_count">0</span>
-                </p>
-                <p class="cmt_icon"><ion-icon name="chatbubble-outline"></ion-icon>
-                    <span id="cmt_icon_count">0</span>
-                </p>
+            <div class="react_icons">
+                <div class="icon_main">
+                    <p id="like_icon">
+                        <ion-icon name="heart-outline" id="heart_icon_c"></ion-icon>
+                        <span id="like_icon_count">0</span>
+                    </p>
+                    <p class="cmt_icon">
+                        <ion-icon name="chatbubble-outline"></ion-icon>
+                        <span id="cmt_icon_count">0</span>
+                    </p>
+                </div>
+                <div class="side_main">
+                    <p>
+                        <ion-icon name="bookmark-outline" id="save_icon_c"></ion-icon>
+                        Save</p>
+                </div>
             </div>
-            <div class="side_main">
-                <p><ion-icon name="bookmark-outline"></ion-icon>
-                    Save</p>
+            <div class="comment_area">
+                <h3>
+                    Responses (<span id="cmt_count">0</span>)
+                </h3>
+                <form class="form_data">
+                    <textarea placeholder="What are your thoughts?" id="cmt_txt" contenteditable="true"
+                        style="height: 55px; overflow: auto;"></textarea>
+                    <button onclick="publishCmt(event);" id="post_cmt">
+                        <ion-icon name="send"></ion-icon>
+                    </button>
+                </form>
+                <h4>Others</h4>
+                <div id="comment_box"></div>
+                <!--Comment data from HTML elements-->
+
             </div>
         </div>
-        <div class="comment_area">
-            <h3>Responses (<span id="cmt_count">0</span>)</h3>
-            <form class="form_data">
-                <textarea placeholder="What are your thoughts?" id="cmt_txt" contenteditable="true"
-                    style="height: 55px; overflow: auto;"></textarea>
-                <button onclick="publishCmt(event);" id="post_cmt"><ion-icon name="send"></ion-icon></button>
-            </form>
-            <h4>Others</h4>
-            <div id="comment_box"></div>
-            <!--Comment data from HTML elements-->
-
+        <div class="icons">
+            <a href="#">
+                <i class="fa fa-facebook" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-instagram" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-twitter" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-github" style="color: #000;"></i>
+            </a>
+            <p>© 2023 Venom.com All rights reserved</p>
         </div>
-    </div>
-    <div class="icons">
-        <a href="#"><i class="fa fa-facebook" style="color: #000;"></i></a>
-        <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
-        <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
-        <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-        <p>© 2023 Venom.com All rights reserved</p>
-    </div>
-    <script>
+        <script>const email_ID = JSON.parse(localStorage.getItem("email_ID"));
 
-let email_ID = JSON.parse(localStorage.getItem("email_ID"));
+        const params = new URLSearchParams(window.location.search);
+        const postId = params.get("post_ID");
 
-        let params = new URLSearchParams(window.location.search);
-        let postId = params.get('post_ID');
-
-        let blog_records = JSON.parse(localStorage.getItem("blog_records"));
+        const blog_records = JSON.parse(localStorage.getItem("blog_records"));
 
         function findRecord(e) {
-            return e.post_id == postId;
+          return e.post_id == postId;
         }
 
-        let converter = new showdown.Converter();
+        const converter = new showdown.Converter();
 
-        let blogDetails = blog_records.filter(findRecord);
-
+        const blogDetails = blog_records.filter(findRecord);
 
         blogDetails.forEach(function (post) {
-            let html = converter.makeHtml(post.content);
-            let postHTML = "<h2>" + post.title + "</h2>" +
-                "<p><em> Published On : " + post.timestamp + "  by  " + post.name + "</em></p>" +
-                "<p><strong>" + post.category + "</strong></p>" +
-                "<p><strong>Tags : </strong> " + post.tags.join(", ") + "</p>" +
-                "<div>" + html + "</div>";
-            let container = document.getElementById("container");
-            container.innerHTML += postHTML;
-
+          const html = converter.makeHtml(post.content);
+          const postHTML =
+    `<h2>${post.title}</h2>` +
+    `<p><em> Published On : ${post.timestamp}  by  ${post.name}</em></p>` +
+    `<p><strong>${post.category}</strong></p>` +
+    `<p><strong>Tags : </strong> ${post.tags.join(", ")}</p>` +
+    `<div>${html}</div>`;
+          const container = document.getElementById("container");
+          container.innerHTML += postHTML;
         });
 
-        let coverImage = blog_records.find((e) => e.post_id == postId)?.image.source;
-        let coverImg = document.getElementById("cover_image");
-        coverImg.style.backgroundImage = "url(" + coverImage + ")";
+        const coverImage = blog_records.find((e) => e.post_id == postId)?.image.source;
+        const coverImg = document.getElementById("cover_image");
+        coverImg.style.backgroundImage = `url(${coverImage})`;
 
         function publishCmt(e) {
-            e.preventDefault()
-            let comment_txt = document.getElementById("cmt_txt").value;
+          e.preventDefault();
+          const comment_txt = document.getElementById("cmt_txt").value;
 
-            let cmt_uuid = uuidv4(); // assuming this function is defined elsewhere
+          const cmt_uuid = uuidv4(); // assuming this function is defined elsewhere
 
-            let date = new Date();
-            let commentTime = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
+          const date = new Date();
+          const commentTime = `${date
+    .getDate()
+    .toString()
+    .padStart(2, "0")} ${date.toLocaleString("default", {
+    month: "short",
+  })} ${date.getFullYear()}`;
 
-            let comment_records = JSON.parse(localStorage.getItem("comment_records")) || [];
-            let email_ID = JSON.parse(localStorage.getItem("email_ID"));
-            let user_records = JSON.parse(localStorage.getItem("user_records"));
+          const comment_records =
+    JSON.parse(localStorage.getItem("comment_records")) || [];
+          const email_ID = JSON.parse(localStorage.getItem("email_ID"));
+          const user_records = JSON.parse(localStorage.getItem("user_records"));
 
-            // get user's name from user_records based on email_ID
-            let user_name = user_records.find((e) => e.user_email == email_ID)?.user_name;
-            let user_email = user_records.find((e) => e.user_email == email_ID)?.user_email;
-            let profileImage = user_records.find((e) => e.user_email == email_ID)?.user_profile;
+          // get user's name from user_records based on email_ID
+          const user_name = user_records.find(
+    (e) => e.user_email == email_ID
+  )?.user_name;
+          const user_email = user_records.find(
+    (e) => e.user_email == email_ID
+  )?.user_email;
+          const profileImage = user_records.find(
+    (e) => e.user_email == email_ID
+  )?.user_profile;
 
-            if (comment_txt == 0) {
-                alert("Please Write your Comment!");
-            }
-            else {
-                comment_records.push({
-                    "name": user_name,
-                    "user_email": user_email,
-                    "comment_id": cmt_uuid,
-                    "profile": {
-                        source: profileImage,
-                        alt: "profile_1"
-                    },
-                    "comment_time": commentTime,
-                    "comment_text": comment_txt,
-                    "comment_post_id": postId,
-                    "message": "Comment your post"
-                });
-            }
-            localStorage.setItem("comment_records", JSON.stringify(comment_records));
-            location.reload()
-        };
+          if (comment_txt == 0) {
+            alert("Please Write your Comment!");
+          } else {
+            comment_records.push({
+              name: user_name,
+              user_email,
+              comment_id: cmt_uuid,
+              profile: {
+                source: profileImage,
+                alt: "profile_1",
+              },
+              comment_time: commentTime,
+              comment_text: comment_txt,
+              comment_post_id: postId,
+              message: "Comment your post",
+            });
+          }
+          localStorage.setItem("comment_records", JSON.stringify(comment_records));
+          location.reload();
+        }
 
         // JSON for user comment
-        let comment_list = JSON.parse(localStorage.getItem("comment_records"));
+        const comment_list = JSON.parse(localStorage.getItem("comment_records"));
 
-        let post_comment = comment_list.filter(comment => comment.comment_post_id === postId);
+        const post_comment = comment_list.filter(
+  (comment) => comment.comment_post_id === postId
+);
         // console.log(post_comment);
 
-        let comment_count = post_comment.length;
+        const comment_count = post_comment.length;
         document.getElementById("cmt_count").innerHTML = comment_count;
         document.getElementById("cmt_icon_count").innerHTML = comment_count;
 
-
         for (let i = 0; i < post_comment.length; i++) {
+  //  <div class="col"> </div>
+          const commentBox = document.getElementById("comment_box");
 
-            //  <div class="col"> </div>
-            let commentBox = document.getElementById("comment_box");
+          const notificProfile = document.createElement("div");
+          notificProfile.setAttribute("class", "notific_profile");
 
-            let notificProfile = document.createElement("div");
-            notificProfile.setAttribute("class", "notific_profile");
+          const profileDiv = document.createElement("div");
 
-            let profileDiv = document.createElement("div");
+          const profileLink = document.createElement("a");
+          profileLink.href = `../Myprofile/6_profile.html?user_ID=${post_comment[i].user_email}`;
 
-            let profileLink = document.createElement("a");
-            profileLink.href = "../Myprofile/6_profile.html?user_ID=" + post_comment[i]["user_email"];
+          const profileImage = document.createElement("img");
+          profileImage.src = post_comment[i].profile.source;
+          profileImage.alt = "user_image";
+          profileImage.setAttribute("class", "profile_img");
 
-            let profileImage = document.createElement("img");
-            profileImage.src = post_comment[i].profile.source;
-            profileImage.alt = "user_image";
-            profileImage.setAttribute("class", "profile_img")
+          profileLink.appendChild(profileImage);
 
-            profileLink.appendChild(profileImage);
+          const profileName = document.createElement("p");
 
-            let profileName = document.createElement("p");
+          const strong = document.createElement("strong");
+          strong.textContent = post_comment[i].name;
 
-            let strong = document.createElement("strong");
-            strong.textContent = post_comment[i]["name"];
+          const span = document.createElement("span");
+          span.innerText = post_comment[i].comment_time;
 
-            let span = document.createElement("span");
-            span.innerText = post_comment[i]["comment_time"];
+          profileName.appendChild(strong);
+          profileName.appendChild(document.createElement("br"));
+          profileName.appendChild(span);
 
-            profileName.appendChild(strong);
-            profileName.appendChild(document.createElement("br"));
-            profileName.appendChild(span);
+          profileDiv.appendChild(profileLink);
+          profileDiv.appendChild(profileName);
 
-            profileDiv.appendChild(profileLink);
-            profileDiv.appendChild(profileName);
+          notificProfile.appendChild(profileDiv);
 
-            notificProfile.appendChild(profileDiv);
+          const commentTxt = document.createElement("p");
+          commentTxt.setAttribute("class", "comment_txt");
+          commentTxt.innerText = post_comment[i].comment_text;
 
-            let commentTxt = document.createElement("p");
-            commentTxt.setAttribute("class", "comment_txt")
-            commentTxt.innerText = post_comment[i]["comment_text"];
-
-            commentBox.prepend(commentTxt);
-            commentBox.prepend(notificProfile);
-        };
-
-        // Like count JS code
-        let likeCount = JSON.parse(localStorage.getItem("like_records")) || []
-        
-        
-
+          commentBox.prepend(commentTxt);
+          commentBox.prepend(notificProfile);
+        }
 
         function showStickyNotes() {
-            let stickyNote = document.createElement("textarea");
-            stickyNote.setAttribute("placeholder", "Take a note...");
+          const stickyNote = document.createElement("div");
+          stickyNote.classList.add("sticky-note");
 
-            stickyNote.classList.add("sticky-note");
+          const textarea = document.createElement("textarea");
+          textarea.setAttribute("placeholder", "Take a note...");
+          stickyNote.appendChild(textarea);
 
-            // Add some content to the sticky note
-            stickyNote.innerHTML = "";
+          const saveNote = document.createElement("button");
+          saveNote.setAttribute("class", "saveBtn");
+          saveNote.innerText = "Save";
+          stickyNote.appendChild(saveNote);
 
-            // Add the sticky note to the HTML body
-            document.body.appendChild(stickyNote);
+          const closeNote = document.createElement("span");
+          closeNote.classList.add("closeBtn");
+          closeNote.appendChild(document.createTextNode("X"));
+          stickyNote.appendChild(closeNote);
+
+          document.body.appendChild(stickyNote);
         }
 
-        let like_records = JSON.parse(localStorage.getItem("like_records")) || [];
+        document.addEventListener("click", function (event) {
+          if (event.target.classList.contains("closeBtn")) {
+            event.target.parentNode.remove();
+          }
+        });
 
-        let heart_icon=document.getElementById("heart_icon_c");
-        
-        let likeFind = like_records.find(like => like.user_id == email_ID && like.post_id == postId);
-        if(likeFind == undefined){
-            heart_icon.setAttribute("name","heart-outline");
-            heart_icon.style.color = 'black';
+        const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
+
+        const heart_icon = document.getElementById("heart_icon_c");
+
+        const likeFind = like_records.find(
+  (like) => like.user_id == email_ID && like.post_id == postId
+);
+        if (likeFind == undefined) {
+          heart_icon.setAttribute("name", "heart-outline");
+          heart_icon.style.color = "black";
+        } else {
+          heart_icon.setAttribute("name", "heart");
+          heart_icon.style.color = "red";
         }
-        else{
-            heart_icon.setAttribute("name","heart");
-            heart_icon.style.color = 'red';
-        }
-       
+
         // like count inner text
-        let heart_icon_count=document.getElementById("like_icon_count");
-       let  like_count=like_records.filter(e=>e.post_id==postId);
+        const heart_icon_count = document.getElementById("like_icon_count");
+        const like_count = like_records.filter((e) => e.post_id == postId);
         heart_icon_count.innerText = like_count.length;
 
         // Like count JS;
 
-        heart_icon.addEventListener("click", function(e){
-        let like_records = JSON.parse(localStorage.getItem("like_records")) || [];
-        if(like_records.length === 0){
+        heart_icon.addEventListener("click", function (e) {
+          const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
+          if (like_records.length === 0) {
             like_records.push({
-                "user_id" : email_ID,
-                "post_id" : postId,
-                "notific" : false
-            })
+              user_id: email_ID,
+              post_id: postId,
+              notific: false,
+            });
             localStorage.setItem("like_records", JSON.stringify(like_records));
-            heart_icon.setAttribute("name","heart");
-            heart_icon.style.color = 'red';
-            let  like_count=like_records.filter(e=>e.post_id==postId);
-        heart_icon_count.innerText = like_count.length;
+            heart_icon.setAttribute("name", "heart");
+            heart_icon.style.color = "red";
+            const like_count = like_records.filter((e) => e.post_id == postId);
+            heart_icon_count.innerText = like_count.length;
+  } else {
+            const likeFind = like_records.find(
+      (like) => like.user_id == email_ID && like.post_id == postId
+    );
+    const findIndex = like_records.indexOf(likeFind);
 
-        }
-        else{
-            let likeFind = like_records.find(like => like.user_id == email_ID && like.post_id == postId);
-            let findIndex  = like_records.indexOf(likeFind);
-
-            if(likeFind == undefined){
-                like_records.push({
-                "user_id" : email_ID,
-                "post_id" : postId,
-                "notific" : false
-            }) 
-            localStorage.setItem("like_records", JSON.stringify(like_records));
-            heart_icon.setAttribute("name","heart");
-            heart_icon.style.color = 'red';
-            let  like_count=like_records.filter(e=>e.post_id==postId);
-        heart_icon_count.innerText = like_count.length;
+            if (likeFind == undefined) {
+              like_records.push({
+                user_id: email_ID,
+                post_id: postId,
+                notific: false,
+              });
+              localStorage.setItem("like_records", JSON.stringify(like_records));
+              heart_icon.setAttribute("name", "heart");
+              heart_icon.style.color = "red";
+              const like_count = like_records.filter((e) => e.post_id == postId);
+              heart_icon_count.innerText = like_count.length;
+            } else {
+              like_records.splice(findIndex, 1);
+              localStorage.setItem("like_records", JSON.stringify(like_records));
+              heart_icon.setAttribute("name", "heart-outline");
+              heart_icon.style.color = "black";
+              const like_count = like_records.filter((e) => e.post_id == postId);
+              heart_icon_count.innerText = like_count.length;
             }
-            else {
-            like_records.splice(findIndex, 1)
-            localStorage.setItem("like_records", JSON.stringify(like_records));
-            heart_icon.setAttribute("name","heart-outline");
-            heart_icon.style.color = 'black';
-            let  like_count=like_records.filter(e=>e.post_id==postId);
-        heart_icon_count.innerText = like_count.length; 
-            }
-
-        }
+  }
         });
 
-        
+        const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
 
+        const save_icon = document.getElementById("save_icon_c");
+
+        const saveFind = save_records.find(
+  (save) => save.user_id == email_ID && save.post_id == postId
+);
+        if (saveFind == undefined) {
+          save_icon.setAttribute("name", "bookmark-outline");
+          save_icon.style.color = "black";
+        } else {
+          save_icon.setAttribute("name", "bookmark");
+          save_icon.style.color = "black";
+        }
+
+        // like count inner text
+        const save_icon_count = document.getElementById("like_icon_count");
+        const save_count = save_records.filter((e) => e.post_id == postId);
+        save_icon_count.innerText = save_count.length;
+
+        // Like count JS;
+
+        save_icon.addEventListener("click", function (e) {
+          const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
+          const saveFind = save_records.find(
+    (record) => record.user_id == email_ID && record.post_id == postId
+  );
+  if (saveFind) {
+            save_records.splice(save_records.indexOf(saveFind), 1);
+            save_icon.setAttribute("name", "bookmark-outline");
+          } else {
+            save_records.push({ user_id: email_ID, post_id: postId, notific: false });
+            save_icon.setAttribute("name", "bookmark");
+          }
+          localStorage.setItem("save_records", JSON.stringify(save_records));
+          const save_count = save_records.filter(
+    (record) => record.post_id == postId
+  ).length;
+          save_icon.style.color = save_count ? "black" : "";
+          save_icon_count.innerText = save_count;
+        });
     </script>
 
-    <script src="/assets/header.js"></script>
-</body>
+        <script src="/assets/header.js"></script>
+    </body>
 
 </html>

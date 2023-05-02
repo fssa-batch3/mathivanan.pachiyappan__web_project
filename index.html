@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venom.com</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--Link to CSS-->
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="icon" href="./assets/images/logo.png" type="image/x-icon">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Venom.com</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--Link to CSS-->
+        <link rel="stylesheet" href="./assets/css/style.css">
+        <link rel="icon" href="./assets/images/logo.png" type="image/x-icon">
 
-    <script src="./assets/main.js"></script>
-</head>
+        <script src="./assets/main.js"></script>
+    </head>
 
-<body>
-    <!--Header-->
+    <body>
+        <!--Header-->
 
-    <!--Home-->
-    <section class="home" id="home">
-        <div class="home-text container">
-            <h2 class="home-title">The Venom Blog</h2>
-            <span class="home-subtitle">Your source of great content</span>
+        <!--Home-->
+        <section class="home" id="home">
+            <div class="home-text container">
+                <h2 class="home-title">The Venom Blog</h2>
+                <span class="home-subtitle">Your source of great content</span>
+            </div>
+        </section>
+        <!--Post Filter-->
+        <div class="post-filter container">
+            <span class="filter-item active-filter" data-filter="all">All</span>
+            <span class="filter-item" data-filter="design">Design</span>
+            <span class="filter-item" data-filter="tech">Tech</span>
+            <span class="filter-item" data-filter="mobile">Mobile</span>
         </div>
-    </section>
-    <!--Post Filter-->
-    <div class="post-filter container">
-        <span class="filter-item active-filter" data-filter='all'>All</span>
-        <span class="filter-item" data-filter='design'>Design</span>
-        <span class="filter-item" data-filter='tech'>Tech</span>
-        <span class="filter-item" data-filter='mobile'>Mobile</span>
-    </div>
-    <!--Posts-->
-    <section class="post container">
-        <!--Post Box 1-->
+        <!--Posts-->
+        <section class="post container">
+            <!--Post Box 1-->
 
-    </section>
-    <div class="icons">
-        <a href="#"><i class="fa fa-facebook" style="color: #000;"></i></a>
-        <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
-        <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
-        <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-        <p>© 2023 Venom.com All rights reserved</p>
-    </div>
-    <script>
+        </section>
+        <div class="icons">
+            <a href="#">
+                <i class="fa fa-facebook" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-instagram" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-twitter" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-github" style="color: #000;"></i>
+            </a>
+            <p>© 2023 Venom.com All rights reserved</p>
+        </div>
+        <script>
         let div_box;
         let img_card;
         let h2_txt;
@@ -55,72 +63,77 @@
         let profile_img;
         let span_txt2;
 
-        let blog_data = JSON.parse(localStorage.getItem("blog_records"));
+        const blog_data = JSON.parse(localStorage.getItem("blog_records"));
         // const shorterLength = blog_data.length < user_data.length ? blog_data.length : user_data.length;
 
         for (let i = 0; i < blog_data.length; i++) {
-            //  <div class="col"> </div>
-            div_box = document.createElement("div");
-            div_box.setAttribute("class", "post-box design");
-            console.log(div_box);
+          //  <div class="col"> </div>
+          div_box = document.createElement("div");
+          div_box.setAttribute("class", "post-box design");
+          console.log(div_box);
 
-            //  <div class="card"> </div>
-            img_card = document.createElement("img");
-            img_card.setAttribute("src", blog_data[i]["image"]["source"]);
-            img_card.setAttribute("alt", blog_data[i]["image"]["alt"]);
-            img_card.setAttribute("class", "post-img");
-            div_box.append(img_card);
+          //  <div class="card"> </div>
+          img_card = document.createElement("img");
+          img_card.setAttribute("src", blog_data[i].image.source);
+          img_card.setAttribute("alt", blog_data[i].image.alt);
+          img_card.setAttribute("class", "post-img");
+          div_box.append(img_card);
 
-            //  <img src="" class="card-img-top" alt=""/>
-            h2_txt = document.createElement("h2");
-            h2_txt.setAttribute("class", "category");
-            h2_txt.innerText = blog_data[i]["category"];
-            div_box.append(h2_txt);
+          //  <img src="" class="card-img-top" alt=""/>
+          h2_txt = document.createElement("h2");
+          h2_txt.setAttribute("class", "category");
+          h2_txt.innerText = blog_data[i].category;
+          div_box.append(h2_txt);
 
-            //  <div class="card-body"> </div>
-            a_tag = document.createElement("a");
-            a_tag.setAttribute("class", "post-title");
-            a_tag.setAttribute("href", "../posts/8-1_post.html?post_ID=" + blog_data[i]["post_id"]);
-            a_tag.innerText = blog_data[i]["title"];
-            div_box.append(a_tag);
+          //  <div class="card-body"> </div>
+          a_tag = document.createElement("a");
+          a_tag.setAttribute("class", "post-title");
+          a_tag.setAttribute(
+    "href",
+    `../posts/8-1_post.html?post_ID=${blog_data[i].post_id}`
+          );
+  a_tag.innerText = blog_data[i].title;
+          div_box.append(a_tag);
 
+  //  <span class="post-date"> </span>
+          span_txt = document.createElement("span");
+          span_txt.setAttribute("class", "post-date");
+          span_txt.innerHTML = blog_data[i].timestamp;
+          div_box.append(span_txt);
 
-            //  <span class="post-date"> </span>
-            span_txt = document.createElement("span");
-            span_txt.setAttribute("class", "post-date");
-            span_txt.innerHTML = blog_data[i]["timestamp"];
-            div_box.append(span_txt);
+          //  <p class="card-text"> </p>
+          p_card_text = document.createElement("p");
+          p_card_text.setAttribute("class", "post-description");
+          p_card_text.innerHTML = blog_data[i].content;
+          div_box.append(p_card_text);
 
-            //  <p class="card-text"> </p>
-            p_card_text = document.createElement("p");
-            p_card_text.setAttribute("class", "post-description");
-            p_card_text.innerHTML = blog_data[i]["content"];
-            div_box.append(p_card_text);
+          div_profile = document.createElement("div");
+          div_profile.setAttribute("class", "profile");
+          div_box.append(div_profile);
 
-            div_profile = document.createElement("div");
-            div_profile.setAttribute("class", "profile");
-            div_box.append(div_profile);
+          a_tag2 = document.createElement("a");
+          a_tag2.setAttribute(
+    "href",
+    `../Myprofile/6_profile.html?user_ID=${blog_data[i].unique_id}`
+          );
+  div_profile.append(a_tag2);
 
-            a_tag2 = document.createElement("a");
-            a_tag2.setAttribute("href", "../Myprofile/6_profile.html?user_ID=" + blog_data[i]["unique_id"]);
-            div_profile.append(a_tag2);
+          profile_img = document.createElement("img");
+          profile_img.setAttribute("src", blog_data[i].profile.source);
+          profile_img.setAttribute("alt", blog_data[i].profile.alt);
+          profile_img.setAttribute("class", "profile-img");
+          a_tag2.append(profile_img);
 
-            profile_img = document.createElement("img");
-            profile_img.setAttribute("src", blog_data[i]["profile"]["source"]);
-            profile_img.setAttribute("alt", blog_data[i]["profile"]["alt"]);
-            profile_img.setAttribute("class", "profile-img");
-            a_tag2.append(profile_img);
+          span_txt2 = document.createElement("span");
+          span_txt2.setAttribute("class", "profile-name");
+          span_txt2.innerText = blog_data[i].name;
+          div_profile.append(span_txt2);
 
-            span_txt2 = document.createElement("span");
-            span_txt2.setAttribute("class", "profile-name");
-            span_txt2.innerText = blog_data[i]["name"];
-            div_profile.append(span_txt2);
-
-            document.querySelector("section.post.container").prepend(div_box);
+          document.querySelector("section.post.container").prepend(div_box);
         }
     </script>
 
-    <script src="/assets/header.js"></script>
-</body>
+        <script src="/assets/header.js"></script>
+    </body>
 
 </html>

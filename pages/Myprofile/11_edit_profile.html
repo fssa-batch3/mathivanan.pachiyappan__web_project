@@ -1,229 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings-Venom.com</title>
-  <link rel="stylesheet" href="../../assets/css/3_home.css">
-  <link rel="stylesheet" href="../../assets/css/9_edit_profile.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Settings-Venom.com</title>
+        <link rel="stylesheet" href="../../assets/css/3_home.css">
+        <link rel="stylesheet" href="../../assets/css/9_edit_profile.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
 
-<body>
-  <!--Header-->
+    <body>
+        <!--Header-->
 
-  <div class="header__wrapper">
-    <header><img id="imgBox" alt="" style="padding: 0.5rem;" /></header>
-    <div class="round_1">
-      <input type="file" accept="image/*" name="image" id="banner-upload" style="display: none">
-      <label for="banner-upload"><i class="fa fa-camera" style="color: #000;"></i></label>
-    </div>
-    <div class="upload">
-      <img id="imgBox2" alt="" style="padding: 1rem;" />
-      <div class="round">
-        <input type="file" accept="image/*" name="image" id="profile-upload" style="display: none">
-        <label for="profile-upload"><i class="fa fa-camera" style="color: #000;"></i></label>
-      </div>
-    </div>
-    <h1>User</h1>
-    <div class="inputs">
-      <form onsubmit="saveUpdate(event);">
-        <div>
-          <p>Name</p>
-          <input type="text" placeholder="Name" id="edit_name" />
+        <div class="header__wrapper">
+            <header>
+                <img id="imgBox" alt="" style="padding: 0.5rem;">
+            </header>
+            <div class="round_1">
+                <input type="file" accept="image/*" name="image" id="banner-upload" style="display: none">
+                <label for="banner-upload">
+                    <i class="fa fa-camera" style="color: #000;"></i>
+                </label>
+            </div>
+            <div class="upload">
+                <img id="imgBox2" alt="" style="padding: 1rem;">
+                <div class="round">
+                    <input type="file" accept="image/*" name="image" id="profile-upload" style="display: none">
+                    <label for="profile-upload">
+                        <i class="fa fa-camera" style="color: #000;"></i>
+                    </label>
+                </div>
+            </div>
+            <h1>User</h1>
+            <div class="inputs">
+                <form onsubmit="saveUpdate(event);">
+                    <div>
+                        <p>Name</p>
+                        <input type="text" placeholder="Name" id="edit_name">
+                    </div>
+                    <div>
+                        <p>Email</p>
+                        <input type="email" placeholder="Email" id="edit_email">
+                    </div>
+                    <div>
+                        <p>DOB</p>
+                        <input type="date" required="true" style="text-transform: uppercase;" id="date">
+                        <p>Country</p>
+                        <input type="text" placeholder="Country" list="count" id="country">
+                        <datalist id="count">
+                            <option>Australia</option>
+                            <option>Bangladesh</option>
+                            <option>China</option>
+                            <option>Denmark</option>
+                            <option>Egypt</option>
+                            <option>France</option>
+                            <option>Germany</option>
+                            <option>Hungary</option>
+                            <option>India</option>
+                            <option>Japan</option>
+                            <option>Kuwait</option>
+                            <option>Lebanon</option>
+                            <option>Malaysia</option>
+                            <option>New Zealand</option>
+                            <option>Oman</option>
+                            <option>Pakistan</option>
+                            <option>Qatar</option>
+                            <option>Russia</option>
+                            <option>Singapore</option>
+                            <option>Thailand</option>
+                            <option>UAE</option>
+                            <option>UK</option>
+                            <option>USA</option>
+                            <option>Vietnam</option>
+                            <option>Yemen</option>
+                            <option>Zimbabwe</option>
+                        </datalist>
+                    </div>
+                    <div>
+                        <p>Designation</p>
+                        <input type="text" placeholder="Ex : CEO of Google" id="job">
+                        <p>Tags</p>
+                        <input type="text" placeholder="#tech #career #design #space" id="tag">
+                    </div>
+                    <div class="textarea_box">
+                        <h3>Bio</h3>
+                        <textarea placeholder="A short bio..." id="bio"></textarea>
+                        <p id="result"></p>
+                    </div>
+                    <button class="save_prfl" type="submit">Save Profile</button>
+                </form>
+            </div>
         </div>
-        <div>
-          <p>Email</p>
-          <input type="email" placeholder="Email" id="edit_email" />
+        <div class="icons">
+            <a href="#">
+                <i class="fa fa-facebook" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-instagram" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-twitter" style="color: #000;"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-github" style="color: #000;"></i>
+            </a>
+            <p>© 2023 Venom.com All rights reserved</p>
         </div>
-        <div>
-          <p>DOB</p>
-          <input type="date" required="true" style="text-transform: uppercase;" id="date" />
-          <p>Country</p>
-          <input type="text" placeholder="Country" list="count" id="country" />
-          <datalist id="count">
-            <option>Australia</option>
-            <option>Bangladesh</option>
-            <option>China</option>
-            <option>Denmark</option>
-            <option>Egypt</option>
-            <option>France</option>
-            <option>Germany</option>
-            <option>Hungary</option>
-            <option>India</option>
-            <option>Japan</option>
-            <option>Kuwait</option>
-            <option>Lebanon</option>
-            <option>Malaysia</option>
-            <option>New Zealand</option>
-            <option>Oman</option>
-            <option>Pakistan</option>
-            <option>Qatar</option>
-            <option>Russia</option>
-            <option>Singapore</option>
-            <option>Thailand</option>
-            <option>UAE</option>
-            <option>UK</option>
-            <option>USA</option>
-            <option>Vietnam</option>
-            <option>Yemen</option>
-            <option>Zimbabwe</option>
-          </datalist>
-        </div>
-        <div>
-          <p>Designation</p>
-          <input type="text" placeholder="Ex : CEO of Google" id="job">
-          <p>Tags</p>
-          <input type="text" placeholder="#tech #career #design #space" id="tag">
-        </div>
-        <div class="textarea_box">
-          <h3>Bio</h3>
-          <textarea placeholder="A short bio..." id="bio"></textarea>
-          <p id="result"></p>
-        </div>
-        <button class="save_prfl" type="submit">Save Profile</button>
-      </form>
-    </div>
-  </div>
-  <div class="icons">
-    <a href="#"><i class="fa fa-facebook" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-    <p>© 2023 Venom.com All rights reserved</p>
-  </div>
 
-  <script>
-
-    let myText = document.getElementById("bio");
-    let result = document.getElementById("result");
-    let limit = 250;
-    result.textContent = 0 + "/" + limit;
+        <script>const myText = document.getElementById("bio");
+    const result = document.getElementById("result");
+    const limit = 250;
+    result.textContent = `${0}/${limit}`;
 
     myText.addEventListener("input", function () {
-      let textLength = myText.value.length;
-      result.textContent = textLength + "/" + limit;
+      const textLength = myText.value.length;
+      result.textContent = `${textLength}/${limit}`;
 
       if (textLength > limit) {
         myText.style.borderColor = "#ff2851";
         result.style.color = "#ff2851";
-        alert("Character limit only 250")
-      }
-      else {
+        alert("Character limit only 250");
+      } else {
         myText.style.borderColor = "#b2b2b2";
         result.style.color = "#737373";
       }
     });
 
     // Profile image Upload API
-    let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dvb2bkrx9/upload'
-    let CLOUDINARY_UPLOAD_PRESET = 'sk3iuzma';
+    const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dvb2bkrx9/upload";
+    const CLOUDINARY_UPLOAD_PRESET = "sk3iuzma";
 
-    let imgPreview = document.getElementById("imgBox2");
-    let fileUpload = document.getElementById("profile-upload");
+    const imgPreview = document.getElementById("imgBox2");
+    const fileUpload = document.getElementById("profile-upload");
 
     fileUpload.addEventListener("change", function (event) {
-      let file = event.target.files[0];
-      let formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+      const file = event.target.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
       axios({
         url: CLOUDINARY_URL,
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        data: formData
-      }).then(function (res) {
-        console.log(res);
-        imgPreview.src = res.data.secure_url;
-        // Store the URL in localStorage
-        let userRecords = res.data.secure_url;
-        localStorage.setItem('profile_image', userRecords);
-      }).catch(function (err) {
-        console.error(err);
-      });
+        data: formData,
+      })
+    .then(function (res) {
+          console.log(res);
+          imgPreview.src = res.data.secure_url;
+          // Store the URL in localStorage
+          const userRecords = res.data.secure_url;
+          localStorage.setItem("profile_image", userRecords);
+        })
+    .catch(function (err) {
+          console.error(err);
+        });
     });
 
     // Profile banner Upload API
 
-    let imgPreview2 = document.getElementById("imgBox");
-    let fileUpload2 = document.getElementById("banner-upload");
+    const imgPreview2 = document.getElementById("imgBox");
+    const fileUpload2 = document.getElementById("banner-upload");
 
     fileUpload2.addEventListener("change", function (event) {
-      let file2 = event.target.files[0];
-      let formData = new FormData();
-      formData.append('file', file2);
-      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+      const file2 = event.target.files[0];
+      const formData = new FormData();
+      formData.append("file", file2);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
       axios({
         url: CLOUDINARY_URL,
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        data: formData
-      }).then(function (res) {
-        console.log(res);
-        imgPreview2.src = res.data.secure_url;
-        let userRecords_bi = res.data.secure_url;
-        localStorage.setItem('profile_banner', userRecords_bi);
-      }).catch(function (err) {
-        console.error(err);
-      });
+        data: formData,
+      })
+    .then(function (res) {
+          console.log(res);
+          imgPreview2.src = res.data.secure_url;
+          const userRecords_bi = res.data.secure_url;
+          localStorage.setItem("profile_banner", userRecords_bi);
+        })
+    .catch(function (err) {
+          console.error(err);
+        });
     });
 
     //  localStorage.getItem("key", value)
-    let email_ID = JSON.parse(localStorage.getItem('email_ID'));
-    let user_records = JSON.parse(localStorage.getItem("user_records"))
+    const email_ID = JSON.parse(localStorage.getItem("email_ID"));
+    const user_records = JSON.parse(localStorage.getItem("user_records"));
 
     function login_data(e) {
       return e.user_email == email_ID;
     }
     user_data = user_records.find(login_data);
 
-    document.getElementById("edit_name").value = user_data['user_name'];
+    document.getElementById("edit_name").value = user_data.user_name;
     edit_name.readOnly = true;
-    document.getElementById("edit_email").value = user_data['user_email'];
+    document.getElementById("edit_email").value = user_data.user_email;
     edit_email.readOnly = true;
-    document.getElementById("date").value = user_data['user_date'];
-    document.getElementById("country").innerText = user_data['user_country'];
-    document.getElementById("job").value = user_data['user_job'];
-    document.getElementById("tag").value = user_data['user_tag'];
-    document.getElementById("bio").value = user_data['user_bio'];
-    document.getElementById("imgBox").value = user_data['user_banner'];
-    document.getElementById("imgBox2").value = user_data['user_profile'];
+    document.getElementById("date").value = user_data.user_date;
+    document.getElementById("country").innerText = user_data.user_country;
+    document.getElementById("job").value = user_data.user_job;
+    document.getElementById("tag").value = user_data.user_tag;
+    document.getElementById("bio").value = user_data.user_bio;
+    document.getElementById("imgBox").value = user_data.user_banner;
+    document.getElementById("imgBox2").value = user_data.user_profile;
 
     function saveUpdate(e) {
       e.preventDefault();
-      let img2 = localStorage.getItem("profile_banner")
-      let img = localStorage.getItem("profile_image")
-      let date = document.getElementById("date").value
-      let country = document.getElementById("country").value
-      let job = document.getElementById("job").value
-      let tag = document.getElementById("tag").value
-      let bio = document.getElementById("bio").value
-      user_data["user_date"] = date;
-      user_data["user_country"] = country;
-      user_data["user_job"] = job;
-      user_data["user_tag"] = tag;
-      user_data["user_bio"] = bio;
-      user_data["user_banner"] = img2;
-      user_data["user_profile"] = img;
-      localStorage.setItem('user_records', JSON.stringify(user_records));
+      const img2 = localStorage.getItem("profile_banner");
+      const img = localStorage.getItem("profile_image");
+      const date = document.getElementById("date").value;
+      const country = document.getElementById("country").value;
+      const job = document.getElementById("job").value;
+      const tag = document.getElementById("tag").value;
+      const bio = document.getElementById("bio").value;
+      user_data.user_date = date;
+      user_data.user_country = country;
+      user_data.user_job = job;
+      user_data.user_tag = tag;
+      user_data.user_bio = bio;
+      user_data.user_banner = img2;
+      user_data.user_profile = img;
+      localStorage.setItem("user_records", JSON.stringify(user_records));
       alert("Updated successfully");
-      window.location.href = "../Myprofile/6_profile.html?user_ID=" + user_data["user_email"];
+      window.location.href = `../Myprofile/6_profile.html?user_ID=${user_data.user_email}`;
       // console.log(user_list);
     }
-
   </script>
 
-  <script src="/assets/header.js"></script>
-</body>
+        <script src="/assets/header.js"></script>
+    </body>
 
 </html>
