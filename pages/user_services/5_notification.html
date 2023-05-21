@@ -1,167 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Notification-Venom.com</title>
-        <link rel="stylesheet" href="../../assets/css/3_home.css">
-        <link rel="stylesheet" href="../../assets/css/5_notification.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification-Venom.com</title>
+    <link rel="stylesheet" href="../../assets/css/3_home.css">
+    <link rel="stylesheet" href="../../assets/css/5_notification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+</head>
 
-    <body>
-        <!--Header-->
+<body>
+    <!--Header-->
 
-        <div class="notific_main">
-            <h1>
-                Notifications<sup>
-                    <i class="fa fa-bell" style="color: #000;"></i>
-                </sup>
-            </h1>
-            <div class="notific_top">
-                <!--Notification_content_Js-->
-            </div>
+    <div class="notific_main">
+        <h1>
+            Notifications<sup>
+                <i class="fa fa-bell" style="color: #000;"></i>
+            </sup>
+        </h1>
+        <div class="notific_top">
+            <!--Notification_content_Js-->
         </div>
-        <div class="icons">
-            <a href="#">
-                <i class="fa fa-facebook" style="color: #000;"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-instagram" style="color: #000;"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-twitter" style="color: #000;"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-github" style="color: #000;"></i>
-            </a>
-            <p>© 2022 Venom.com All rights reserved</p>
-        </div>
+    </div>
+    <div class="icons">
+        <a href="#">
+            <i class="fa fa-facebook" style="color: #000;"></i>
+        </a>
+        <a href="#">
+            <i class="fa fa-instagram" style="color: #000;"></i>
+        </a>
+        <a href="#">
+            <i class="fa fa-twitter" style="color: #000;"></i>
+        </a>
+        <a href="#">
+            <i class="fa fa-github" style="color: #000;"></i>
+        </a>
+        <p>© 2023 Venom.com All rights reserved</p>
+    </div>
 
-        <script>
-    // const notific_card2 = [
-    //   {
-    //     "notific_user": {
-    //       source: "../../assets/images/Profile/profile_1.jpg",
-    //       alt: "user_profile"
-    //     },
-    //     "strong": "Elon Musk",
-    //     "notific_text": "liked your post",
-    //     "timestamp": "3m ago"
-    //   },
-    //   {
-    //     "notific_user": {
-    //       source: "../../assets/images/Profile/profile_2.jpg",
-    //       alt: "user_profile"
-    //     },
-    //     "strong": "Anand Mahindra",
-    //     "notific_text": "comment your post and started follow you",
-    //     "timestamp": "5m ago"
-    //   },
-    //   {
-    //     "notific_user": {
-    //       source: "../../assets/images/Profile/profile_3.jpg",
-    //       alt: "user_profile"
-    //     },
-    //     "strong": "Kamala Harris",
-    //     "notific_text": "like and comment your post",
-    //     "timestamp": "7m ago"
-    //   },
-    //   {
-    //     "notific_user": {
-    //       source: "../../assets/images/Profile/profile_4.jpg",
-    //       alt: "user_profile"
-    //     },
-    //     "strong": "Girish Mathrubootham",
-    //     "notific_text": "like your post and started follow you",
-    //     "timestamp": " 8m ago"
-    //   },
-    //   {
-    //     "notific_user": {
-    //       source: "../../assets/images/Profile/profile_5.jpg",
-    //       alt: "user_profile"
-    //     },
-    //     "strong": "Johnny Depp",
-    //     "notific_text": "react your post with shocking emoji",
-    //     "timestamp": "15m ago"
-    //   },
-    //   {
-    //     "notific_user": {
-    //       source: "../../assets/images/Profile/profile_6.jpg",
-    //       alt: "user_profile"
-    //     },
-    //     "strong": "Chris Evans",
-    //     "notific_text": "comment your post and started follow you",
-    //     "timestamp": "1h ago"
-    //   },
-    //   {
-    //     "notific_user": {
-    //       source: "../../assets/images/Profile/profile_7.jpg",
-    //       alt: "user_profile"
-    //     },
-    //     "strong": "James Cameron",
-    //     "notific_text": "liked your Post",
-    //     "timestamp": "5h ago"
+    <script>
 
-    //   },
-    //   {
-    //     "notific_user": {
-    //       source: "../../assets/images/Profile/profile_8.jpg",
-    //       alt: "user_profile"
-    //     },
-    //     "strong": "Ratan Tata",
-    //     "notific_text": "liked your Post",
-    //     "timestamp": "2d ago"
-    //   }
+        let div_notific;
+        let img_profile;
+        let p_notific_txt;
+        let br_notific_txt;
+        let strong_txt;
 
-    // ]
+        let params = new URLSearchParams(window.location.search);
+        let userId = params.get('user_ID');
 
-    let div_notific;
-    let img_profile;
-    let p_notific_txt;
-    let br_notific_txt;
-    let strong_txt;
+        const getCommentRc = JSON.parse(localStorage.getItem("comment_records"));
+        const findCrtId = getCommentRc.filter((e) => e.other_user === userId);
 
-    const notific_card2 = JSON.parse(localStorage.getItem("comment_records"));
+        for (let i = 0; i <= findCrtId.length; i++) {
+            div_notific = document.createElement("div");
+            div_notific.setAttribute("class", "notific_profile");
+            console.log(div_notific);
 
-    for (let i = 0; i <= notific_card2.length; i++) {
-      div_notific = document.createElement("div");
-      div_notific.setAttribute("class", "notific_profile");
-      console.log(div_notific);
+            img_profile = document.createElement("img");
+            img_profile.setAttribute("src", findCrtId[i].profile.source);
+            img_profile.setAttribute("alt", findCrtId[i].profile.alt);
+            img_profile.setAttribute("class", "profile_pic");
+            div_notific.prepend(img_profile);
 
-      p_notific_txt = document.createElement("p");
-      p_notific_txt.setAttribute("class", "post-description");
-      p_notific_txt.innerText = notific_card2[i].comment_time;
-      div_notific.append(p_notific_txt);
+            p_notific_txt = document.createElement("p");
+            p_notific_txt.setAttribute("class", "post-description");
+            p_notific_txt.innerText = findCrtId[i].comment_time;
+            div_notific.append(p_notific_txt);
 
-      img_profile = document.createElement("img");
-      img_profile.setAttribute("src", notific_card2[i].profile.source);
-      img_profile.setAttribute("alt", notific_card2[i].profile.alt);
-      img_profile.setAttribute("class", "profile_pic");
-      div_notific.prepend(img_profile);
+            b_notific_txt = document.createElement("strong");
+            b_notific_txt.setAttribute("class", "bold");
+            b_notific_txt.innerText = findCrtId[i].name;
+            p_notific_txt.prepend(b_notific_txt);
 
-      b_notific_txt = document.createElement("strong");
-      b_notific_txt.setAttribute("class", "bold");
-      b_notific_txt.innerText = notific_card2[i].name;
-      p_notific_txt.prepend(b_notific_txt);
+            br_notific_txt = document.createElement("p");
+            br_notific_txt.setAttribute("class", "time_data");
+            br_notific_txt.innerText = findCrtId[i].message;
+            b_notific_txt.append(br_notific_txt);
 
-      br_notific_txt = document.createElement("p");
-      br_notific_txt.setAttribute("class", "time_data");
-      br_notific_txt.innerText = notific_card2[i].message;
-      b_notific_txt.append(br_notific_txt);
+            document.querySelector("div.notific_top").prepend(div_notific);
+        }
 
-      document.querySelector("div.notific_top").append(div_notific);
+        
+    </script>
 
-      // Get the notification count element
-      // let notific_count = notific_card2.length;
-      // document.getElementById("notific").innerHTML = notific_count;
-    }
-  </script>
-
-        <script src="/assets/header.js"></script>
-    </body>
+    <script src="/assets/header.js"></script>
+</body>
 
 </html>

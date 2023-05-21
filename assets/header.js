@@ -31,9 +31,8 @@ const AfterLogin = `<header>
               </form>
             </li>
             <li id="med-blk"><a href="${rootPath}/pages/user_services/4_creat_post.html">Create</a></li>
-            <a href="${rootPath}/pages/user_services/5_notification.html">
-                <li id="med-blk"><i class="fa fa-bell" style="color: #000;"></i><span id="notific" class="notific_count">0</span></li>
-            </a>
+            <div id="notific_bell">
+            </div>
             <div class="dropdown">
                 <button class="dropbtn">
                     <li class="profile_img" id="profile_img"></li>
@@ -43,7 +42,7 @@ const AfterLogin = `<header>
                     <a id="med-dc" href="${rootPath}/pages/user_services/4_creat_post.html"><i class="fa fa-magic"
                             style="font-size:18px"></i>Create</a>
                     <a id="med-dc" href="${rootPath}/pages/user_services/5_notification.html"><i class="fa fa-bell"
-                            style="font-size:13px"></i>Notification</a>
+                            style="font-size:13px"></i>Notification<span id="notificMobile" class="notific_count"></span></a>
                     
                     <a href="${rootPath}/index.html" id="logout_btn"><i class="fa fa-sign-out"
                             style="font-size:18px"></i>Log-Out</a>
@@ -78,6 +77,7 @@ if (loginUser) {
   localStorage.removeItem("email_ID");
 }
 
+const userData = JSON.parse(localStorage.getItem("email_ID"));
 const userRecords = JSON.parse(localStorage.getItem("user_records"));
 const profileImage = userRecords.find(
   (e) => e.user_email == loginUser
@@ -85,9 +85,42 @@ const profileImage = userRecords.find(
 const profImg = document.getElementById("profile_img");
 profImg.style.backgroundImage = `url(${profileImage})`;
 
+// Create the <a> element
+var linkElement = document.createElement("a");
+linkElement.setAttribute(
+  "href",
+  `${rootPath}/pages/user_services/5_notification.html?user_ID=${userData}`
+);
+// linkElement.href = rootPath + "/pages/user_services/5_notification.html?user_ID=${userData}";
+
+// Create the <li> element
+var listItemElement = document.createElement("li");
+listItemElement.id = "med-blk";
+
+// Create the <i> element
+var iconElement = document.createElement("i");
+iconElement.className = "fa fa-bell";
+iconElement.style.color = "#000";
+
+// Create the <span> element
+var countElement = document.createElement("span");
+countElement.id = "notific";
+countElement.className = "notific_count";
+countElement.innerText = "0";
+
+// Append the <i> and <span> elements to the <li> element
+listItemElement.appendChild(iconElement);
+listItemElement.appendChild(countElement);
+
+// Append the <li> element to the <a> element
+linkElement.appendChild(listItemElement);
+
+// Append the <a> element to the desired parent element in the DOM
+var parentElement = document.getElementById("notific_bell");
+parentElement.appendChild(linkElement);
+
 const profileLink = document.getElementById("drop_down");
 
-const userData = JSON.parse(localStorage.getItem("email_ID"));
 const url = `${rootPath}/pages/Myprofile/6_profile.html?user_ID=${userData}`;
 const aTag = document.createElement("a");
 const iTag = document.createElement("i");
@@ -123,9 +156,10 @@ divElement.appendChild(paragraphElement);
 document.querySelector("div.header").prepend(divElement);
 
 const notific_card = JSON.parse(localStorage.getItem("comment_records"));
+const getCmtPostlng = notific_card.filter((e) => e.user_email !== userData);
 const notific_length = document.getElementById("notific");
-notific_length.innerText = notific_card.length;
-if (notific_card.length <= 0) {
+notific_length.innerText = getCmtPostlng.length;
+if (getCmtPostlng.length <= 0) {
   notific_length.style.display = "none";
 }
 

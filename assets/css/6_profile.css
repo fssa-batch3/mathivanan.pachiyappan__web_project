@@ -89,12 +89,13 @@ div.header__wrapper {
   margin: 35px 0;
 }
 
-.header__wrapper .cols__container .left__col .about li a {
+.header__wrapper .cols__container .left__col .about li {
   display: flex;
   flex-direction: column;
   margin: 1rem;
   color: #818181;
   font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .header__wrapper .cols__container .left__col .about li span {
@@ -153,18 +154,24 @@ div.header__wrapper {
   flex-direction: column;
 }
 
-.header__wrapper .cols__container .right__col nav ul li a {
+.header__wrapper .cols__container .right__col nav ul li button.userAccess_btn {
   text-transform: uppercase;
   color: #818181;
-}
-
-.header__wrapper .cols__container .right__col nav ul li.udr_line a {
-  border-bottom: 2px solid orange;
+  font-size: 102%;
   font-weight: bold;
-  color: #1d1d1d;
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  padding: 3px;
+  cursor: pointer;
 }
 
-.header__wrapper .cols__container .right__col nav ul li:nth-child(1) a {
+.header__wrapper .cols__container .right__col nav ul li button.userAccess_btn:hover {
+  border-bottom: 2px solid #fd8f44;
+  color: black;
+}
+
+.header__wrapper .cols__container .right__col nav ul li:nth-child(1) button {
   color: #1d1d1d;
   font-weight: 600;
 }
@@ -174,14 +181,18 @@ div.header__wrapper {
   color: #fff;
   font-weight: bold;
   border: none;
-  padding: 10px 25px;
-  border-radius: 4px;
   cursor: pointer;
   margin-top: 20px;
 }
 
 button a {
-  color: white;
+  background: #0091ff;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
 .header__wrapper .cols__container .right__col nav button {

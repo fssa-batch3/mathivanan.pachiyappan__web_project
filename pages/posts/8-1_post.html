@@ -1,355 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Venom.com</title>
-        <link rel="stylesheet" href="../../assets/css/3_home.css">
-        <link rel="stylesheet" href="../../assets/css/8_post.css">
-        <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Venom.com</title>
+  <link rel="stylesheet" href="../../assets/css/3_home.css">
+  <link rel="stylesheet" href="../../assets/css/8_post.css">
+  <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+</head>
 
-    <body>
-        <!--Header-->
+<body>
+  <!--Header-->
+  <div class="post_page">
+    <p id="cover_image"></p>
+    <button class="share_icon" id="shareButton" onclick="shareLink()">
+      <ion-icon name="share-social"></ion-icon>
+    </button>
+    <div id="container"></div>
+    <!--Space for HTML elements of Blog Post-->
+    <div id="text-to-speech">
+      <button id="play-btn" disabled>Play</button>
+      <button id="pause-btn" disabled>Pause</button>
+    </div>
+    <div class="react_icons">
+      <div class="icon_main">
+        <p id="like_icon">
+          <ion-icon name="heart-outline" id="heart_icon_c"></ion-icon>
+          <span id="like_icon_count">0</span>
+        </p>
+        <p class="cmt_icon">
+          <ion-icon name="chatbubble-outline"></ion-icon>
+          <span id="cmt_icon_count">0</span>
+        </p>
+      </div>
+      <div class="side_main">
+        <p>
+          <ion-icon name="bookmark-outline" id="save_icon_c"></ion-icon>
+          Save
+        </p>
+      </div>
+    </div>
+    <div class="comment_area">
+      <h3>
+        Responses (<span id="cmt_count">0</span>)
+      </h3>
+      <form class="form_data">
+        <textarea placeholder="What are your thoughts?" id="cmt_txt" contenteditable="true"
+          style="height: 55px; overflow: auto;"></textarea>
+        <button onclick="publishCmt(event);" id="post_cmt">
+          <ion-icon name="send"></ion-icon>
+        </button>
+      </form>
+      <h4>Others</h4>
+      <div id="comment_box"></div>
+      <!--Comment data from HTML elements-->
 
-        <div class="post_page">
-            <p id="cover_image"></p>
-            <button class="share_icon" id="shareButton">
-                <ion-icon name="share-social"></ion-icon>
-            </button>
-            <button onclick="showStickyNotes()" class="notes">
-                <i class="fa fa-sticky-note-o" aria-hidden="true"></i> Take
-                Notes</button>
-            <div id="container"></div>
-            <!--Space for HTML elements of Blog Post-->
+    </div>
+  </div>
+  <div class="icons">
+    <a href="#">
+      <i class="fa fa-facebook" style="color: #000;"></i>
+    </a>
+    <a href="#">
+      <i class="fa fa-instagram" style="color: #000;"></i>
+    </a>
+    <a href="#">
+      <i class="fa fa-twitter" style="color: #000;"></i>
+    </a>
+    <a href="#">
+      <i class="fa fa-github" style="color: #000;"></i>
+    </a>
+    <p>© 2023 Venom.com All rights reserved</p>
+  </div>
 
-            <div class="react_icons">
-                <div class="icon_main">
-                    <p id="like_icon">
-                        <ion-icon name="heart-outline" id="heart_icon_c"></ion-icon>
-                        <span id="like_icon_count">0</span>
-                    </p>
-                    <p class="cmt_icon">
-                        <ion-icon name="chatbubble-outline"></ion-icon>
-                        <span id="cmt_icon_count">0</span>
-                    </p>
-                </div>
-                <div class="side_main">
-                    <p>
-                        <ion-icon name="bookmark-outline" id="save_icon_c"></ion-icon>
-                        Save</p>
-                </div>
-            </div>
-            <div class="comment_area">
-                <h3>
-                    Responses (<span id="cmt_count">0</span>)
-                </h3>
-                <form class="form_data">
-                    <textarea placeholder="What are your thoughts?" id="cmt_txt" contenteditable="true"
-                        style="height: 55px; overflow: auto;"></textarea>
-                    <button onclick="publishCmt(event);" id="post_cmt">
-                        <ion-icon name="send"></ion-icon>
-                    </button>
-                </form>
-                <h4>Others</h4>
-                <div id="comment_box"></div>
-                <!--Comment data from HTML elements-->
+  <script>
 
-            </div>
-        </div>
-        <div class="icons">
-            <a href="#">
-                <i class="fa fa-facebook" style="color: #000;"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-instagram" style="color: #000;"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-twitter" style="color: #000;"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-github" style="color: #000;"></i>
-            </a>
-            <p>© 2023 Venom.com All rights reserved</p>
-        </div>
-        <script>const email_ID = JSON.parse(localStorage.getItem("email_ID"));
+    const email_ID = JSON.parse(localStorage.getItem("email_ID"));
 
-        const params = new URLSearchParams(window.location.search);
-        const postId = params.get("post_ID");
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get("post_ID");
 
-        const blog_records = JSON.parse(localStorage.getItem("blog_records"));
+    const blog_records = JSON.parse(localStorage.getItem("blog_records"));
 
-        function findRecord(e) {
-          return e.post_id == postId;
-        }
+    function findRecord(e) {
+      return e.post_id == postId;
+    }
 
-        const converter = new showdown.Converter();
+    const converter = new showdown.Converter();
 
-        const blogDetails = blog_records.filter(findRecord);
+    const blogDetails = blog_records.filter(findRecord);
 
-        blogDetails.forEach(function (post) {
-          const html = converter.makeHtml(post.content);
-          const postHTML =
-    `<h2>${post.title}</h2>` +
-    `<p><em> Published On : ${post.timestamp}  by  ${post.name}</em></p>` +
-    `<p><strong>${post.category}</strong></p>` +
-    `<p><strong>Tags : </strong> ${post.tags.join(", ")}</p>` +
-    `<div>${html}</div>`;
-          const container = document.getElementById("container");
-          container.innerHTML += postHTML;
+    blogDetails.forEach(function (post) {
+      const html = converter.makeHtml(post.content);
+      const postHTML =
+        `<h2>${post.title}</h2>` +
+        `<p><em> Published On : ${post.timestamp}  by  ${post.name}</em></p>` +
+        `<p><strong>${post.category}</strong></p>` +
+        `<p><strong>Tags : </strong> ${post.tags.join(", ")}</p>` +
+        `<div>${html}</div>`;
+      const container = document.getElementById("container");
+      container.innerHTML += postHTML;
+    });
+
+    const coverImage = blog_records.find((e) => e.post_id == postId)?.image.source;
+    const coverImg = document.getElementById("cover_image");
+    coverImg.style.backgroundImage = `url(${coverImage})`;
+
+    const creatorId = blog_records.find((e) => e.post_id == postId)?.unique_id;
+
+    function publishCmt(e) {
+      e.preventDefault();
+      const comment_txt = document.getElementById("cmt_txt").value;
+
+      const date = new Date();
+      const commentTime = `${date
+        .getDate()
+        .toString()
+        .padStart(2, "0")} ${date.toLocaleString("default", {
+          month: "short",
+        })} ${date.getFullYear()}`;
+
+      const comment_records =
+        JSON.parse(localStorage.getItem("comment_records")) || [];
+      const email_ID = JSON.parse(localStorage.getItem("email_ID"));
+      const user_records = JSON.parse(localStorage.getItem("user_records"));
+
+      // get user's name from user_records based on email_ID
+      const user_name = user_records.find(
+        (e) => e.user_email == email_ID
+      )?.user_name;
+      const user_email = user_records.find(
+        (e) => e.user_email == email_ID
+      )?.user_email;
+      const profileImage = user_records.find(
+        (e) => e.user_email == email_ID
+      )?.user_profile;
+
+      if (comment_txt == 0) {
+        alert("Please Write your Comment!");
+      } else {
+        comment_records.push({
+          name: user_name,
+          user_email,
+          other_user: creatorId,
+          profile: {
+            source: profileImage,
+            alt: "profile_1",
+          },
+          comment_time: commentTime,
+          comment_text: comment_txt,
+          comment_post_id: postId,
+          message: "Comment your post",
         });
+      }
+      localStorage.setItem("comment_records", JSON.stringify(comment_records));
+      location.reload();
+    }
 
-        const coverImage = blog_records.find((e) => e.post_id == postId)?.image.source;
-        const coverImg = document.getElementById("cover_image");
-        coverImg.style.backgroundImage = `url(${coverImage})`;
+    // JSON for user comment
+    const comment_list = JSON.parse(localStorage.getItem("comment_records"));
 
-        function publishCmt(e) {
-          e.preventDefault();
-          const comment_txt = document.getElementById("cmt_txt").value;
+    const post_comment = comment_list.filter(
+      (comment) => comment.comment_post_id === postId
+    );
+    // console.log(post_comment);
 
-          const cmt_uuid = uuidv4(); // assuming this function is defined elsewhere
+    const comment_count = post_comment.length;
+    document.getElementById("cmt_count").innerHTML = comment_count;
+    document.getElementById("cmt_icon_count").innerHTML = comment_count;
 
-          const date = new Date();
-          const commentTime = `${date
-    .getDate()
-    .toString()
-    .padStart(2, "0")} ${date.toLocaleString("default", {
-    month: "short",
-  })} ${date.getFullYear()}`;
+    for (let i = 0; i < post_comment.length; i++) {
+      //  <div class="col"> </div>
+      const commentBox = document.getElementById("comment_box");
 
-          const comment_records =
-    JSON.parse(localStorage.getItem("comment_records")) || [];
-          const email_ID = JSON.parse(localStorage.getItem("email_ID"));
-          const user_records = JSON.parse(localStorage.getItem("user_records"));
+      const notificProfile = document.createElement("div");
+      notificProfile.setAttribute("class", "notific_profile");
 
-          // get user's name from user_records based on email_ID
-          const user_name = user_records.find(
-    (e) => e.user_email == email_ID
-  )?.user_name;
-          const user_email = user_records.find(
-    (e) => e.user_email == email_ID
-  )?.user_email;
-          const profileImage = user_records.find(
-    (e) => e.user_email == email_ID
-  )?.user_profile;
+      const profileDiv = document.createElement("div");
 
-          if (comment_txt == 0) {
-            alert("Please Write your Comment!");
-          } else {
-            comment_records.push({
-              name: user_name,
-              user_email,
-              comment_id: cmt_uuid,
-              profile: {
-                source: profileImage,
-                alt: "profile_1",
-              },
-              comment_time: commentTime,
-              comment_text: comment_txt,
-              comment_post_id: postId,
-              message: "Comment your post",
-            });
-          }
-          localStorage.setItem("comment_records", JSON.stringify(comment_records));
-          location.reload();
-        }
+      const profileLink = document.createElement("a");
+      profileLink.href = `../Myprofile/6_profile.html?user_ID=${post_comment[i].user_email}`;
 
-        // JSON for user comment
-        const comment_list = JSON.parse(localStorage.getItem("comment_records"));
+      const profileImage = document.createElement("img");
+      profileImage.src = post_comment[i].profile.source;
+      profileImage.alt = "user_image";
+      profileImage.setAttribute("class", "profile_img");
 
-        const post_comment = comment_list.filter(
-  (comment) => comment.comment_post_id === postId
-);
-        // console.log(post_comment);
+      profileLink.appendChild(profileImage);
 
-        const comment_count = post_comment.length;
-        document.getElementById("cmt_count").innerHTML = comment_count;
-        document.getElementById("cmt_icon_count").innerHTML = comment_count;
+      const profileName = document.createElement("p");
 
-        for (let i = 0; i < post_comment.length; i++) {
-  //  <div class="col"> </div>
-          const commentBox = document.getElementById("comment_box");
+      const strong = document.createElement("strong");
+      strong.textContent = post_comment[i].name;
 
-          const notificProfile = document.createElement("div");
-          notificProfile.setAttribute("class", "notific_profile");
+      const span = document.createElement("span");
+      span.innerText = post_comment[i].comment_time;
 
-          const profileDiv = document.createElement("div");
+      profileName.appendChild(strong);
+      profileName.appendChild(document.createElement("br"));
+      profileName.appendChild(span);
 
-          const profileLink = document.createElement("a");
-          profileLink.href = `../Myprofile/6_profile.html?user_ID=${post_comment[i].user_email}`;
+      profileDiv.appendChild(profileLink);
+      profileDiv.appendChild(profileName);
 
-          const profileImage = document.createElement("img");
-          profileImage.src = post_comment[i].profile.source;
-          profileImage.alt = "user_image";
-          profileImage.setAttribute("class", "profile_img");
+      notificProfile.appendChild(profileDiv);
 
-          profileLink.appendChild(profileImage);
+      const commentTxt = document.createElement("p");
+      commentTxt.setAttribute("class", "comment_txt");
+      commentTxt.innerText = post_comment[i].comment_text;
 
-          const profileName = document.createElement("p");
+      commentBox.prepend(commentTxt);
+      commentBox.prepend(notificProfile);
+    }
 
-          const strong = document.createElement("strong");
-          strong.textContent = post_comment[i].name;
+    const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
 
-          const span = document.createElement("span");
-          span.innerText = post_comment[i].comment_time;
+    const heart_icon = document.getElementById("heart_icon_c");
 
-          profileName.appendChild(strong);
-          profileName.appendChild(document.createElement("br"));
-          profileName.appendChild(span);
-
-          profileDiv.appendChild(profileLink);
-          profileDiv.appendChild(profileName);
-
-          notificProfile.appendChild(profileDiv);
-
-          const commentTxt = document.createElement("p");
-          commentTxt.setAttribute("class", "comment_txt");
-          commentTxt.innerText = post_comment[i].comment_text;
-
-          commentBox.prepend(commentTxt);
-          commentBox.prepend(notificProfile);
-        }
-
-        function showStickyNotes() {
-          const stickyNote = document.createElement("div");
-          stickyNote.classList.add("sticky-note");
-
-          const textarea = document.createElement("textarea");
-          textarea.setAttribute("placeholder", "Take a note...");
-          stickyNote.appendChild(textarea);
-
-          const saveNote = document.createElement("button");
-          saveNote.setAttribute("class", "saveBtn");
-          saveNote.innerText = "Save";
-          stickyNote.appendChild(saveNote);
-
-          const closeNote = document.createElement("span");
-          closeNote.classList.add("closeBtn");
-          closeNote.appendChild(document.createTextNode("X"));
-          stickyNote.appendChild(closeNote);
-
-          document.body.appendChild(stickyNote);
-        }
-
-        document.addEventListener("click", function (event) {
-          if (event.target.classList.contains("closeBtn")) {
-            event.target.parentNode.remove();
-          }
-        });
-
-        const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
-
-        const heart_icon = document.getElementById("heart_icon_c");
-
-        const likeFind = like_records.find(
-  (like) => like.user_id == email_ID && like.post_id == postId
-);
-        if (likeFind == undefined) {
-          heart_icon.setAttribute("name", "heart-outline");
-          heart_icon.style.color = "black";
-        } else {
-          heart_icon.setAttribute("name", "heart");
-          heart_icon.style.color = "red";
-        }
-
-        // like count inner text
-        const heart_icon_count = document.getElementById("like_icon_count");
-        const like_count = like_records.filter((e) => e.post_id == postId);
-        heart_icon_count.innerText = like_count.length;
-
-        // Like count JS;
-
-        heart_icon.addEventListener("click", function (e) {
-          const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
-          if (like_records.length === 0) {
-            like_records.push({
-              user_id: email_ID,
-              post_id: postId,
-              notific: false,
-            });
-            localStorage.setItem("like_records", JSON.stringify(like_records));
-            heart_icon.setAttribute("name", "heart");
-            heart_icon.style.color = "red";
-            const like_count = like_records.filter((e) => e.post_id == postId);
-            heart_icon_count.innerText = like_count.length;
-  } else {
-            const likeFind = like_records.find(
+    const likeFind = like_records.find(
       (like) => like.user_id == email_ID && like.post_id == postId
     );
-    const findIndex = like_records.indexOf(likeFind);
+    if (likeFind == undefined) {
+      heart_icon.setAttribute("name", "heart-outline");
+      heart_icon.style.color = "black";
+    } else {
+      heart_icon.setAttribute("name", "heart");
+      heart_icon.style.color = "red";
+    }
 
-            if (likeFind == undefined) {
-              like_records.push({
-                user_id: email_ID,
-                post_id: postId,
-                notific: false,
-              });
-              localStorage.setItem("like_records", JSON.stringify(like_records));
-              heart_icon.setAttribute("name", "heart");
-              heart_icon.style.color = "red";
-              const like_count = like_records.filter((e) => e.post_id == postId);
-              heart_icon_count.innerText = like_count.length;
-            } else {
-              like_records.splice(findIndex, 1);
-              localStorage.setItem("like_records", JSON.stringify(like_records));
-              heart_icon.setAttribute("name", "heart-outline");
-              heart_icon.style.color = "black";
-              const like_count = like_records.filter((e) => e.post_id == postId);
-              heart_icon_count.innerText = like_count.length;
-            }
-  }
+    // like count inner text
+    const heart_icon_count = document.getElementById("like_icon_count");
+    const like_count = like_records.filter((e) => e.post_id == postId);
+    heart_icon_count.innerText = like_count.length;
+
+    // Like count JS;
+
+    heart_icon.addEventListener("click", function (e) {
+      const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
+      if (like_records.length === 0) {
+        like_records.push({
+          user_id: email_ID,
+          post_id: postId,
+          notific: false,
         });
+        localStorage.setItem("like_records", JSON.stringify(like_records));
+        heart_icon.setAttribute("name", "heart");
+        heart_icon.style.color = "red";
+        const like_count = like_records.filter((e) => e.post_id == postId);
+        heart_icon_count.innerText = like_count.length;
+      } else {
+        const likeFind = like_records.find(
+          (like) => like.user_id == email_ID && like.post_id == postId
+        );
+        const findIndex = like_records.indexOf(likeFind);
 
-        const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
-
-        const save_icon = document.getElementById("save_icon_c");
-
-        const saveFind = save_records.find(
-  (save) => save.user_id == email_ID && save.post_id == postId
-);
-        if (saveFind == undefined) {
-          save_icon.setAttribute("name", "bookmark-outline");
-          save_icon.style.color = "black";
+        if (likeFind == undefined) {
+          like_records.push({
+            user_id: email_ID,
+            creatorId: creatorId,
+            post_id: postId,
+            notific: false,
+          });
+          localStorage.setItem("like_records", JSON.stringify(like_records));
+          heart_icon.setAttribute("name", "heart");
+          heart_icon.style.color = "red";
+          const like_count = like_records.filter((e) => e.post_id == postId);
+          heart_icon_count.innerText = like_count.length;
         } else {
-          save_icon.setAttribute("name", "bookmark");
-          save_icon.style.color = "black";
+          like_records.splice(findIndex, 1);
+          localStorage.setItem("like_records", JSON.stringify(like_records));
+          heart_icon.setAttribute("name", "heart-outline");
+          heart_icon.style.color = "black";
+          const like_count = like_records.filter((e) => e.post_id == postId);
+          heart_icon_count.innerText = like_count.length;
         }
+      }
+    });
 
-        // like count inner text
-        const save_icon_count = document.getElementById("like_icon_count");
-        const save_count = save_records.filter((e) => e.post_id == postId);
-        save_icon_count.innerText = save_count.length;
+    const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
 
-        // Like count JS;
+    const save_icon = document.getElementById("save_icon_c");
 
-        save_icon.addEventListener("click", function (e) {
-          const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
-          const saveFind = save_records.find(
-    (record) => record.user_id == email_ID && record.post_id == postId
-  );
-  if (saveFind) {
-            save_records.splice(save_records.indexOf(saveFind), 1);
-            save_icon.setAttribute("name", "bookmark-outline");
+    const saveFind = save_records.find(
+      (save) => save.user_id == email_ID && save.post_id == postId
+    );
+    if (saveFind == undefined) {
+      save_icon.setAttribute("name", "bookmark-outline");
+      save_icon.style.color = "black";
+    } else {
+      save_icon.setAttribute("name", "bookmark");
+      save_icon.style.color = "black";
+    }
+
+    // like count inner text
+    const save_count = save_records.filter((e) => e.post_id == postId);
+
+    // Like count JS;
+
+    save_icon.addEventListener("click", function (e) {
+      const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
+      const saveFind = save_records.find(
+        (record) => record.user_id == email_ID && record.post_id == postId
+      );
+      if (saveFind) {
+        save_records.splice(save_records.indexOf(saveFind), 1);
+        save_icon.setAttribute("name", "bookmark-outline");
+      } else {
+        save_records.push({ user_id: email_ID, post_id: postId, notific: false, creatorId: creatorId});
+        save_icon.setAttribute("name", "bookmark");
+      }
+      localStorage.setItem("save_records", JSON.stringify(save_records));
+      const save_count = save_records.filter(
+        (record) => record.post_id == postId
+      ).length;
+      save_icon.style.color = save_count ? "black" : "";
+    });
+
+    // Check if the Web Speech API is supported by the browser
+    if ('speechSynthesis' in window) {
+      const synth = window.speechSynthesis;
+      const playBtn = document.getElementById('play-btn');
+      const pauseBtn = document.getElementById('pause-btn');
+      const blogPost = document.getElementById('container');
+      let utterances = [];
+
+      // Get the blog post content and split it into smaller chunks
+      const chunkSize = 200;
+      let chunks = blogPost.innerText.match(new RegExp(`.{1,${chunkSize}}`, 'g'));
+
+      // Create an utterance for each chunk
+      chunks.forEach((chunk) => {
+        let utterance = new SpeechSynthesisUtterance();
+        utterance.text = chunk;
+        utterance.lang = 'en-US';
+        utterance.volume = 1;
+        utterance.rate = 1;
+        utterance.pitch = 1;
+        utterances.push(utterance);
+      });
+
+      // Enable the play button
+      playBtn.disabled = false;
+      playBtn.addEventListener('click', () => {
+        let currentIndex = 0;
+        let currentChunk = chunks[currentIndex];
+        let currentWordIndex = 0;
+        let currentWord = '';
+        let currentWordCompleted = false;
+
+        const colorChangeInterval = setInterval(() => {
+          // Check if current chunk has finished speaking
+          if (synth.speaking === false) {
+            // Move to the next chunk if available
+            currentIndex++;
+            if (currentIndex < chunks.length) {
+              currentChunk = chunks[currentIndex];
+              currentWordIndex = 0;
+              currentWord = '';
+              currentWordCompleted = false;
+              synth.speak(utterances[currentIndex]);
+            } else {
+              clearInterval(colorChangeInterval);
+              pauseBtn.disabled = true;
+            }
           } else {
-            save_records.push({ user_id: email_ID, post_id: postId, notific: false });
-            save_icon.setAttribute("name", "bookmark");
+            // Highlight the current word
+            const words = currentChunk.split(' ');
+            if (currentWordIndex < words.length) {
+              if (currentWordCompleted) {
+                currentWordIndex++;
+                currentWord = '';
+                currentWordCompleted = false;
+              } else {
+                const highlightedText = words[currentWordIndex].split('').map((char, index) => {
+                  if (index < currentWord.length) {
+                    return `<span style="color: red">${char}</span>`;
+                  } else {
+                    return char;
+                  }
+                }).join('');
+                blogPost.innerHTML = currentChunk.replace(words[currentWordIndex], highlightedText);
+                currentWord += words[currentWordIndex][currentWord.length];
+                if (currentWord.length === words[currentWordIndex].length) {
+                  currentWordCompleted = true;
+                }
+              }
+            }
           }
-          localStorage.setItem("save_records", JSON.stringify(save_records));
-          const save_count = save_records.filter(
-    (record) => record.post_id == postId
-  ).length;
-          save_icon.style.color = save_count ? "black" : "";
-          save_icon_count.innerText = save_count;
-        });
-    </script>
+        }, 100);
+        synth.speak(utterances[currentIndex]);
+      });
 
-        <script src="/assets/header.js"></script>
-    </body>
+      // Enable the pause button
+      pauseBtn.disabled = false;
+      pauseBtn.addEventListener('click', () => {
+        synth.pause();
+      });
+
+      // Handle the speech end and resume events to disable/enable the pause button
+      utterances[utterances.length - 1].addEventListener('end', () => {
+        pauseBtn.disabled = true;
+      });
+      synth.addEventListener('resume', () => {
+        pauseBtn.disabled = false;
+      });
+    } else {
+      // Web Speech API not supported
+      console.log('Web Speech API not supported by this browser');
+    }
+
+    function shareLink() {
+      let link = window.location.href; // get the current page URL
+      let title = document.title; // get the current page title
+      let twitterLink = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(link) + '&text=' + encodeURIComponent(title); // create Twitter share link
+      let facebookLink = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(link); // create Facebook share link
+      let linkedinLink = 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(link) + '&title=' + encodeURIComponent(title); // create LinkedIn share link
+      window.open(twitterLink, '_blank'); // open Twitter share link in a new tab
+      window.open(facebookLink, '_blank'); // open Facebook share link in a new tab
+      window.open(linkedinLink, '_blank'); // open LinkedIn share link in a new tab
+    }
+
+  </script>
+
+  <script src="/assets/header.js"></script>
+</body>
 
 </html>

@@ -20,6 +20,7 @@
   "homepage": "https://github.com/fssa-batch3/mathivanan.pachiyappan__web_project#readme",
   "dependencies": {
     "@cloudinary/url-gen": "^1.10.0",
+    "@google-cloud/text-to-speech": "^4.2.2",
     "axios": "^1.3.6",
     "cloudinary": "^1.36.1",
     "http-server": "^14.1.1"

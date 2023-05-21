@@ -1,59 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Venom.com</title>
-        <link rel="stylesheet" href="../../assets/css/3_home.css">
-        <link rel="stylesheet" href="../../assets/css/7_follow.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Venom.com</title>
+  <link rel="stylesheet" href="../../assets/css/3_home.css">
+  <link rel="stylesheet" href="../../assets/css/7_follow.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+</head>
 
-    <body>
-        <!--Header-->
+<body>
+  <!--Header-->
 
-        <div class="profile_image">
-            <p id="profile_image"></p>
-        </div>
-        <div class="follow_content" id="follow_content">
+  <div class="profile_image">
+    <p id="profile_image"></p>
+  </div>
+  <div class="follow_content" id="follow_content">
 
-            <div id="follow_main" class="follow_main">
-                <h2 id="flow_txt">Followers</h2>
-            </div>
+    <div id="follow_main" class="follow_main">
+      <h2 id="flow_txt">Followers</h2>
+    </div>
 
-            <div id="follow_side" class="follow_side">
-                <h2 id="flow_txt2">Following</h2>
-            </div>
-        </div>
-        <div class="icons">
-            <a href="#">
-                <i class="fa fa-facebook" style="color: #000;"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-instagram" style="color: #000;"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-twitter" style="color: #000;"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-github" style="color: #000;"></i>
-            </a>
-            <p>© 2023 Venom.com All rights reserved</p>
-        </div>
+    <div id="follow_side" class="follow_side">
+      <h2 id="flow_txt2">Following</h2>
+    </div>
+  </div>
+  <div class="icons">
+    <a href="#">
+      <i class="fa fa-facebook" style="color: #000;"></i>
+    </a>
+    <a href="#">
+      <i class="fa fa-instagram" style="color: #000;"></i>
+    </a>
+    <a href="#">
+      <i class="fa fa-twitter" style="color: #000;"></i>
+    </a>
+    <a href="#">
+      <i class="fa fa-github" style="color: #000;"></i>
+    </a>
+    <p>© 2023 Venom.com All rights reserved</p>
+  </div>
 
-        <script>const userEmail = JSON.parse(localStorage.getItem("email_ID"));
-    const follower_count = JSON.parse(localStorage.getItem("follow_records"));
-    const followerFind = follower_count.filter(
-  (find) => find.follower_id == userEmail
-);
-    const followingFind = follower_count.filter(
-  (find) => find.following_id !== userEmail
-);
+  <script>
 
-    for (let i = 0; i < followingFind.length; i++) {
+    const params = new URLSearchParams(window.location.search);
+    const user_Id = params.get("user_ID");
+
+    // get the user id from local storage
+
+    const userDta = JSON.parse(localStorage.getItem("user_records"));
+    const email_ID = JSON.parse(localStorage.getItem("email_ID"));
+    const profilePic = userDta.find((e) => e.user_email === user_Id)?.user_profile;
+    const otherUser = userDta.find((e) => e.user_email !== user_Id)?.user_email;
+    const profImage = document.getElementById("profile_image");
+    profImage.style.backgroundImage = `url(${profilePic})`;
+
+    let follow_data = JSON.parse(localStorage.getItem("follow_records")) || [];
+    const followerListfilter = follow_data.filter((e) => e.following_id === user_Id);
+    const followingListfilter = follow_data.filter((e) => e.follower_id === user_Id);
+
+    const followerFind = userDta.filter(userDta => {
+      const matchedItem = followerListfilter.find(followerListfilter => followerListfilter.follower_id === userDta.user_email);
+      return matchedItem
+    });
+    const followingFind = userDta.filter(userDta =>
+      followingListfilter.some(followingListfilter => followingListfilter.following_id === userDta.user_email)
+    );
+
+    // console.log(followingFind)
+
+    let followData = JSON.parse(localStorage.getItem('follow_records')) || [];
+
+    for (let i = 0; i < followerFind.length; i++) {
       const div_follow = document.getElementById("follow_main");
 
       const div_box = document.createElement("div");
@@ -65,20 +86,64 @@
       p_txt.innerText = followerFind[i].user_name;
       div_box.append(p_txt);
 
+      const aTagFlo = document.createElement("a");
+      aTagFlo.setAttribute("href", "../Myprofile/6_profile.html?user_ID=" + followerFind[i].user_email);
+      p_txt.prepend(aTagFlo);
+
       const img_area = document.createElement("img");
       img_area.setAttribute("class", "user_name");
       img_area.setAttribute("src", followerFind[i].user_profile);
       img_area.setAttribute("alt", "profile_image");
-      p_txt.prepend(img_area);
+      aTagFlo.append(img_area);
 
       const button_elem = document.createElement("button");
-      button_elem.setAttribute("id", "follow-button");
-      // button_elem.setAttribute("onclick", "followers()");
+      button_elem.setAttribute("class", "follow-button");
+      button_elem.setAttribute("data-id", followerFind[i].user_email);
       button_elem.innerText = "Follow";
       div_box.append(button_elem);
+
     }
 
-    for (let j = 0; j < followerFind.length; j++) {
+    let followButtons = document.querySelectorAll(".follow-button");
+    // Add event listeners to the follow buttons
+    followButtons.forEach(function (followButton) {
+      followButton.addEventListener('click', function () {
+        let id = this.dataset.id
+        // console.log(id)
+        let followingListfilters = follow_data.filter((e) => e.follower_id === user_Id);
+        // console.log(followingListfilters)
+
+        let exist = followingListfilters.find((data) => data.following_id === id);
+        // Add the user id to the follow data array
+        console.log(exist)
+        if (!exist) {
+          followData.push({
+            "follower_id": user_Id,
+            "following_id": id,
+            "notific": false
+          });
+        }
+        else {
+          alert("You are alredy following the person 👣")
+        }
+
+
+        // Update the local storage
+        localStorage.setItem('follow_records', JSON.stringify(followData));
+
+        // Hide the clicked follow button and display the corresponding unfollow button
+
+        location.reload();
+      });
+
+      if (user_Id === email_ID) {
+        followButton.style.display = 'block';
+      } else {
+        followButton.style.display = 'none';
+      }
+    });
+
+    for (let j = 0; j < followingFind.length; j++) {
       const div_follow2 = document.getElementById("follow_side");
 
       const div_box2 = document.createElement("div");
@@ -90,89 +155,65 @@
       p_txt2.innerText = followingFind[j].user_name;
       div_box2.append(p_txt2);
 
+      const aTagUflo = document.createElement("a");
+      aTagUflo.setAttribute("href", "../Myprofile/6_profile.html?user_ID=" + followingFind[j].user_email);
+      p_txt2.prepend(aTagUflo);
+
       const img_area2 = document.createElement("img");
       img_area2.setAttribute("class", "user_name");
       img_area2.setAttribute("src", followingFind[j].user_profile);
       img_area2.setAttribute("alt", "profile_image");
-      p_txt2.prepend(img_area2);
+      aTagUflo.append(img_area2);
 
       const button_elem2 = document.createElement("button");
-      button_elem2.setAttribute("id", "unfollow-button");
-      // button_elem2.setAttribute("onclick", "following()");
-      button_elem2.innerText = "Following";
+      button_elem2.setAttribute("class", "unfollow-button");
+      button_elem2.setAttribute("data-uuid", followingFind[j].user_email);
+      button_elem2.innerText = "Unfollow";
       div_box2.append(button_elem2);
+
+      // const unfollowButton = document.getElementById('unfollow-button');
+
+
     }
 
-    // get the user id from local storage
-    const userId = JSON.parse(localStorage.getItem("email_ID"));
+    let unfollowButtons = document.querySelectorAll("button.unfollow-button");
 
-    const userDta = JSON.parse(localStorage.getItem("user_records"));
-    const profilePic = userDta.find((e) => e.user_email == userId)?.user_profile;
-    const profImage = document.getElementById("profile_image");
-    profImage.style.backgroundImage = `url(${profilePic})`;
+    unfollowButtons.forEach(function (unfollowButton) {
+      unfollowButton.addEventListener('click', function () {
+        let id = this.dataset.uuid;
 
-    // get the follow data from local storage or initialize it as an empty array
-    let followData = JSON.parse(localStorage.getItem("follow_data")) || [];
+        let followingListfilters = follow_data.filter((e) => e.follower_id === user_Id);
 
-    // check if the user is already following
-    const isFollowing = followData.some((data) => data.userId === userId);
+        let unFollowUser = followingListfilters.find((data)=> data.following_id === id);
 
-    // update the button states based on whether the user is following or not
-    const followButton = document.getElementById("follow-button");
-    const unfollowButton = document.getElementById("unfollow-button");
-    if (isFollowing) {
-      followButton.style.display = "none";
-      unfollowButton.style.display = "block";
-    } else {
-      followButton.style.display = "block";
-      unfollowButton.style.display = "none";
-    }
+        let index = follow_data.indexOf(unFollowUser);
+        
+        follow_data.splice(index, 1)
 
-    // add event listeners to the follow and unfollow buttons
-    followButton.addEventListener("click", () => {
-      // add the user id to the follow data array
-      followData.push({ userId });
+        // Remove the user id from the follow data array
 
-      // update the local storage
-      localStorage.setItem("follow_data", JSON.stringify(followData));
+        // Update the local storage
+        localStorage.setItem('follow_records', JSON.stringify(follow_data));
 
-      // update the button states
-      followButton.style.display = "none";
-      unfollowButton.style.display = "block";
+        if (followerFind > 0) {
+          followButton.style.display = 'block';
+          unfollowButton.style.display = 'none';
+        }
+        location.reload();
+      });
+
+      if (user_Id === email_ID) {
+        unfollowButton.style.display = 'block';
+      } else {
+        unfollowButton.style.display = 'none';
+      }
     });
 
-    unfollowButton.addEventListener("click", () => {
-      // remove the user id from the follow data array
-      followData = followData.filter((data) => data.userId !== userId);
+    // Get the follow data from local storage or initialize it as an empty array
 
-      // update the local storage
-      localStorage.setItem("follow_data", JSON.stringify(followData));
 
-      // update the button states
-      followButton.style.display = "block";
-      unfollowButton.style.display = "none";
-    });
-
-    // function followers() {
-    //   let followButton = document.getElementsByClassName("follow-btn");
-    //   if (followButton.innerText === "Follow") {
-    //     followButton.innerText = "Following";
-    //   } else {
-    //     followButton.innerText = "Follow";
-    //   }
-    // }
-
-    // function following() {
-    //   let followButton2 = document.getElementsByClassName("follow-btn2");
-    //   if (followButton2.innerText === "Following") {
-    //     followButton2.innerText = "Follow";
-    //   } else {
-    //     followButton2.innerText = "Following";
-    //   }
-    // }
-// }
   </script>
-        <script src="/assets/header.js"></script>
-    </body>
+  <script src="/assets/header.js"></script>
+</body>
 
 </html>

@@ -45,9 +45,9 @@ div.notific_profile img.profile_pic{
 }
 
 div.notific_profile p.post-description {
-    display: flex;
+    /* display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-between; */
     opacity: 100%;
     font-size: 80%;
     text-align: left;
@@ -55,7 +55,7 @@ div.notific_profile p.post-description {
 }
 
 p.time_data {
-    float: right;
+   display: flex;
 }
 
 div.notific_profile strong.bold {

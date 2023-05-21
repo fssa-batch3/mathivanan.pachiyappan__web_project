@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">  <head>
+<html lang="en">
+
+<head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,11 +30,11 @@
         <i class="fa fa-map-marker" aria-hidden="true" id="map_icon"></i>
         <p id="user_country"></p>
 
-          <ul class="about" id="countContent">
-            <li><a href="../follow/7_follow.html"><span id="followers">0</span>Followers</a></li>
-            <li><a href="../follow/7_follow.html"><span id="following">0</span>Following</a></li>
-            <li><a href="#posts"><span id="totall_post">0</span>Totall Post</a></li>
-          </ul>
+        <ul class="about" id="countContent">
+          <li id="followers_Id"><span id="followers">0</span>Followers</li>
+          <li id="following_Id"><span id="following">0</span>Following</li>
+          <li><span id="totall_post">0</span>Totall Post</li>
+        </ul>
 
         <div class="content">
           <p id="user_tag" class="tag_line"></p>
@@ -44,12 +46,13 @@
       </div>
       <div class="right__col">
         <nav>
-          <ul>
-            <li><a href="#">posts</a></li>
-            <li><a href="#">saved items</a></li>
-            <li><a href="#">Notes</a></li>
+          <ul clas="menu">
+            <li><button class="userAccess_btn">posts</button></li>
+            <li><button class="userAccess_btn">saved items</button></li>
+            <li><button class="userAccess_btn">Top Trends</button></li>
           </ul>
           <button type="submit" id="follow_btn">Follow</button>
+          <button type="submit" onclick="deleteData()" id="deleteBtn"><b>Delete</b></button>
         </nav>
 
         <div id="posts" class="post_list"></div>
@@ -66,23 +69,22 @@
   </div>
 
   <script>
-    
 
     let params = new URLSearchParams(window.location.search);
     let userId = params.get('user_ID');
 
     let all_post = JSON.parse(localStorage.getItem("blog_records"));
-    let savedPost = JSON.parse(localStorage.getItem("save_records"));
+    // let savedPost = JSON.parse(localStorage.getItem("save_records"));
 
     let user_post = all_post.filter(post => post.unique_id == userId);
-    let saveItems = savedPost.filter(save => save.user_id == userId);
+    // let saveItems = savedPost.filter(save => save.user_id == userId);
     let post_count = document.getElementById("totall_post");
     post_count.innerText = user_post.length;
 
     let email_ID = JSON.parse(localStorage.getItem("email_ID"));
     let user_records = JSON.parse(localStorage.getItem("user_records"));
     let user_name = user_records.find((e) => e.user_email !== email_ID)?.user_name;
-    let profile_Image = user_records.find((e) => e.user_email !== email_ID)?.user_profile;
+    // let profile_Image = user_records.find((e) => e.user_email !== email_ID)?.user_profile;
 
     function login_data(e) {
       return e.user_email == userId;
@@ -102,6 +104,8 @@
     document.getElementById("user_tag").innerText = user_data['user_tag'];
     document.getElementById("user_bio").innerText = user_data['user_bio'];
 
+    let delete_button;
+    let edit_button;
     for (let i = 0; i < user_post.length; i++) {
 
       // Create the post_box div element
@@ -136,7 +140,7 @@
       let postsDiv = document.getElementById("posts");
       postsDiv.prepend(postBoxDiv);
 
-      let edit_button = document.createElement("button");
+      edit_button = document.createElement("button");
       edit_button.setAttribute("class", "edit_btn");
       edit_button.setAttribute("data-id", user_post[i]["post_id"]);
       edit_button.innerText = "Edit";
@@ -144,29 +148,35 @@
 
       // Delete button JSON and JS code
       // Declare and initialize delete_button before the event listener
-      let delete_button = document.createElement("button");
+      delete_button = document.createElement("button");
       delete_button.setAttribute("class", "delete_btn");
-      delete_button.setAttribute("id", user_post[i]["post_id"]);
+      delete_button.setAttribute("data-uuid", user_post[i]["post_id"]);
       delete_button.innerText = "Delete";
       postBoxDiv.append(delete_button);
+    };
 
-      // Add event listener to delete_button
-      delete_button.addEventListener("click", function () {
+    // Add event listener to delete_button
+
+      let delete_btn = document.querySelectorAll("button.delete_btn");
+      delete_btn.forEach(function (find_post) {
+      find_post.addEventListener("click", function () {
         if (confirm("Are you sure to Delete ?")) {
-          let post_d_id = this.id;
+          let post_d_id = this.dataset.uuid;
           let blog_records = JSON.parse(localStorage.getItem("blog_records"));
 
           // Find the index of the post to delete
           let find_post = blog_records.find(e => e.post_id == post_d_id);
-          let indexOfUser = blog_records.indexOf(find_post);
+
+          let indexOfPost = blog_records.indexOf(find_post);
           // Remove the post from the array
-          if (indexOfUser !== -1) {
-            blog_records.splice(indexOfUser, 1);
-          }
+    
+          blog_records.splice(indexOfPost, 1);
+          
 
           localStorage.setItem('blog_records', JSON.stringify(blog_records));
           location.reload();
         }
+      })
       });
 
       let edit = document.querySelectorAll("button.edit_btn");
@@ -179,6 +189,7 @@
         })
       });
 
+      if(user_post.length > 0){
       if (userId === email_ID) {
         delete_button.style.display = 'block';
         edit_button.style.display = 'block';
@@ -186,7 +197,8 @@
         delete_button.style.display = 'none';
         edit_button.style.display = 'none';
       }
-    };
+    }
+    
 
     let editBtn = document.getElementById("editBtn");
 
@@ -209,88 +221,83 @@
 
     let follow_btn = document.getElementById("follow_btn");
 
-    let followFind = follow_records.find(follow => follow.follower_id == email_ID && follow.following_id == userId);
-    if (followFind == undefined) {
-      follow_btn.innerText = 'Follow';
-    }
-    else {
-      follow_btn.innerText = 'Following';
+    function updateFollowUI() {
+      let followFind = follow_records.find(follow => follow.follower_id === email_ID && follow.following_id === userId);
+      if (followFind === undefined) {
+        follow_btn.innerText = 'Follow';
+      } else {
+        follow_btn.innerText = 'Following';
+      }
+
+      let follow_count = follow_records.filter(e => e.following_id === userId).length;
+      let follow_btn_count = document.getElementById("followers");
+      follow_btn_count.innerText = follow_count;
+
+      let following_count = follow_records.filter(e => e.follower_id === userId).length;
+      let following_btn_count = document.getElementById("following");
+      following_btn_count.innerText = following_count;
     }
 
-    // like count inner text
-    let follow_btn_count = document.getElementById("followers");
-    let follow_count = follow_records.filter(e => e.following_id == userId);
-    follow_btn_count.innerText = follow_count.length;
-
-    let following_btn_count = document.getElementById("following");
-    let following_count = follow_records.filter(e => e.follower_id == userId);
-    following_btn_count.innerText = following_count.length;
+    updateFollowUI();
 
     // Like count JS;
-
     follow_btn.addEventListener("click", function (e) {
-      let follow_records = JSON.parse(localStorage.getItem("follow_records")) || [];
-      if (follow_records.length === 0) {
+      let followFind = follow_records.find(follow => follow.follower_id === email_ID && follow.following_id === userId);
+      if (followFind === undefined) {
         follow_records.push({
           "follower_id": email_ID,
           "following_id": userId,
-          "user_name": user_name,
-          "user_profile": profile_Image,
           "notific": false
-        })
-        localStorage.setItem("follow_records", JSON.stringify(follow_records));
-        follow_btn.innerText = 'Following';
-        let follow_count = follow_records.filter(e => e.following_id == userId);
-        follow_btn_count.innerText = follow_count.length;
-
-      }
-      else {
-        let followFind = follow_records.find(follow => follow.following_id == userId);
+        });
+      } else {
         let findIndex = follow_records.indexOf(followFind);
-
-        if (followFind == undefined) {
-          follow_records.push({
-            "follower_id": email_ID,
-            "following_id": userId,
-            "user_name": user_name,
-            "user_profile": profile_Image,
-            "notific": false
-          })
-          localStorage.setItem("follow_records", JSON.stringify(follow_records));
-          follow_btn.innerText = 'Following';
-          let follow_count = follow_records.filter(e => e.following_id == userId);
-          follow_btn_count.innerText = follow_count.length;
-        }
-        else {
-          follow_records.splice(findIndex, 1)
-          localStorage.setItem("follow_records", JSON.stringify(follow_records));
-          follow_btn.innerText = 'Follow';
-          let follow_count = follow_records.filter(e => e.following_id == userId);
-          follow_btn_count.innerText = follow_count.length;
-        }
-
+        follow_records.splice(findIndex, 1);
       }
+
+      localStorage.setItem("follow_records", JSON.stringify(follow_records));
+      updateFollowUI();
     });
 
-    if (userId == email_ID) {
-      follow_btn.style.display = 'none'
+    if (userId === email_ID) {
+      follow_btn.style.display = 'none';
     } else {
-      follow_btn.style.display = 'block'
+      follow_btn.style.display = 'block';
     }
 
-  </script>
-  <script src="/assets/header.js"></script>
-</body>
-_btn_count.innerText = follow_count.length;
+
+    let followersPage = document.getElementById("followers_Id");
+    let followingPage = document.getElementById("following_Id");
+
+    function rederecting() {
+      location.href = "../follow/7_follow.html?user_ID=" + userId;
+    }
+
+    followersPage.addEventListener("click", rederecting);
+    followingPage.addEventListener("click", rederecting);
+
+    let button = document.querySelectorAll('.menu button');
+    let content_inside = document.querySelectorAll('.post_box');
+
+    function deleteData(e) {
+      if (confirm("Are you sure?")) {
+        let email_ID = JSON.parse(localStorage.getItem("email_ID"));
+        let user_records = JSON.parse(localStorage.getItem("user_records"));
+        function login_data(e) {
+          return e.user_email == email_ID;
         }
+        user_data = user_records.find(login_data);
+        const indexOfUser = user_records.indexOf(user_data);
+        user_records.splice(indexOfUser, 1);
+        localStorage.setItem('user_records', JSON.stringify(user_records));
+        window.location.href = "../../index.html"
+      };
+    }
 
-      }
-    });
-
-    if (userId == email_ID) {
-      follow_btn.style.display = 'none'
+    let deleteButton = document.getElementById("deleteBtn");
+    if (userId === email_ID) {
+      deleteButton.style.display = 'block';
     } else {
-      follow_btn.style.display = 'block'
+      deleteButton.style.display = 'none';
     }
 
   </script>
