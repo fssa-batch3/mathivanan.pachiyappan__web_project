@@ -6,7 +6,7 @@ if (!blog_records) {
     JSON.stringify([
       {
         timestamp: "10 Apr 2023",
-        post_id: "34883e34-b10f-4bb8-b85f-192237ddbd75",
+        post_id: "34883e34-b10f-4bb8-b85f-192237abcd75",
         title: "How to learn UI/UX Design? Volume(3)",
         category: "DESIGN",
         tags: [""],
@@ -22,7 +22,7 @@ if (!blog_records) {
       },
       {
         timestamp: "10 Apr 2023",
-        post_id: "85c1e750-d0f3-46a7-883e-fdc7071b2aec",
+        post_id: "85c1e750-d0f3-46a7-883e-fdc7071b2abc",
         title: "The World of Networks \n Part-1",
         category: "TECH",
         tags: [""],
@@ -38,7 +38,7 @@ if (!blog_records) {
       },
       {
         timestamp: "10 Apr 2023",
-        post_id: "8067bf8a-9c28-43a4-89b7-74ed7da484f0",
+        post_id: "8067bf8a-9c28-43a4-89b7-74ed7ad484f0",
         title: "Apple iPhone 13 Pro, iPhone 13 Pro Max Launched",
         category: "MOBILE",
         tags: [""],
@@ -54,7 +54,7 @@ if (!blog_records) {
       },
       {
         timestamp: "10 Apr 2023",
-        post_id: "34883e34-b10f-4bb8-b85f-192237ddbd75",
+        post_id: "34883e34-b10f-4bb8-b85f-192237aabd75",
         title: "How to learn UI/UX Design? Volume(2)",
         category: "DESIGN",
         tags: [""],
@@ -70,7 +70,7 @@ if (!blog_records) {
       },
       {
         timestamp: "10 Apr 2023",
-        post_id: "85c1e750-d0f3-46a7-883e-fdc7071b2aec",
+        post_id: "85c1e750-d0f3-46a7-883e-fdc7071b2sdc",
         title: "Elements of a network \n Part-1",
         category: "TECH",
         tags: [""],
@@ -86,7 +86,7 @@ if (!blog_records) {
       },
       {
         timestamp: "10 Apr 2023",
-        post_id: "8067bf8a-9c28-43a4-89b7-74ed7da484f0",
+        post_id: "8067bf8a-9c28-43a4-89b7-74ed7yr484f0",
         title: "Realme 10 Pro+ 5G Review: Excellent Performance",
         category: "MOBILE",
         tags: [""],
@@ -102,7 +102,7 @@ if (!blog_records) {
       },
       {
         timestamp: "10 Apr 2023",
-        post_id: "34883e34-b10f-4bb8-b85f-192237ddbd75",
+        post_id: "34883e34-b10f-4bb8-b85f-192237dcab75",
         title: "How to learn UI/UX Design? Volume(1)",
         category: "DESIGN",
         tags: [""],
@@ -118,7 +118,7 @@ if (!blog_records) {
       },
       {
         timestamp: "10 Apr 2023",
-        post_id: "85c1e750-d0f3-46a7-883e-fdc7071b2aec",
+        post_id: "85c1e750-d0f3-46a7-883e-fdc7071b2cad",
         title: "Optical Fibre Cable: Working, Applications & More",
         category: "TECH",
         tags: [""],
@@ -134,7 +134,7 @@ if (!blog_records) {
       },
       {
         timestamp: "10 Apr 2023",
-        post_id: "8067bf8a-9c28-43a4-89b7-74ed7da484f0",
+        post_id: "8067bf8a-9c28-43a4-89b7-74ed7cd484f0",
         title: "Xiaomi Redmi Pad Review: The Best Budget Android Tablet",
         category: "MOBILE",
         tags: [""],
@@ -165,6 +165,52 @@ if (!post_id) {
 }
 
 
+// for notification feature
+
+ // get or create notification array
+const notificationData = JSON.parse(localStorage.getItem("notification_data")) || [];
+const user_id = JSON.parse(localStorage.getItem("user_id"));
+const post_feed=JSON.parse(localStorage.getItem("post_feedd"));
+
+const unshowed = notificationData.filter(e => e.notification == false);
+
+let for_notify =JSON.parse(localStorage.getItem("for_notify"))|| [];
+let old_for_notify=for_notify.length;
+unshowed.forEach(element => {
+    if (element.type == "like") {
+        let find_user=post_feed.find(e=>e.post_id===element.liked)
+        if(find_user.unic_id===user_id){
+            for_notify.push(element)
+        }
+
+    }
+    if (element.type == "comment") {
+        let find_user=post_feed.find(e=>e.post_id===element.comment_post_id)
+        if(find_user.unic_id===user_id){
+            for_notify.push(element)
+        }
+    }
+    if(element.type == "follow") {
+
+        if(element.following===user_id){
+   
+            for_notify.push(element)
+        }
+    }   
+});
+console.log(for_notify);
+for_notify.splice(0,old_for_notify)
+let notification_dot=document.getElementById("notification_dot");
+console.log(for_notify);
+if(for_notify.length>0){
+    notification_dot.style.display="block"
+    localStorage.setItem("for_notify",JSON.stringify(for_notify));
+
+    for_notify=[];
+}
+else{
+    notification_dot.style.display="none"
+}
     // <!-- 
     //         data["image"]["alt"]
     //         data["image"]["source"]

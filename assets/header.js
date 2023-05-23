@@ -27,7 +27,7 @@ const AfterLogin = `<header>
     <div class="navigation_link">
         <ul>
             <form>
-                <input type="text" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000; background-color: white; padding: 0.2rem;"></i></span>
+                <input type="search" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000; background-color: white; padding: 0.2rem;"></i></span>
               </form>
             </li>
             <li id="med-blk"><a href="${rootPath}/pages/user_services/4_creat_post.html">Create</a></li>
@@ -157,9 +157,17 @@ document.querySelector("div.header").prepend(divElement);
 
 const notific_card = JSON.parse(localStorage.getItem("comment_records"));
 const getCmtPostlng = notific_card.filter((e) => e.user_email !== userData);
+const userCompare = notific_card.filter((e) => e.user_email === userData);
+
+const notificationIcon = document.getElementById("notific");
+
+notificationIcon.addEventListener("click", function() {
+  notific_length.style.display = "none";
+});
+
 const notific_length = document.getElementById("notific");
 notific_length.innerText = getCmtPostlng.length;
-if (getCmtPostlng.length <= 0) {
+if (getCmtPostlng.length <= 0 || userCompare.length > 0) {
   notific_length.style.display = "none";
 }
 

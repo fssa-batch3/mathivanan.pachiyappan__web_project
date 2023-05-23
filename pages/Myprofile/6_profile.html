@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../../assets/css/6_profile.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 
 <body>
@@ -47,15 +48,16 @@
       <div class="right__col">
         <nav>
           <ul clas="menu">
-            <li><button class="userAccess_btn">posts</button></li>
-            <li><button class="userAccess_btn">saved items</button></li>
-            <li><button class="userAccess_btn">Top Trends</button></li>
+            <li><button class="userAccess_btn" id="postBtn">posts</button></li>
+            <li><button class="userAccess_btn" id="saveItemBtn">saved items</button></li>
+            <li><button class="userAccess_btn" id="topTrendsBtn">Top Trends</button></li>
           </ul>
           <button type="submit" id="follow_btn">Follow</button>
           <button type="submit" onclick="deleteData()" id="deleteBtn"><b>Delete</b></button>
         </nav>
 
         <div id="posts" class="post_list"></div>
+
       </div>
     </div>
   </div>
@@ -104,61 +106,151 @@
     document.getElementById("user_tag").innerText = user_data['user_tag'];
     document.getElementById("user_bio").innerText = user_data['user_bio'];
 
+    let postButton = document.getElementById("postBtn");
+    let saveItemBtn = document.getElementById("saveItemBtn");
+    let topTrendsBtn = document.getElementById("topTrendsBtn");
+
+    const savedItems = JSON.parse(localStorage.getItem("save_records"));
+    const saved_post = savedItems.filter((e) => e.user_id === userId);
+
+    const savedPostUser = all_post.filter((e) =>
+      saved_post.some((s) => e.post_id === s.post_id)
+    )
+
+    //Total Post
+
+    postButton.addEventListener("click", function () {
+      let postsDiv = document.getElementById("posts");
+      postsDiv.innerHTML = "";
+      create_card(user_post);
+    });
+
+    // Saved Items
+
+    saveItemBtn.addEventListener("click", function () {
+      let postsDiv = document.getElementById("posts");
+      postsDiv.innerHTML = "";
+      create_card(savedPostUser);
+    });
+
+    // Top Trends
+
+    topTrendsBtn.addEventListener("click", function () {
+      let postsDiv = document.getElementById("posts");
+      postsDiv.innerHTML = "";
+
+      const likeData = [
+        { date: '2023-05-01', count: 50 },
+        { date: '2023-05-02', count: 65 },
+        { date: '2023-05-03', count: 85 },
+        { date: '2023-05-04', count: 80 },
+        { date: '2023-05-05', count: 75 },
+        { date: '2023-05-06', count: 90 },
+        { date: '2023-05-07', count: 120 },
+        { date: '2023-05-08', count: 115 },
+        { date: '2023-05-09', count: 130 },
+        { date: '2023-05-10', count: 125 },
+        // Add more data points here...
+      ];
+
+      // Graph chart represent like analytics
+      
+      const dataPoints = likeData.map(item => ({
+        x: new Date(item.date),
+        y: item.count
+      }));
+
+      const chart = new CanvasJS.Chart("posts", {
+        animationEnabled: true,
+        title: {
+          text: "Likes Over Time"
+        },
+        axisX: {
+          title: "Date",
+          valueFormatString: "MMM DD, YYYY"
+        },
+        axisY: {
+          title: "Likes",
+          includeZero: false
+        },
+        data: [{
+          type: "line",
+          dataPoints: dataPoints
+        }]
+      });
+
+      chart.render();
+    });
+
+
     let delete_button;
     let edit_button;
-    for (let i = 0; i < user_post.length; i++) {
+    create_card(user_post);
+    function create_card(filterPost) {
 
-      // Create the post_box div element
-      let postBoxDiv = document.createElement("div");
-      postBoxDiv.classList.add("post_box");
+      for (let i = 0; i < filterPost.length; i++) {
+        // Create the post_box div element
+        let postBoxDiv = document.createElement("div");
+        postBoxDiv.classList.add("post_box");
 
-      // Create the h2 element for the post content
-      let postContentH2 = document.createElement("h2");
-      postContentH2.classList.add("post_content");
+        // Create the h2 element for the post content
+        let postContentH2 = document.createElement("h2");
+        postContentH2.classList.add("post_content");
 
-      a_tag = document.createElement("a");
-      a_tag.setAttribute("href", "../posts/8-1_post.html?post_ID=" + user_post[i]["post_id"]);
-      a_tag.innerText = user_post[i]["title"];
-      postContentH2.append(a_tag);
+        a_tag = document.createElement("a");
+        a_tag.setAttribute("href", "../posts/8-1_post.html?post_ID=" + filterPost[i]["post_id"]);
+        a_tag.innerText = filterPost[i]["title"];
+        postContentH2.append(a_tag);
 
-      // Create the p element for the time and date
-      let timeDateP = document.createElement("p");
-      timeDateP.setAttribute("class", "time_date");
-      timeDateP.innerHTML = "Published On : " + user_post[i]["timestamp"];
+        // Create the p element for the time and date
+        let timeDateP = document.createElement("p");
+        timeDateP.setAttribute("class", "time_date");
+        timeDateP.innerHTML = "Published On : " + filterPost[i]["timestamp"];
 
-      // Create the second p element for the post content
-      let postContentP = document.createElement("p");
-      postContentP.classList.add("post_content");
-      postContentP.innerHTML = user_post[i]["content"];
+        // Create the second p element for the post content
+        let postContentP = document.createElement("p");
+        postContentP.classList.add("post_content");
+        postContentP.innerHTML = filterPost[i]["content"];
 
-      // Append the h2 and p elements to the post_box div
-      postBoxDiv.appendChild(postContentH2);
-      postBoxDiv.appendChild(timeDateP);
-      postBoxDiv.appendChild(postContentP);
+        // Append the h2 and p elements to the post_box div
+        postBoxDiv.appendChild(postContentH2);
+        postBoxDiv.appendChild(timeDateP);
+        postBoxDiv.appendChild(postContentP);
 
-      // Append the post_box div to the div with id "posts"
-      let postsDiv = document.getElementById("posts");
-      postsDiv.prepend(postBoxDiv);
+        // Append the post_box div to the div with id "posts"
+        let postsDiv = document.getElementById("posts");
+        postsDiv.prepend(postBoxDiv);
 
-      edit_button = document.createElement("button");
-      edit_button.setAttribute("class", "edit_btn");
-      edit_button.setAttribute("data-id", user_post[i]["post_id"]);
-      edit_button.innerText = "Edit";
-      postBoxDiv.append(edit_button);
+        if (userId === filterPost[i].unique_id) {
+          edit_button = document.createElement("button");
+          edit_button.setAttribute("class", "edit_btn");
+          edit_button.setAttribute("data-id", filterPost[i]["post_id"]);
+          edit_button.innerText = "Edit";
+          postBoxDiv.append(edit_button);
 
-      // Delete button JSON and JS code
-      // Declare and initialize delete_button before the event listener
-      delete_button = document.createElement("button");
-      delete_button.setAttribute("class", "delete_btn");
-      delete_button.setAttribute("data-uuid", user_post[i]["post_id"]);
-      delete_button.innerText = "Delete";
-      postBoxDiv.append(delete_button);
+          // Delete button JSON and JS code
+          // Declare and initialize delete_button before the event listener
+          delete_button = document.createElement("button");
+          delete_button.setAttribute("class", "delete_btn");
+          delete_button.setAttribute("data-uuid", filterPost[i]["post_id"]);
+          delete_button.innerText = "Delete";
+          postBoxDiv.append(delete_button);
+        }
+
+        if (userId === email_ID) {
+          delete_button.style.display = "block";
+          edit_button.style.display = "block";
+        } else {
+          delete_button.style.display = "none";
+          edit_button.style.display = "none";
+        }
+      };
     };
 
     // Add event listener to delete_button
 
-      let delete_btn = document.querySelectorAll("button.delete_btn");
-      delete_btn.forEach(function (find_post) {
+    let delete_btn = document.querySelectorAll("button.delete_btn");
+    delete_btn.forEach(function (find_post) {
       find_post.addEventListener("click", function () {
         if (confirm("Are you sure to Delete ?")) {
           let post_d_id = this.dataset.uuid;
@@ -169,36 +261,30 @@
 
           let indexOfPost = blog_records.indexOf(find_post);
           // Remove the post from the array
-    
+
           blog_records.splice(indexOfPost, 1);
-          
+
 
           localStorage.setItem('blog_records', JSON.stringify(blog_records));
           location.reload();
         }
       })
-      });
+    });
 
-      let edit = document.querySelectorAll("button.edit_btn");
-      edit.forEach(function (find_post) {
-        find_post.addEventListener("click", function () {
-          let id = this.dataset.id
+    // Post edit button JS
 
-          localStorage.setItem("post_id", JSON.stringify(id));
-          window.location.href = "../user_services/4_creat_post.html";
-        })
-      });
+    let edit = document.querySelectorAll("button.edit_btn");
+    edit.forEach(function (find_post) {
+      find_post.addEventListener("click", function () {
+        let id = this.dataset.id
 
-      if(user_post.length > 0){
-      if (userId === email_ID) {
-        delete_button.style.display = 'block';
-        edit_button.style.display = 'block';
-      } else {
-        delete_button.style.display = 'none';
-        edit_button.style.display = 'none';
-      }
-    }
-    
+        localStorage.setItem("post_id", JSON.stringify(id));
+        window.location.href = "../user_services/4_creat_post.html";
+      })
+
+    });
+
+    //Profile edit page
 
     let editBtn = document.getElementById("editBtn");
 
@@ -217,6 +303,7 @@
     }
 
     // get the follow data from local storage or initialize it as an empty array
+
     let follow_records = JSON.parse(localStorage.getItem("follow_records")) || [];
 
     let follow_btn = document.getElementById("follow_btn");

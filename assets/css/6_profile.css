@@ -227,7 +227,7 @@ div.post_box {
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
   padding: 0.8rem;
   width: 95%;
-  /* height: 230px; */
+  /* height: 200px; */
   margin: 1rem;
 }
 
@@ -237,7 +237,7 @@ p.post_content {
   margin: 5px 0 10px;
   /* To Remove Title In 3 Lines */
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -268,9 +268,9 @@ button.delete_btn {
   border: none;
   color: #ffffff;
   font-weight: bold;
+  float: right;
   border-radius: 0.3em;
   letter-spacing: 1px;
-  float: right;
   font-family: 'Poppins', sans-serif;
   margin-top: -2rem;
 }

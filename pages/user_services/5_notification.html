@@ -2,204 +2,104 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notification-Venom.com</title>
-  <link rel="stylesheet" href="../../assets/css/3_home.css">
-  <link rel="stylesheet" href="../../assets/css/5_notification.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification-Venom.com</title>
+    <link rel="stylesheet" href="../../assets/css/3_home.css">
+    <link rel="stylesheet" href="../../assets/css/5_notification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
 </head>
 
 <body>
-   <!--Header-->
-   <header>
-    <!--Nav-->
-    <div class="header">
-        <div class="nav_main">
-            <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
+    <!--Header-->
+
+    <div class="notific_main">
+        <h1>
+            Notifications<sup>
+                <i class="fa fa-bell" style="color: #000;"></i>
+            </sup>
+        </h1>
+        <div class="notific_top">
+            <!--Notification_content_Js-->
         </div>
+    </div>
+    <div class="icons">
+        <a href="#">
+            <i class="fa fa-facebook" style="color: #000;"></i>
+        </a>
+        <a href="#">
+            <i class="fa fa-instagram" style="color: #000;"></i>
+        </a>
+        <a href="#">
+            <i class="fa fa-twitter" style="color: #000;"></i>
+        </a>
+        <a href="#">
+            <i class="fa fa-github" style="color: #000;"></i>
+        </a>
+        <p>© 2023 Venom.com All rights reserved</p>
+    </div>
+
+    <script>
         
-        <div class="navigation_link">
-            <ul>
-                <form>
-                    <input type="text" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000;"></i></span>
-                  </form>
-                </li>
-                <li id="med-blk"><a href="../user_services/4_creat_post.html">Create</a></li>
-                <a href="../user_services/5_notification.html">
-                    <li id="med-blk"><i class="fa fa-bell" style="color: #000;"></i></li>
-                </a>
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem"
-                                height="40rem" style="border-radius: 2rem;"></li>
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
-                                style="font-size:15px"></i>Profile</a>
-                        <a id="med-dc" href="../user_services/4_creat_post.html"><i class="fa fa-magic"
-                                style="font-size:18px"></i>Create</a>
-                        <a id="med-dc" href="../user_services/5_notification.html"><i class="fa fa-bell"
-                                style="font-size:13px"></i>Notification</a>
-                        <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear"
-                                style="font-size:15px"></i>Settings</a>
-                        <a href="../../index.html"><i class="fa fa-sign-out"
-                                style="font-size:18px"></i>Log-Out</a>
-                    </div>
-                </div>
-            </ul>
-        </div>
-    </div>
-</header>
-  <div class="notific_main">
-    <h1>Notifications<sup><i class="fa fa-bell" style="color: #000;"></i></sup></h1>
-    <div class="notific_top">
-     <!--Notification_content_Js-->
-    </div>
-  </div>
-  <div class="icons">
-    <a href="#"><i class="fa fa-facebook" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-    <p>© 2022 Venom.com All rights reserved</p>
-  </div>
+        let div_notific;
+        let img_profile;
+        let p_notific_txt;
+        let br_notific_txt;
+        let span_notific_txt;
+        let strong_txt;
+        let a_tagNav;
 
-  <script>
-    const notific_card = [
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_1.jpg",
-          alt:"user_profile"
-        } ,
-        "strong" : "Elon Musk",
-        "notific_text": "liked your post",
-        "timestamp" : "3m ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_2.jpg",
-          alt:"user_profile"
-        } ,
-        "strong" : "Anand Mahindra",
-        "notific_text": "comment your post and started follow you",
-        "timestamp":"5m ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_3.jpg",
-          alt:"user_profile"
-        } ,
-        "strong": "Kamala Harris",
-        "notific_text": "like and comment your post",
-        "timestamp": "7m ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_4.jpg",
-          alt:"user_profile"
-        } ,
-        "strong" :"Girish Mathrubootham",
-        "notific_text": "like your post and started follow you",
-        "timestamp": " 8m ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_5.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Johnny Depp",
-        "notific_text": "react your post with shocking emoji",
-        "timestamp":"15m ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_6.jpg",
-          alt:"user_profile"
-        } ,
-        "strong": "Chris Evans",
-        "notific_text": "comment your post and started follow you",
-        "timestamp":"1h ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_7.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"James Cameron",
-        "notific_text": "liked your Post",
-        "timestamp":"5h ago"
+        let params = new URLSearchParams(window.location.search);
+        let userId = params.get('user_ID');
 
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_8.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Ratan Tata",
-        "notific_text": "liked your Post",
-        "timestamp":"2d ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_9.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Bill Gates",
-        "notific_text": "liked your Post",
-        "timestamp":"3d ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_10.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Sundar Pichai",
-        "br_notific_txt": "liked your Post",
-        "timestamp":"5d ago"
-      },
+        const getCommentRc = JSON.parse(localStorage.getItem("comment_records"));
+        const findCrtId = getCommentRc.filter((e) => e.other_user === userId);
 
-    ]
+        for (let i = 0; i < findCrtId.length; i++) {
 
-    let div_notific;
-    let img_profile;
-    let p_notific_txt;
-    let br_notific_txt;
-    let strong_txt;
+            a_tagNav = document.createElement("a");
+            a_tagNav.setAttribute("href", "../posts/8-1_post.html?post_ID=" + findCrtId[i].comment_post_id);
+            a_tagNav.style.textDecoration = "none";
+            a_tagNav.style.color = "black";
 
-    for (let i = 0; i < 10; i++){
+            div_notific = document.createElement("div");
+            div_notific.setAttribute("class", "notific_profile");
+            a_tagNav.append(div_notific);
 
-    div_notific = document.createElement("div");
-    div_notific.setAttribute("class", "notific_profile");
-    console.log(div_notific);
+            img_profile = document.createElement("img");
+            img_profile.setAttribute("src", findCrtId[i].profile.source);
+            img_profile.setAttribute("alt", findCrtId[i].profile.alt);
+            img_profile.setAttribute("class", "profile_pic");
+            div_notific.append(img_profile);
 
-    img_profile = document.createElement("img");
-    img_profile.setAttribute("src", notific_card[i]["notific_user"]["source"]);
-    img_profile.setAttribute("alt", notific_card[i]["notific_user"]["alt"]);
-    img_profile.setAttribute("class", "profile_pic");
-    div_notific.append(img_profile); 
+            p_notific_txt = document.createElement("p");
+            p_notific_txt.setAttribute("class", "post-description");
+            p_notific_txt.innerText = findCrtId[i].message;
+            div_notific.append(p_notific_txt);
 
-    p_notific_txt = document.createElement("p");
-    p_notific_txt.setAttribute("class", "post-description");
-    p_notific_txt.innerText = notific_card[i]["notific_text"];
-    div_notific.append(p_notific_txt);
+            b_notific_txt = document.createElement("strong");
+            b_notific_txt.setAttribute("class", "bold");
+            b_notific_txt.innerText = findCrtId[i].name;
+            p_notific_txt.prepend(b_notific_txt);
 
-    b_notific_txt = document.createElement("strong");
-    b_notific_txt.setAttribute("class", "bold");
-    b_notific_txt.innerText = notific_card[i]["strong"];
-    p_notific_txt.prepend(b_notific_txt);
+            span_notific_txt = document.createElement("p");
+            // p_notific_txt.setAttribute("class", "comment_time");
+            span_notific_txt.innerText = findCrtId[i].comment_time;
+            span_notific_txt.style.cssFloat = "right";
+            p_notific_txt.append(span_notific_txt);
 
-    br_notific_txt = document.createElement("br");
-    br_notific_txt.innerText = notific_card[i]["br_notific_text"];
-    b_notific_txt.append(br_notific_txt);
+            br_notific_txt = document.createElement("br");
+            b_notific_txt.append(br_notific_txt);
 
+            document.querySelector("div.notific_top").prepend(a_tagNav);
 
-    document.querySelector("div.notific_top").append(div_notific);
+        }
 
-    }
-  </script>
+    </script>
+
+    <script src="/assets/header.js"></script>
 </body>
 
 </html>

@@ -54,8 +54,8 @@ div.notific_profile p.post-description {
     max-width: 20rem;
 }
 
-p.time_data {
-   display: flex;
+.time_data {
+   
 }
 
 div.notific_profile strong.bold {

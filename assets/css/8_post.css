@@ -36,7 +36,7 @@ p#cover_image {
     border-radius: 5px;
 }
 
-.sticky-note {
+/* .sticky-note {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     margin-top: 10rem;
     font-size: 90%;
@@ -86,7 +86,7 @@ p#cover_image {
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
-}
+} */
 
 
 div.post_page p {
@@ -211,6 +211,72 @@ div.comment_area textarea {
     border-radius: 1.5rem;
 }
 
+.social-icons {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+  }
+  
+  .social-icons img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  button#copy-link-button {
+    background-color: #335ecc;
+    color: white;
+    padding: 5px 5px;
+    font-size: 80%;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  }
+
+  input#link-input {
+    width: 75%;
+    margin-top: 1rem;
+    padding: 0.16rem;
+  }
+  
+div.close-button {
+    float: right; 
+    margin-top: -2.2rem; 
+    margin-right: -2.2rem;
+    border-radius: 3rem; 
+    background-color:gray;
+    color: white;
+    font-weight: bold;
+    padding: 4px 7px;
+    border-radius: 1rem;
+    top: 50px;
+    right: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+  #share-popup {
+    display: none;
+    position: fixed;
+    width: 22rem;
+    height: 11rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 5px solid #bcbabb;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    z-index: 9999;
+  }
+
+  #share-popup .social-icons {
+    margin-bottom: 10px;
+  }
+  
 button#heart {
     background-color: white;
     border: none;
