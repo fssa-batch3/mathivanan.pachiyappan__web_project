@@ -27,7 +27,7 @@ const AfterLogin = `<header>
     <div class="navigation_link">
         <ul>
             <form>
-                <input type="search" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000; background-color: white; padding: 0.2rem;"></i></span>
+                <input type="search" placeholder="Search...." id="searchInput"/><span><i class="fa fa-search" style="color: #000; background-color: white; padding: 0.2rem;"></i></span>
               </form>
             </li>
             <li id="med-blk"><a href="${rootPath}/pages/user_services/4_creat_post.html">Create</a></li>
@@ -79,14 +79,24 @@ if (loginUser) {
 
 const userData = JSON.parse(localStorage.getItem("email_ID"));
 const userRecords = JSON.parse(localStorage.getItem("user_records"));
+
+//Default profile pic
+let defaultDp = "https://res.cloudinary.com/dvb2bkrx9/image/upload/v1684832522/erso53o021syntb52mls.jpg";
+ 
+
 const profileImage = userRecords.find(
   (e) => e.user_email == loginUser
 )?.user_profile;
-const profImg = document.getElementById("profile_img");
-profImg.style.backgroundImage = `url(${profileImage})`;
+
+let profImg = document.getElementById("profile_img");
+if (profileImage == 0) {
+  profImg.style.backgroundImage = `url(${defaultDp})`;
+} else {
+  profImg.style.backgroundImage = `url(${profileImage})`;
+}
 
 // Create the <a> element
-var linkElement = document.createElement("a");
+let linkElement = document.createElement("a");
 linkElement.setAttribute(
   "href",
   `${rootPath}/pages/user_services/5_notification.html?user_ID=${userData}`
@@ -94,16 +104,16 @@ linkElement.setAttribute(
 // linkElement.href = rootPath + "/pages/user_services/5_notification.html?user_ID=${userData}";
 
 // Create the <li> element
-var listItemElement = document.createElement("li");
+let listItemElement = document.createElement("li");
 listItemElement.id = "med-blk";
 
 // Create the <i> element
-var iconElement = document.createElement("i");
+let iconElement = document.createElement("i");
 iconElement.className = "fa fa-bell";
 iconElement.style.color = "#000";
 
 // Create the <span> element
-var countElement = document.createElement("span");
+let countElement = document.createElement("span");
 countElement.id = "notific";
 countElement.className = "notific_count";
 countElement.innerText = "0";
@@ -116,7 +126,7 @@ listItemElement.appendChild(countElement);
 linkElement.appendChild(listItemElement);
 
 // Append the <a> element to the desired parent element in the DOM
-var parentElement = document.getElementById("notific_bell");
+let parentElement = document.getElementById("notific_bell");
 parentElement.appendChild(linkElement);
 
 const profileLink = document.getElementById("drop_down");
@@ -142,6 +152,7 @@ anchorElement.setAttribute(
   `${rootPath}/pages/home/3_home.html?user_ID=${userData}`
 );
 
+
 // Create the "Venom" text and add it as a child of the anchor element
 const spanElement = document.createElement("span");
 spanElement.textContent = "nom";
@@ -155,21 +166,6 @@ divElement.appendChild(paragraphElement);
 
 document.querySelector("div.header").prepend(divElement);
 
-const notific_card = JSON.parse(localStorage.getItem("comment_records"));
-const getCmtPostlng = notific_card.filter((e) => e.user_email !== userData);
-const userCompare = notific_card.filter((e) => e.user_email === userData);
-
-const notificationIcon = document.getElementById("notific");
-
-notificationIcon.addEventListener("click", function() {
-  notific_length.style.display = "none";
-});
-
-const notific_length = document.getElementById("notific");
-notific_length.innerText = getCmtPostlng.length;
-if (getCmtPostlng.length <= 0 || userCompare.length > 0) {
-  notific_length.style.display = "none";
-}
 
 const editProfile = document.getElementById("drop_down");
 
@@ -187,3 +183,8 @@ a_Tag.appendChild(document.createTextNode("Settings"));
 
 editProfile.prepend(a_Tag);
 profileLink.prepend(aTag);
+
+
+// // Export the IDs as letiables
+// export const searchInputID = 'searchInput';
+// export const resultsContainerID = 'post container';

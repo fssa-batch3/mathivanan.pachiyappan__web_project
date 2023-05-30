@@ -141,14 +141,35 @@ div.inputs input[type="search"] {
   border: none;
 }
 
+div.input_tag {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 div.input_tag input[type="search"] {
   font-family: "Poppins", sans-serif;
+  background-color: #e6edfc;
   font-size: 80%;
   margin-bottom: 1rem;
   padding: 8px 5px;
-  width: 100%;
+  width: 85%;
   border-radius: 5px;
   border: none;
+}
+
+button.tagbutton {
+  background-color: #335ecc;
+  color: white;
+  padding: 5px 5px;
+  height: 2.2rem;
+  margin-left: 1rem;
+  font-size: 80%;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
 }
 
 .options {
@@ -217,7 +238,7 @@ button.mic {
   float: right;
 }
 
-#text_input {
+#result {
   margin-top: 10px;
   border: 1px solid #dddddd;
   padding: 20px;

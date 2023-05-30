@@ -14,6 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -21,8 +22,7 @@
 
   <h2 class="create_head">Create Post</h2>
   <div class="container">
-    <div class="cover_image">
-      <img id="cover_imgBox" alt="" style="padding: 0.5rem;">
+    <div class="cover_image" id="cover_imgBox" style="padding: 0.5rem;">
     </div>
     <div class="cover_inputs">
       <input type="file" accept="image/*" name="image" id="cover-upload" style="display: none">
@@ -31,13 +31,14 @@
       </label>
     </div>
     <div class="inputs">
-      <input type="text" placeholder="New post title here..." id="title">
+      <input type="text" placeholder="New post title here..." id="content-type">
     </div>
     <div class="inputs">
-      <input type="search" placeholder="Post Category..." id="sub_title">
+      <input type="search" placeholder="Post Category..." id="category">
     </div>
     <div class="input_tag">
-      <input type="search" placeholder="Add top tags..." id="post_tags">
+      <input type="search" placeholder="Add top tags..." id="tagline">
+      <button id="generate-btn" class="tagbutton">GenerateTags</button>
     </div>
 
     <div class="options">
@@ -127,14 +128,19 @@
         <label for="backColor">Highlight Color</label>
       </div> -->
     </div>
-    <div id="text_input" contenteditable="true" style="height: 400px; overflow: auto;"></div>
+    <div id="result" contenteditable="true" style="height: 400px; overflow: auto;"></div>
     <div class="post_button" id="post_box ">
       <button onclick="publish()" id="publish">Publish</button>
       <button onclick="saveUpdate()" id="saveUpdate">Save Edit</button>
       <button>Save draft</button>
-      <button id="text_convert" class="mic">
+
+      <button onclick="stopRecording()" class="mic" style="font-size: 80%;">Stop Recording</button>
+      <button onclick="startRecording()" class="mic" style="font-size: 100%; margin-right: 1rem;"><i
+          class="fa fa-microphone" aria-hidden="true"></i></button>
+
+      <!-- <button id="text_convert" class="mic">
         <i class="fa fa-microphone" aria-hidden="true"></i>
-      </button>
+      </button> -->
     </div>
   </div>
 
@@ -153,26 +159,86 @@
     </a>
     <p>© 2023 Venom.com All rights reserved</p>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.4.0/dist/axios.min.js"></script>
   <script>
 
-    text_convert.addEventListener("click", function () {
-      let speech = true;
-      window.SpeechRecognition = window.webkitSpeechRecognition;
-      let recognition = new SpeechRecognition();
-      recognition.interimResults = true;
+    // Tagline generator code
 
-      recognition.addEventListener("result", (e) => {
-        let transcript = Array.from(e.results)
-          .map((result) => result[0])
-          .map((result) => result.transcript);
+    let taglineText = document.getElementById("tagline");
 
-        text_input.innerHTML = transcript;
+    $(document).ready(function () {
+
+      $('#generate-btn').click(function () {
+        var contentType = $('#content-type').val();
+        generateTagline(contentType);
       });
 
-      if (speech == true) {
-        recognition.start();
+      function generateTagline(contentType) {
+
+        console.log("==================================================");
+        console.log(contentType)
+
+
+        axios.post("http://localhost:3000/tags", {
+          tags: contentType
+        }).then(res => {
+          console.log(res);
+          const generatedTags = res.data.text
+          taglineText.value = generatedTags;
+        })
+
       }
     });
+
+    //Speech to Text conversion
+
+    const apiKey = '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';
+    const baseUrl = 'https://api.openai.com/v1/chat/completions';
+
+    let recognition;
+    let isRecording = false;
+
+    function startRecording() {
+      recognition = new webkitSpeechRecognition();
+      recognition.interimResults = true;
+      recognition.continuous = true;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = function () {
+        console.log('Recording started...');
+      };
+
+      recognition.onresult = function (event) {
+        const result = event.results[event.results.length - 1];
+        const transcript = result[0].transcript;
+        console.log('Transcript:', transcript);
+
+        // Display the result on the page
+        document.getElementById('result').textContent = transcript;
+      };
+
+      recognition.onerror = function (event) {
+        console.error('Error:', event.error);
+      };
+
+      recognition.onend = function () {
+        console.log('Recording stopped.');
+        if (isRecording) {
+          startRecording();
+        }
+      };
+
+      recognition.start();
+      isRecording = true;
+    }
+
+    function stopRecording() {
+      if (recognition) {
+        recognition.stop();
+        isRecording = false;
+      }
+    }
 
     // Cover image Upload API
     let CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dvb2bkrx9/upload";
@@ -206,22 +272,22 @@
         });
     });
 
-    // let loadFile2 = function (event) {
-    //   let text_image = document.getElementById("text_input");
-    //   let text_imageURL = URL.createObjectURL(event.target.files[0]);
-    //   text_image.style.textAlignLast = "url(" + text_imageURL + ")";
-    //   localStorage.setItem("text_image", text_imageURL);
-    //   let markdown = "![" + text_image + "](" + text_imageURL + ")";
-    //   text_image.innerHTML = markdown;
-    // }
+    let taglineInput = document.getElementById("tagline");
+    // let taglineResult = document.getElementById("result");
+
+    taglineInput.addEventListener("input", () => {
+      let taglineText = taglineInput.value;
+      let formattedTagline = taglineText.replace(/#(\w+)/g, '<a href="https://www.google.com/search?q=$1" style="text-decoration: none;"><span style="color: blue;">#$1</span></a>');
+      taglineInput.value = formattedTagline;
+    });
 
     let post_ID = JSON.parse(localStorage.getItem("post_id"));
 
     function publish() {
-      let title = document.getElementById("title").value;
-      let sub_title = document.getElementById("sub_title").value;
-      let post_tags = document.getElementById("post_tags").value.split(",");
-      let post_content = document.getElementById("text_input").innerHTML;
+      let title = document.getElementById("content-type").value;
+      let sub_title = document.getElementById("category").value;
+      let post_tags = document.getElementById("tagline").value.split(",");
+      let post_content = document.getElementById("result").innerHTML;
       let post_uuid = uuidv4();
 
       let date = new Date();
@@ -267,7 +333,7 @@
           profile: {
             source: profile_image,
             alt: "profile_image",
-          },
+          }
         });
 
         localStorage.setItem("blog_records", JSON.stringify(blog_records));
@@ -359,19 +425,28 @@
       }
       let post_find = blog_records.find(blog_data);
 
-      document.getElementById("title").value = post_find.title;
-      document.getElementById("sub_title").value = post_find.category;
-      document.getElementById("text_input").innerHTML = post_find.content;
-      document.getElementById("post_tags").value = post_find.tags;
+      //Default Banner pic
+      let defaultBanner = "https://res.cloudinary.com/dvb2bkrx9/image/upload/v1685474495/gkmsoh1j9pqysiw5hj0q.png";
+
+      let postCoverImg = post_find.image.source;
+      if (postCoverImg == 0) {
+        document.getElementById("cover_imgBox").style.backgroundImage = "url(" + defaultBanner + ")";
+      } else {
+        document.getElementById("cover_imgBox").style.backgroundImage = "url(" + postCoverImg + ")";
+      }
+      document.getElementById("content-type").value = post_find.title;
+      document.getElementById("category").value = post_find.category;
+      document.getElementById("result").innerHTML = post_find.content;
+      document.getElementById("tagline").value = post_find.tags;
 
       document.querySelector("#publish").setAttribute("style", "display:none");
 
       function saveUpdate(e) {
         // e.preventDefault();
-        let title = document.getElementById("title").value;
-        let category = document.getElementById("sub_title").value;
-        let content = document.getElementById("text_input").innerHTML;
-        let tags = document.getElementById("post_tags").value.split(",");
+        let title = document.getElementById("content-type").value;
+        let category = document.getElementById("category").value;
+        let content = document.getElementById("result").innerHTML;
+        let tags = document.getElementById("tagline").value.split(",");
         post_find.title = title;
         post_find.category = category;
         post_find.content = content;
@@ -385,18 +460,10 @@
       }
     }
 
-    let taglineInput = document.getElementById("post_tags");
-    let taglineResult = document.getElementById("text_input");
-
-    taglineInput.addEventListener("input", () => {
-      let taglineText = taglineInput.value;
-      let formattedTagline = taglineText.replace(/#(\w+)/g, '<a href="https://www.google.com/search?q=$1" style="text-decoration: none;"><span style="color: blue;">#$1</span></a>');
-      taglineResult.innerHTML = formattedTagline;
-    });
-
   </script>
 
   <script src="/assets/header.js"></script>
+
 </body>
 
 </html>

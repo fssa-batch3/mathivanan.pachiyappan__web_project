@@ -13,21 +13,29 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
   <!--Header-->
   <div class="post_page">
     <p id="cover_image"></p>
-    <button class="share_icon" id="share-button">
-      <ion-icon name="share-social"></ion-icon>
-    </button>
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+      <!-- Audio button -->
+      <div style="display: flex; align-items: center;">
+        <button onclick="convertTextToSpeech()" style="background: none; border: none; margin-right: 1rem;"><i
+            class='fa fa-volume-up' style='font-size:23px;color:blue; cursor: pointer;'></i></button>
+        <!-- Audio player -->
+        <audio id="audio-player" controls></audio>
+      </div>
+      <!-- Share button icon -->
+      <button class="share_icon" id="share-button">
+        <ion-icon name="share-social"></ion-icon>
+      </button>
+    </div>
     <div id="container"></div>
     <!--Space for HTML elements of Blog Post-->
-    <div id="text-to-speech">
-      <button id="play-btn" disabled>Play</button>
-      <button id="pause-btn" disabled>Pause</button>
-    </div>
+
     <div class="react_icons">
       <div class="icon_main">
         <p id="like_icon">
@@ -95,6 +103,45 @@
 
   <script>
 
+    function convertTextToSpeech() {
+      const text = document.getElementById('container').innerText;
+      if (text.trim() === '') {
+        alert('Please enter some text.');
+        return;
+      }
+
+      $.ajax({
+        url: 'https://api.openai.com/v1/engines/davinci/tokens',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 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'
+        },
+        method: 'POST',
+        data: JSON.stringify({
+          'prompt': text,
+          'max_tokens': 200
+        }),
+        success: function (response) {
+          const audioUrl = response.choices[0].audio;
+          const audioPlayer = document.getElementById('audio-player');
+          audioPlayer.src = audioUrl;
+          audioPlayer.play();
+        },
+        error: function () {
+          alert('Error occurred while converting text to speech.');
+        }
+      });
+    }
+
+    let linkInput = document.getElementById('link-input');
+    let get_link = window.location.href;
+    linkInput.value = get_link;
+    document.getElementById('copy-link-button').addEventListener('click', function () {
+      linkInput.select();
+      document.execCommand('copy');
+      alert('Link copied to clipboard!');
+    });
+
     document.getElementById('share-button').addEventListener('click', function () {
       document.getElementById('share-popup').style.display = 'block';
     });
@@ -105,39 +152,30 @@
 
     document.getElementById('facebook-icon').addEventListener('click', function () {
       // Replace 'your-url-here' with the actual URL you want to share
-      var url = 'your-url-here';
+      var url = get_link;
       var shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
       window.open(shareUrl, '_blank');
     });
 
     document.getElementById('twitter-icon').addEventListener('click', function () {
       // Replace 'your-url-here' with the actual URL you want to share
-      var url = 'your-url-here';
+      var url = get_link;
       var shareUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(url);
       window.open(shareUrl, '_blank');
     });
 
     document.getElementById('linkedin-icon').addEventListener('click', function () {
       // Replace 'your-url-here' with the actual URL you want to share
-      var url = 'your-url-here';
+      var url = get_link;
       var shareUrl = 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(url);
       window.open(shareUrl, '_blank');
     });
 
     document.getElementById('instagram-icon').addEventListener('click', function () {
       // Replace 'your-url-here' with the actual URL you want to share
-      var url = 'your-url-here';
+      var url = get_link;
       var shareUrl = 'https://www.instagram.com/sharer.php?u=' + encodeURIComponent(url);
       window.open(shareUrl, '_blank');
-    });
-
-    let linkInput = document.getElementById('link-input');
-    let get_link = window.location.href;
-    linkInput.value = get_link;
-    document.getElementById('copy-link-button').addEventListener('click', function () {
-      linkInput.select();
-      document.execCommand('copy');
-      alert('Link copied to clipboard!');
     });
 
     const email_ID = JSON.parse(localStorage.getItem("email_ID"));
@@ -159,13 +197,18 @@
       const html = converter.makeHtml(post.content);
       const postHTML =
         `<h2>${post.title}</h2>` +
-        `<p><em> Published On : ${post.timestamp}  by  <b><a href="../Myprofile/6_profile.html?user_ID=${post.unique_id}">${post.name}</a></b></em></p>` +
+        `<p><em> Published On : ${post.timestamp}  by  <b>
+          <a href="../Myprofile/6_profile.html?user_ID=${post.unique_id}">
+            <span style="color: black; margin-right: 0.5rem;">${post.name}</span>
+            <img src="${post.profile.source}" style="width: 2rem; height: 2rem; margin-bottom: -0.8rem; border: 2px solid orange;"/>
+            </a></b></em></p>` +
         `<p><strong>${post.category}</strong></p>` +
-        // `<p><strong>Tags : </strong> ${post.tags.join(", ")}</p>` +
+        `<p><strong>Tags : </strong> ${post.tags.join(", ")}</p>` +
         `<div>${html}</div>`;
       const container = document.getElementById("container");
       container.innerHTML += postHTML;
     });
+
 
     const coverImage = blog_records.find((e) => e.post_id == postId)?.image.source;
     const coverImg = document.getElementById("cover_image");
@@ -177,45 +220,32 @@
       e.preventDefault();
       const comment_txt = document.getElementById("cmt_txt").value;
 
-      const date = new Date();
-      const commentTime = `${date
-        .getDate()
-        .toString()
-        .padStart(2, "0")} ${date.toLocaleString("default", {
-          month: "short",
-        })} ${date.getFullYear()}`;
+      let date = new Date();
 
-      const comment_records =
-        JSON.parse(localStorage.getItem("comment_records")) || [];
+      // let year = date.getFullYear();
+      // let month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if needed
+      // let day = date.getDate().toString().padStart(2, '0'); // Add leading zero if needed
+
+      // // Format the date as "YYYY-MM-DD"
+      // let commentTime = `${year}-${month}-${day}`;
+
+
+      const comment_records = JSON.parse(localStorage.getItem("comment_records")) || [];
       const email_ID = JSON.parse(localStorage.getItem("email_ID"));
-      const user_records = JSON.parse(localStorage.getItem("user_records"));
-
-      // get user's name from user_records based on email_ID
-      const user_name = user_records.find(
-        (e) => e.user_email == email_ID
-      )?.user_name;
-      const user_email = user_records.find(
-        (e) => e.user_email == email_ID
-      )?.user_email;
-      const profileImage = user_records.find(
-        (e) => e.user_email == email_ID
-      )?.user_profile;
+      const uuid = uuidv4();
+      // const user_records = JSON.parse(localStorage.getItem("user_records"));
 
       if (comment_txt == 0) {
         alert("Please Write your Comment!");
       } else {
         comment_records.push({
-          name: user_name,
-          user_email,
-          other_user: creatorId,
-          profile: {
-            source: profileImage,
-            alt: "profile_1",
-          },
-          comment_time: commentTime,
+          user_id: email_ID,
+          timestamp: date,
           comment_text: comment_txt,
           comment_post_id: postId,
-          message: "Comment your post On | ",
+          comment_id: uuid,
+          status: true,
+          type: "comment"
         });
       }
       localStorage.setItem("comment_records", JSON.stringify(comment_records));
@@ -228,6 +258,9 @@
     const post_comment = comment_list.filter(
       (comment) => comment.comment_post_id === postId
     );
+    const user_records = JSON.parse(localStorage.getItem("user_records"));
+
+    // console.log(comment_user)
     // console.log(post_comment);
 
     const comment_count = post_comment.length;
@@ -235,31 +268,48 @@
     document.getElementById("cmt_icon_count").innerHTML = comment_count;
 
     for (let i = 0; i < post_comment.length; i++) {
-      //  <div class="col"> </div>
+
+      const email_ID = JSON.parse(localStorage.getItem("email_ID"));
+
+      const comment_user = user_records.filter((e) => post_comment[i].user_id === e.user_email);
+
       const commentBox = document.getElementById("comment_box");
 
       const notificProfile = document.createElement("div");
       notificProfile.setAttribute("class", "notific_profile");
 
       const profileDiv = document.createElement("div");
+      profileDiv.setAttribute("class", "flex_div");
 
       const profileLink = document.createElement("a");
-      profileLink.href = `../Myprofile/6_profile.html?user_ID=${post_comment[i].user_email}`;
+      profileLink.href = `../Myprofile/6_profile.html?user_ID=${post_comment[i].user_id}`;
 
       const profileImage = document.createElement("img");
-      profileImage.src = post_comment[i].profile.source;
+      profileImage.src = comment_user[0].user_profile;
       profileImage.alt = "user_image";
       profileImage.setAttribute("class", "profile_img");
 
       profileLink.appendChild(profileImage);
 
       const profileName = document.createElement("p");
-
       const strong = document.createElement("strong");
-      strong.textContent = post_comment[i].name;
+      strong.textContent = comment_user[0].user_name;
+
+      let date = new Date(post_comment[i].timestamp);
+      let commentTime = `${date
+        .getDate()
+        .toString()
+        .padStart(2, "0")} ${date.toLocaleString("default", {
+          month: "short",
+        })} ${date.getFullYear()}`;
 
       const span = document.createElement("span");
-      span.innerText = post_comment[i].comment_time;
+      span.innerText = commentTime;
+
+      const image = document.createElement("img")
+      image.setAttribute("src", "/assets/images/svg/ellipsis-vertical.svg")
+      image.setAttribute("class", "drop_ellipsis");
+      image.setAttribute("alt", "ellipsis-vertical");
 
       profileName.appendChild(strong);
       profileName.appendChild(document.createElement("br"));
@@ -269,14 +319,45 @@
       profileDiv.appendChild(profileName);
 
       notificProfile.appendChild(profileDiv);
-
+      notificProfile.appendChild(image);
       const commentTxt = document.createElement("p");
       commentTxt.setAttribute("class", "comment_txt");
       commentTxt.innerText = post_comment[i].comment_text;
 
       commentBox.prepend(commentTxt);
       commentBox.prepend(notificProfile);
+
+      if (post_comment[i].user_id !== email_ID) {
+        image.style.display = "none";
+      }
+      // Dropdown functionality
+      image.addEventListener("click", function () {
+        const dropdown = document.createElement("div");
+        dropdown.setAttribute("class", "dropdown");
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.setAttribute("class", "delete_btn");
+        deleteBtn.setAttribute("data-uuid", post_comment[i].comment_id);
+
+        deleteBtn.addEventListener("click", function () {
+          if (confirm("Are you sure you want to delete this comment?")) {
+            let commentId = this.dataset.uuid;
+            let commentIndex = post_comment.findIndex((comment) => comment.comment_id === commentId);
+            if (commentIndex !== -1) {
+              post_comment.splice(commentIndex, 1);
+
+              localStorage.setItem('comment_records', JSON.stringify(post_comment));
+              location.reload();
+            }
+          }
+        });
+
+        dropdown.appendChild(deleteBtn);
+        this.parentNode.parentNode.appendChild(dropdown);
+      });
     }
+
 
     const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
 
@@ -296,60 +377,74 @@
     // like count inner text
     const heart_icon_count = document.getElementById("like_icon_count");
     const like_count = like_records.filter((e) => e.post_id == postId);
-    heart_icon_count.innerText = like_count.length;
+    heart_icon_count.innerText = parseInt(like_count.length);
 
     // Like count JS;
 
+    // Create a new Date object
+    let date = new Date();
+    console.log(date);
+    // Get the year, month, and day components
+    // let year = date.getFullYear();
+    // let month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if needed
+    // let day = date.getDate().toString().padStart(2, '0'); // Add leading zero if needed
+
+    // // Format the date as "YYYY-MM-DD"
+    // let likeTime = `${year}-${month}-${day}`;
+
+    // console.log(formattedDate); // Output: 2023-05-28 (current date)
+
     heart_icon.addEventListener("click", function (e) {
       const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
+      let like_count; // Declare the like_count variable
+
+
       if (like_records.length === 0) {
         like_records.push({
           user_id: email_ID,
           post_id: postId,
-          notific: false,
+          status: true,
+          timestamp: date,
+          // count: parseInt(heart_icon_count.innerText) +1,
+          type: "like"
         });
+
         localStorage.setItem("like_records", JSON.stringify(like_records));
         heart_icon.setAttribute("name", "heart");
         heart_icon.style.color = "red";
-        const like_count = like_records.filter((e) => e.post_id == postId);
-        heart_icon_count.innerText = like_count.length;
+        like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
+        heart_icon_count.innerText = parseInt(like_count.length);
       } else {
         const likeFind = like_records.find(
           (like) => like.user_id == email_ID && like.post_id == postId
         );
         const findIndex = like_records.indexOf(likeFind);
-        const likeDate = new Date();
-        const likeTime = `${likeDate
-          .getDate()
-          .toString()
-          .padStart(2, "0")} ${likeDate.toLocaleString("default", {
-            month: "short",
-          })} ${likeDate.getFullYear()}`;
-
 
         if (likeFind == undefined) {
           like_records.push({
             user_id: email_ID,
-            creatorId: creatorId,
             post_id: postId,
-            notific: false,
-            date: likeTime
+            status: true,
+            timestamp: date,
+            // count: parseInt(heart_icon_count.innerText) +1,
+            type: "like"
           });
           localStorage.setItem("like_records", JSON.stringify(like_records));
           heart_icon.setAttribute("name", "heart");
           heart_icon.style.color = "red";
-          const like_count = like_records.filter((e) => e.post_id == postId);
-          heart_icon_count.innerText = like_count.length;
+          like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
+          heart_icon_count.innerText = parseInt(like_count.length);
         } else {
           like_records.splice(findIndex, 1);
           localStorage.setItem("like_records", JSON.stringify(like_records));
           heart_icon.setAttribute("name", "heart-outline");
           heart_icon.style.color = "black";
-          const like_count = like_records.filter((e) => e.post_id == postId);
-          heart_icon_count.innerText = like_count.length;
+          like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
+          heart_icon_count.innerText = parseInt(like_count.length);
         }
       }
     });
+
 
     const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
 
@@ -389,101 +484,6 @@
       ).length;
       save_icon.style.color = save_count ? "black" : "";
     });
-
-    // // Check if the Web Speech API is supported by the browser
-    if ('speechSynthesis' in window) {
-      const synth = window.speechSynthesis;
-      const playBtn = document.getElementById('play-btn');
-      const pauseBtn = document.getElementById('pause-btn');
-      const blogPost = document.getElementById('container');
-      let utterances = [];
-
-      // Get the blog post content and split it into smaller chunks
-      const chunkSize = 200;
-      let chunks = blogPost.innerText.match(new RegExp(`.{1,${chunkSize}}`, 'g'));
-
-      // Create an utterance for each chunk
-      chunks.forEach((chunk) => {
-        let utterance = new SpeechSynthesisUtterance();
-        utterance.text = chunk;
-        utterance.lang = 'en-US';
-        utterance.volume = 1;
-        utterance.rate = 1;
-        utterance.pitch = 1;
-        utterances.push(utterance);
-      });
-
-      // Enable the play button
-      playBtn.disabled = false;
-      playBtn.addEventListener('click', () => {
-        let currentIndex = 0;
-        let currentChunk = chunks[currentIndex];
-        let currentWordIndex = 0;
-        let currentWord = '';
-        let currentWordCompleted = false;
-
-        const colorChangeInterval = setInterval(() => {
-          // Check if current chunk has finished speaking
-          if (synth.speaking === false) {
-            // Move to the next chunk if available
-            currentIndex++;
-            if (currentIndex < chunks.length) {
-              currentChunk = chunks[currentIndex];
-              currentWordIndex = 0;
-              currentWord = '';
-              currentWordCompleted = false;
-              synth.speak(utterances[currentIndex]);
-            } else {
-              clearInterval(colorChangeInterval);
-              pauseBtn.disabled = true;
-            }
-          } else {
-            // Highlight the current word
-            const words = currentChunk.split(' ');
-            if (currentWordIndex < words.length) {
-              if (currentWordCompleted) {
-                currentWordIndex++;
-                currentWord = '';
-                currentWordCompleted = false;
-              } else {
-                const highlightedText = words[currentWordIndex].split('').map((char, index) => {
-                  if (index < currentWord.length) {
-                    return `<span style="color: red">${char}</span>`;
-                  } else {
-                    return char;
-                  }
-                }).join('');
-                blogPost.innerHTML = currentChunk.replace(words[currentWordIndex], highlightedText);
-                currentWord += words[currentWordIndex][currentWord.length];
-                if (currentWord.length === words[currentWordIndex].length) {
-                  currentWordCompleted = true;
-                }
-              }
-            }
-          }
-        }, 100);
-        synth.speak(utterances[currentIndex]);
-      });
-
-      // Enable the pause button
-      pauseBtn.disabled = false;
-      pauseBtn.addEventListener('click', () => {
-        synth.pause();
-      });
-
-      // Handle the speech end and resume events to disable/enable the pause button
-      utterances[utterances.length - 1].addEventListener('end', () => {
-        pauseBtn.disabled = true;
-      });
-      synth.addEventListener('resume', () => {
-        pauseBtn.disabled = false;
-      });
-    } else {
-      // Web Speech API not supported
-      console.log('Web Speech API not supported by this browser');
-    }
-
-
 
   </script>
 

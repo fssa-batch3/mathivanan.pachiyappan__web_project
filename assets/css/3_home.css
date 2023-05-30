@@ -29,9 +29,9 @@ a {
     list-style: none;
 }
 
-img {
+/* img {
     width: 100%;
-}
+} */
 
 section {
     padding: 3rem 0 2rem;
@@ -320,7 +320,7 @@ a.post-box {
     margin-top: 4px;
 }
 
-.post-description {
+p.post-description {
     font-size: 0.9rem;
     line-height: 1.5rem;
     margin: 5px 0 10px;

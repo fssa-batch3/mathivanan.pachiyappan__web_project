@@ -4,7 +4,7 @@
 }
 
 body {
-    font-family:sans-serif;
+    font-family: sans-serif;
 }
 
 div.post_page {
@@ -121,7 +121,7 @@ div.react_icons {
     justify-content: space-between;
 }
 
-div.icon_main { 
+div.icon_main {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -129,7 +129,7 @@ div.icon_main {
     max-height: 2rem;
 }
 
-div.icon_main p  {
+div.icon_main p {
     font-size: 80%;
     font-weight: bold;
 }
@@ -154,7 +154,7 @@ div.icon_main p.cmt_icon {
 div.side_main p {
     max-width: 1.5rem;
     font-size: 80%;
-    font-weight: bold;  
+    font-weight: bold;
 }
 
 div.side_main p ion-icon {
@@ -165,7 +165,7 @@ div.side_main p ion-icon {
 button.share_icon {
     background: none;
     border-radius: 3em;
-    border : none;
+    border: none;
     float: right;
     margin: 1rem;
     margin-right: -0.3rem;
@@ -175,7 +175,7 @@ button.share_icon:hover {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
     color: black;
     border-radius: 3em;
-    border : none;
+    border: none;
     float: right;
     margin: 1rem;
     margin-right: -0.3rem;
@@ -215,16 +215,16 @@ div.comment_area textarea {
     display: flex;
     justify-content: space-between;
     margin: 20px;
-  }
-  
-  .social-icons img {
+}
+
+.social-icons img {
     width: 40px;
     height: 40px;
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  }
+}
 
-  button#copy-link-button {
+button#copy-link-button {
     background-color: #335ecc;
     color: white;
     padding: 5px 5px;
@@ -232,20 +232,22 @@ div.comment_area textarea {
     border: none;
     border-radius: 2px;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-  }
+}
 
-  input#link-input {
+input#link-input {
     width: 75%;
     margin-top: 1rem;
     padding: 0.16rem;
-  }
-  
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+    border: 1px solid gray;
+}
+
 div.close-button {
-    float: right; 
-    margin-top: -2.2rem; 
+    float: right;
+    margin-top: -2.2rem;
     margin-right: -2.2rem;
-    border-radius: 3rem; 
-    background-color:gray;
+    border-radius: 3rem;
+    background-color: gray;
     color: white;
     font-weight: bold;
     padding: 4px 7px;
@@ -256,7 +258,14 @@ div.close-button {
     font-weight: bold;
     cursor: pointer;
 }
-  #share-popup {
+
+#audio-player {
+    margin: 0;
+    padding: 0;
+    height: 2.5rem;
+}
+
+#share-popup {
     display: none;
     position: fixed;
     width: 22rem;
@@ -266,27 +275,38 @@ div.close-button {
     transform: translate(-50%, -50%);
     padding: 20px;
     background-color: #fff;
-    border: 1px solid #ccc;
-    border: 5px solid #bcbabb;
-    border-radius: 5px;
+    border: 3px solid #ccc;
+    /* border: 5px solid #bcbabb; */
+    border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
     z-index: 9999;
-  }
+}
 
-  #share-popup .social-icons {
+div.flex_div {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+    width: 100%;
+}
+
+img.drop_ellipsis {
+    height: 1.2rem;
+}
+
+#share-popup .social-icons {
     margin-bottom: 10px;
-  }
-  
+}
+
 button#heart {
     background-color: white;
     border: none;
-  }
-  
-  button#heart.clicked {
-    background-color: pink;
-  }
+}
 
-  
+button#heart.clicked {
+    background-color: pink;
+}
+
+
 div.comment_area textarea:focus {
     outline: none;
 }
@@ -319,15 +339,8 @@ div.comment_area h4 {
 div.notific_profile {
     display: flex;
     flex-direction: row;
-    align-content: center;
-    justify-content: space-between;
-}
 
-div.notific_profile div {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    width: 100%;
 }
 
 strong {
@@ -339,14 +352,17 @@ div.comment_area p.comment_txt {
     border-bottom: 1px solid gray;
     padding-bottom: 1rem;
 }
+
 div.notific_profile a img.profile_img {
     border-radius: 2rem;
     max-width: 2rem;
     max-height: 4.5vh;
     margin-right: 0.5rem;
 }
-div.notific_profile img {
-    width: 100%;
+
+img.profile_img {
+    width: 100rem;
+    height: 2rem;
 }
 
 div.notific_profile p {
@@ -360,5 +376,5 @@ div.notific_profile p span {
 }
 
 p strong {
-    text-transform:uppercase;
+    text-transform: uppercase;
 }

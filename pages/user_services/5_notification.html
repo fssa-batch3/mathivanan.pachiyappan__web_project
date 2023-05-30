@@ -21,7 +21,7 @@
                 <i class="fa fa-bell" style="color: #000;"></i>
             </sup>
         </h1>
-        <div class="notific_top">
+        <div class="notific_top" id="notificationContent">
             <!--Notification_content_Js-->
         </div>
     </div>
@@ -42,60 +42,95 @@
     </div>
 
     <script>
-        
-        let div_notific;
-        let img_profile;
-        let p_notific_txt;
-        let br_notific_txt;
-        let span_notific_txt;
-        let strong_txt;
-        let a_tagNav;
+        // Retrieve user ID from URL parameter
+        const params = new URLSearchParams(window.location.search);
+        const userId = params.get('user_ID');
 
-        let params = new URLSearchParams(window.location.search);
-        let userId = params.get('user_ID');
+        // Retrieve blog records from localStorage
+        const getPost = JSON.parse(localStorage.getItem("blog_records"));
 
-        const getCommentRc = JSON.parse(localStorage.getItem("comment_records"));
-        const findCrtId = getCommentRc.filter((e) => e.other_user === userId);
+        // Retrieve comment records from localStorage
+        const commentRecord = JSON.parse(localStorage.getItem("comment_records"));
 
-        for (let i = 0; i < findCrtId.length; i++) {
+        // Retrieve like records from localStorage
+        const likeItems = JSON.parse(localStorage.getItem("like_records"));
 
-            a_tagNav = document.createElement("a");
-            a_tagNav.setAttribute("href", "../posts/8-1_post.html?post_ID=" + findCrtId[i].comment_post_id);
-            a_tagNav.style.textDecoration = "none";
-            a_tagNav.style.color = "black";
+        // Filter comment records for the current user
+        const userComment = commentRecord.filter((comment) => comment.other_user === userId);
 
-            div_notific = document.createElement("div");
-            div_notific.setAttribute("class", "notific_profile");
-            a_tagNav.append(div_notific);
+        // Filter like records for the current user
+        const userLikes = likeItems.filter((like) => like.user_id === userId);
 
-            img_profile = document.createElement("img");
-            img_profile.setAttribute("src", findCrtId[i].profile.source);
-            img_profile.setAttribute("alt", findCrtId[i].profile.alt);
-            img_profile.setAttribute("class", "profile_pic");
-            div_notific.append(img_profile);
+        // Iterate over the user's comments and create notification elements
+        const notificationContentElement = document.getElementById("notificationContent");
 
-            p_notific_txt = document.createElement("p");
-            p_notific_txt.setAttribute("class", "post-description");
-            p_notific_txt.innerText = findCrtId[i].message;
-            div_notific.append(p_notific_txt);
+        const post_comment = userComment.filter(
+            (comment) => comment.comment_post_id === postId
+        );
 
-            b_notific_txt = document.createElement("strong");
-            b_notific_txt.setAttribute("class", "bold");
-            b_notific_txt.innerText = findCrtId[i].name;
-            p_notific_txt.prepend(b_notific_txt);
+        for (let i = 0; i < userComment.length; i++) {
+            const comment = userComment[i];
+            // let notificationUser;
+            let content;
 
-            span_notific_txt = document.createElement("p");
-            // p_notific_txt.setAttribute("class", "comment_time");
-            span_notific_txt.innerText = findCrtId[i].comment_time;
-            span_notific_txt.style.cssFloat = "right";
-            p_notific_txt.append(span_notific_txt);
+            if (comment.type === "like") {
+                notificationUser = comment.user_id;
+                content = " liked your";
+            } else if (comment.type === "comment") {
+                notificationUser = comment.user_id;
+                content = " commented on your";
+            }
 
-            br_notific_txt = document.createElement("br");
-            b_notific_txt.append(br_notific_txt);
+            const comment_user = getPost.find((post) => post.user_email === userId);
 
-            document.querySelector("div.notific_top").prepend(a_tagNav);
+            const notificationLink = document.createElement("a");
+            notificationLink.href = `../posts/8-1_post.html?post_ID=${comment.comment_post_id}`;
+            notificationLink.style.textDecoration = "none";
+            notificationLink.style.color = "black";
 
+            const notificationDiv = document.createElement("div");
+            notificationDiv.classList.add("notific_profile");
+            notificationLink.appendChild(notificationDiv);
+
+            const profileImage = document.createElement("img");
+            profileImage.src = comment.user_profile;
+            profileImage.alt = "Profile Picture";
+            profileImage.classList.add("profile_pic");
+            notificationDiv.appendChild(profileImage);
+
+            const notificationText = document.createElement("p");
+            notificationText.classList.add("notific_card");
+            const timestamp = ""; // You need to define the timestamp variable
+            notificationText.innerHTML = `<strong class="bold">${userId}</strong> <span>${content} ${timestamp}</span>`;
+            notificationDiv.appendChild(notificationText);
+
+            notificationContentElement.prepend(notificationLink);
         }
+
+
+        // // Create a "Clear All Notifications" button
+        // const clearNotificationsButton = document.createElement("button");
+        // clearNotificationsButton.setAttribute("class", "clear_Notification")
+        // clearNotificationsButton.innerText = "Clear All Notifications";
+        // clearNotificationsButton.addEventListener("click", clearNotifications);
+
+        // // Append the button to the notification content element
+        // notificationContentElement.appendChild(clearNotificationsButton);
+
+        // // Function to clear all notifications for the user
+        // function clearNotifications() {
+        //     // Filter out the user's comments from the comment records
+        //     const updatedRecords = commentRecordN.filter((e) => e.other_user !== userId);
+        //     const updatedRecordsLike = likeItems.filter((e) => e.creatorId !== userId);
+        //     // Save the updated records back to localStorage
+        //     alert("Clear All!")
+        //     localStorage.setItem("comment_records", JSON.stringify(updatedRecords));
+        //     localStorage.setItem("like_records", JSON.stringify(updatedRecordsLike));
+        //     // Remove the notification elements from the UI
+        //     while (notificationContentElement.firstChild) {
+        //         notificationContentElement.firstChild.remove();
+        //     }
+        // }
 
     </script>
 

@@ -50,7 +50,7 @@
           <ul clas="menu">
             <li><button class="userAccess_btn" id="postBtn">posts</button></li>
             <li><button class="userAccess_btn" id="saveItemBtn">saved items</button></li>
-            <li><button class="userAccess_btn" id="topTrendsBtn">Top Trends</button></li>
+            <li><button class="userAccess_btn" id="topTrendsBtn">Top Trends <i class="fa fa-bar-chart" aria-hidden="true" id="map_icon"></i></button></li>
           </ul>
           <button type="submit" id="follow_btn">Follow</button>
           <button type="submit" onclick="deleteData()" id="deleteBtn"><b>Delete</b></button>
@@ -94,10 +94,25 @@
 
     user_data = user_records.find(login_data);
 
-    let profile_banner = user_data['user_banner'];
-    document.getElementById("profile_bg").style.backgroundImage = "url(" + profile_banner + ")";
+    //Default profile pic
+    let defaultProfile = "https://res.cloudinary.com/dvb2bkrx9/image/upload/v1684832522/erso53o021syntb52mls.jpg"
+
+    //User Profile Pic
     let profile_image = user_data['user_profile'];
-    document.getElementById("profile_image").style.backgroundImage = "url(" + profile_image + ")";
+    if (profile_image == 0) {
+      document.getElementById("profile_image").style.backgroundImage = "url(" + defaultProfile + ")";
+    } else {
+      document.getElementById("profile_image").style.backgroundImage = "url(" + profile_image + ")";
+    }
+    
+    // User Profile Banner
+    let profile_banner = user_data['user_banner'];
+    if (profile_banner == 0) {
+      document.getElementById("profile_bg").style.backgroundColor = "gray";
+    } else {
+      document.getElementById("profile_bg").style.backgroundImage = "url(" + profile_banner + ")";
+    }
+
     document.getElementById("profile_name").innerText = user_data['user_name'];
     document.getElementById("profile_email").innerText = user_data['user_email'];
     document.getElementById("user_date").innerText = user_data['user_date'];
@@ -105,184 +120,6 @@
     document.getElementById("user_job").innerText = user_data['user_job'];
     document.getElementById("user_tag").innerText = user_data['user_tag'];
     document.getElementById("user_bio").innerText = user_data['user_bio'];
-
-    let postButton = document.getElementById("postBtn");
-    let saveItemBtn = document.getElementById("saveItemBtn");
-    let topTrendsBtn = document.getElementById("topTrendsBtn");
-
-    const savedItems = JSON.parse(localStorage.getItem("save_records"));
-    const saved_post = savedItems.filter((e) => e.user_id === userId);
-
-    const savedPostUser = all_post.filter((e) =>
-      saved_post.some((s) => e.post_id === s.post_id)
-    )
-
-    //Total Post
-
-    postButton.addEventListener("click", function () {
-      let postsDiv = document.getElementById("posts");
-      postsDiv.innerHTML = "";
-      create_card(user_post);
-    });
-
-    // Saved Items
-
-    saveItemBtn.addEventListener("click", function () {
-      let postsDiv = document.getElementById("posts");
-      postsDiv.innerHTML = "";
-      create_card(savedPostUser);
-    });
-
-    // Top Trends
-
-    topTrendsBtn.addEventListener("click", function () {
-      let postsDiv = document.getElementById("posts");
-      postsDiv.innerHTML = "";
-
-      const likeData = [
-        { date: '2023-05-01', count: 50 },
-        { date: '2023-05-02', count: 65 },
-        { date: '2023-05-03', count: 85 },
-        { date: '2023-05-04', count: 80 },
-        { date: '2023-05-05', count: 75 },
-        { date: '2023-05-06', count: 90 },
-        { date: '2023-05-07', count: 120 },
-        { date: '2023-05-08', count: 115 },
-        { date: '2023-05-09', count: 130 },
-        { date: '2023-05-10', count: 125 },
-        // Add more data points here...
-      ];
-
-      // Graph chart represent like analytics
-      
-      const dataPoints = likeData.map(item => ({
-        x: new Date(item.date),
-        y: item.count
-      }));
-
-      const chart = new CanvasJS.Chart("posts", {
-        animationEnabled: true,
-        title: {
-          text: "Likes Over Time"
-        },
-        axisX: {
-          title: "Date",
-          valueFormatString: "MMM DD, YYYY"
-        },
-        axisY: {
-          title: "Likes",
-          includeZero: false
-        },
-        data: [{
-          type: "line",
-          dataPoints: dataPoints
-        }]
-      });
-
-      chart.render();
-    });
-
-
-    let delete_button;
-    let edit_button;
-    create_card(user_post);
-    function create_card(filterPost) {
-
-      for (let i = 0; i < filterPost.length; i++) {
-        // Create the post_box div element
-        let postBoxDiv = document.createElement("div");
-        postBoxDiv.classList.add("post_box");
-
-        // Create the h2 element for the post content
-        let postContentH2 = document.createElement("h2");
-        postContentH2.classList.add("post_content");
-
-        a_tag = document.createElement("a");
-        a_tag.setAttribute("href", "../posts/8-1_post.html?post_ID=" + filterPost[i]["post_id"]);
-        a_tag.innerText = filterPost[i]["title"];
-        postContentH2.append(a_tag);
-
-        // Create the p element for the time and date
-        let timeDateP = document.createElement("p");
-        timeDateP.setAttribute("class", "time_date");
-        timeDateP.innerHTML = "Published On : " + filterPost[i]["timestamp"];
-
-        // Create the second p element for the post content
-        let postContentP = document.createElement("p");
-        postContentP.classList.add("post_content");
-        postContentP.innerHTML = filterPost[i]["content"];
-
-        // Append the h2 and p elements to the post_box div
-        postBoxDiv.appendChild(postContentH2);
-        postBoxDiv.appendChild(timeDateP);
-        postBoxDiv.appendChild(postContentP);
-
-        // Append the post_box div to the div with id "posts"
-        let postsDiv = document.getElementById("posts");
-        postsDiv.prepend(postBoxDiv);
-
-        if (userId === filterPost[i].unique_id) {
-          edit_button = document.createElement("button");
-          edit_button.setAttribute("class", "edit_btn");
-          edit_button.setAttribute("data-id", filterPost[i]["post_id"]);
-          edit_button.innerText = "Edit";
-          postBoxDiv.append(edit_button);
-
-          // Delete button JSON and JS code
-          // Declare and initialize delete_button before the event listener
-          delete_button = document.createElement("button");
-          delete_button.setAttribute("class", "delete_btn");
-          delete_button.setAttribute("data-uuid", filterPost[i]["post_id"]);
-          delete_button.innerText = "Delete";
-          postBoxDiv.append(delete_button);
-        }
-
-        if (userId === email_ID) {
-          delete_button.style.display = "block";
-          edit_button.style.display = "block";
-        } else {
-          delete_button.style.display = "none";
-          edit_button.style.display = "none";
-        }
-      };
-    };
-
-    // Add event listener to delete_button
-
-    let delete_btn = document.querySelectorAll("button.delete_btn");
-    delete_btn.forEach(function (find_post) {
-      find_post.addEventListener("click", function () {
-        if (confirm("Are you sure to Delete ?")) {
-          let post_d_id = this.dataset.uuid;
-          let blog_records = JSON.parse(localStorage.getItem("blog_records"));
-
-          // Find the index of the post to delete
-          let find_post = blog_records.find(e => e.post_id == post_d_id);
-
-          let indexOfPost = blog_records.indexOf(find_post);
-          // Remove the post from the array
-
-          blog_records.splice(indexOfPost, 1);
-
-
-          localStorage.setItem('blog_records', JSON.stringify(blog_records));
-          location.reload();
-        }
-      })
-    });
-
-    // Post edit button JS
-
-    let edit = document.querySelectorAll("button.edit_btn");
-    edit.forEach(function (find_post) {
-      find_post.addEventListener("click", function () {
-        let id = this.dataset.id
-
-        localStorage.setItem("post_id", JSON.stringify(id));
-        window.location.href = "../user_services/4_creat_post.html";
-      })
-
-    });
 
     //Profile edit page
 
@@ -386,6 +223,197 @@
     } else {
       deleteButton.style.display = 'none';
     }
+
+    //Posts, SavedItems and Top Trends
+
+    let postButton = document.getElementById("postBtn");
+    let saveItemBtn = document.getElementById("saveItemBtn");
+    let topTrendsBtn = document.getElementById("topTrendsBtn");
+
+    if (userId === email_ID) {
+      saveItemBtn.style.display = "black";
+      topTrendsBtn.style.display = "black";
+    } else {
+      saveItemBtn.style.display = "none";
+      topTrendsBtn.style.display = "none";
+    }
+
+
+    const savedItems = JSON.parse(localStorage.getItem("save_records"));
+    const saved_post = savedItems.filter((e) => e.user_id === userId);
+
+    const savedPostUser = all_post.filter((e) =>
+      saved_post.some((s) => e.post_id === s.post_id)
+    )
+
+    //Total Post
+
+    postButton.addEventListener("click", function () {
+      let postsDiv = document.getElementById("posts");
+      postsDiv.innerHTML = "";
+      create_card(user_post);
+    });
+
+    // Saved Items
+    saveItemBtn.addEventListener("click", function () {
+      let postsDiv = document.getElementById("posts");
+      postsDiv.innerHTML = "";
+      create_card(savedPostUser);
+    });
+
+    // Top Trends
+
+    topTrendsBtn.addEventListener("click", function () {
+      let postsDiv = document.getElementById("posts");
+      postsDiv.innerHTML = "";
+
+      const likeData = [
+        { date: '2023-05-01', count: 50 },
+        { date: '2023-05-02', count: 65 },
+        { date: '2023-05-03', count: 85 },
+        { date: '2023-05-04', count: 80 },
+        { date: '2023-05-05', count: 75 },
+        { date: '2023-05-06', count: 90 },
+        { date: '2023-05-07', count: 120 },
+        { date: '2023-05-08', count: 115 },
+        { date: '2023-05-09', count: 130 },
+        { date: '2023-05-10', count: 125 },
+        // Add more data points here...
+      ];
+
+      // const likeData = JSON.parse(localStorage.getItem("like_records"));
+
+      // Graph chart represent like analytics
+
+      const dataPoints = likeData.map(item => ({
+        x: new Date(item.date),
+        y: item.count
+      }));
+
+      const chart = new CanvasJS.Chart("posts", {
+        animationEnabled: true,
+        title: {
+          text: "Like Track"
+        },
+        axisX: {
+          title: "Date",
+          valueFormatString: "MMM DD, YYYY"
+        },
+        axisY: {
+          title: "Likes",
+          includeZero: false
+        },
+        data: [{
+          type: "line",
+          dataPoints: dataPoints
+        }]
+      });
+
+      chart.render();
+    });
+
+
+    let delete_button;
+    let edit_button;
+    create_card(user_post);
+
+    function create_card(filterPost) {
+
+      for (let i = 0; i < filterPost.length; i++) {
+        // Create the post_box div element
+        let postBoxDiv = document.createElement("div");
+        postBoxDiv.classList.add("post_box");
+
+        // Create the h2 element for the post content
+        let postContentH2 = document.createElement("h2");
+        postContentH2.classList.add("post_content");
+
+        a_tag = document.createElement("a");
+        a_tag.setAttribute("href", "../posts/8-1_post.html?post_ID=" + filterPost[i]["post_id"]);
+        a_tag.innerText = filterPost[i]["title"];
+        postContentH2.append(a_tag);
+
+        // Create the p element for the time and date
+        let timeDateP = document.createElement("p");
+        timeDateP.setAttribute("class", "time_date");
+        timeDateP.innerHTML = "Published On : " + filterPost[i]["timestamp"];
+
+        // Create the second p element for the post content
+        let postContentP = document.createElement("p");
+        postContentP.classList.add("post_content");
+        postContentP.innerHTML = filterPost[i]["content"];
+
+        // Append the h2 and p elements to the post_box div
+        postBoxDiv.appendChild(postContentH2);
+        postBoxDiv.appendChild(timeDateP);
+        postBoxDiv.appendChild(postContentP);
+
+        // Append the post_box div to the div with id "posts"
+        let postsDiv = document.getElementById("posts");
+        postsDiv.prepend(postBoxDiv);
+
+        if (userId === filterPost[i].unique_id) {
+          edit_button = document.createElement("button");
+          edit_button.setAttribute("class", "edit_btn");
+          edit_button.setAttribute("data-id", filterPost[i]["post_id"]);
+          edit_button.innerText = "Edit";
+          postBoxDiv.append(edit_button);
+
+          // Delete button JSON and JS code
+          // Declare and initialize delete_button before the event listener
+          delete_button = document.createElement("button");
+          delete_button.setAttribute("class", "delete_btn");
+          delete_button.setAttribute("data-uuid", filterPost[i]["post_id"]);
+          delete_button.innerText = "Delete";
+          postBoxDiv.append(delete_button);
+        }
+
+        if (userId === email_ID) {
+          delete_button.style.display = "block";
+          edit_button.style.display = "block";
+        } else {
+          delete_button.style.display = "none";
+          edit_button.style.display = "none";
+        }
+      };
+    };
+
+    // Add event listener to delete_button
+
+    let delete_btn = document.querySelectorAll("button.delete_btn");
+    delete_btn.forEach(function (find_post) {
+      find_post.addEventListener("click", function () {
+        if (confirm("Are you sure to Delete ?")) {
+          let post_d_id = this.dataset.uuid;
+          let blog_records = JSON.parse(localStorage.getItem("blog_records"));
+
+          // Find the index of the post to delete
+          let find_post = blog_records.find(e => e.post_id == post_d_id);
+
+          let indexOfPost = blog_records.indexOf(find_post);
+          // Remove the post from the array
+
+          blog_records.splice(indexOfPost, 1);
+
+
+          localStorage.setItem('blog_records', JSON.stringify(blog_records));
+          location.reload();
+        }
+      })
+    });
+
+    // Post edit button JS
+
+    let edit = document.querySelectorAll("button.edit_btn");
+    edit.forEach(function (find_post) {
+      find_post.addEventListener("click", function () {
+        let id = this.dataset.id
+
+        localStorage.setItem("post_id", JSON.stringify(id));
+        window.location.href = "../user_services/4_creat_post.html";
+      })
+
+    });
 
   </script>
   <script src="/assets/header.js"></script>

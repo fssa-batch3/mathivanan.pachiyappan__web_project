@@ -152,65 +152,6 @@ if (!blog_records) {
   );
 }
 
-const comment_records = JSON.parse(localStorage.getItem("comment_records"));
-
-if (!comment_records) {
-  localStorage.setItem("comment_records", JSON.stringify([]));
-}
-
-const post_id = localStorage.getItem("post_id");
-
-if (!post_id) {
-  localStorage.setItem("post_id", "[]");
-}
-
-
-// for notification feature
-
- // get or create notification array
-const notificationData = JSON.parse(localStorage.getItem("notification_data")) || [];
-const user_id = JSON.parse(localStorage.getItem("user_id"));
-const post_feed=JSON.parse(localStorage.getItem("post_feedd"));
-
-const unshowed = notificationData.filter(e => e.notification == false);
-
-let for_notify =JSON.parse(localStorage.getItem("for_notify"))|| [];
-let old_for_notify=for_notify.length;
-unshowed.forEach(element => {
-    if (element.type == "like") {
-        let find_user=post_feed.find(e=>e.post_id===element.liked)
-        if(find_user.unic_id===user_id){
-            for_notify.push(element)
-        }
-
-    }
-    if (element.type == "comment") {
-        let find_user=post_feed.find(e=>e.post_id===element.comment_post_id)
-        if(find_user.unic_id===user_id){
-            for_notify.push(element)
-        }
-    }
-    if(element.type == "follow") {
-
-        if(element.following===user_id){
-   
-            for_notify.push(element)
-        }
-    }   
-});
-console.log(for_notify);
-for_notify.splice(0,old_for_notify)
-let notification_dot=document.getElementById("notification_dot");
-console.log(for_notify);
-if(for_notify.length>0){
-    notification_dot.style.display="block"
-    localStorage.setItem("for_notify",JSON.stringify(for_notify));
-
-    for_notify=[];
-}
-else{
-    notification_dot.style.display="none"
-}
     // <!-- 
     //         data["image"]["alt"]
     //         data["image"]["source"]

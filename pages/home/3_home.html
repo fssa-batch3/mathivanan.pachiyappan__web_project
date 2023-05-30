@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--Link to CSS-->
     <link rel="stylesheet" href="../../assets/css/3_home.css">
+    <script src="/assets/header.js"  type="module"></script>
 
 </head>
 
@@ -128,10 +129,44 @@
             document.querySelector("section.post.container").prepend(div_box);
         }
 
-        
+        // // Get the input element and results container
+
+        // import { searchInputID, resultsContainerID } from './header.js';
+
+        // const searchInput = document.getElementById('searchInput');
+        // const resultsContainer = document.getElementById('post container');
+
+        // // Check if the elements exist
+        // if (searchInput && resultsContainer) {
+        //     // Add event listener for input changes
+        //     searchInput.addEventListener('input', function () {
+        //         filterResults(searchInput.value.toLowerCase());
+        //     });
+        // }
+
+        // // Function to filter the results based on the search input
+        // function filterResults(searchTerm) {
+        //     // Get all the result items
+        //     const resultItems = resultsContainer.getElementsByClassName('post-box design');
+
+        //     // Loop through each result item
+        //     for (let i = 0; i < resultItems.length; i++) {
+        //         const resultItem = resultItems[i];
+        //         const text = resultItem.innerText.toLowerCase();
+
+        //         // Check if the search term is found in the result item
+        //         if (text.includes(searchTerm)) {
+        //             resultItem.style.display = 'block';  // Show the result item
+        //         } else {
+        //             resultItem.style.display = 'none';  // Hide the result item
+        //         }
+        //     }
+        // }
+
+
+
     </script>
 
-    <script src="/assets/header.js"></script>
 </body>
 
 </html>
