@@ -116,7 +116,7 @@ iconElement.style.color = "#000";
 let countElement = document.createElement("span");
 countElement.id = "notific";
 countElement.className = "notific_count";
-countElement.innerText = "0";
+countElement.innerText = "...";
 
 // Append the <i> and <span> elements to the <li> element
 listItemElement.appendChild(iconElement);

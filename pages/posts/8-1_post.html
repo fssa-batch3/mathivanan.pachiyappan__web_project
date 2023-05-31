@@ -239,6 +239,7 @@
         alert("Please Write your Comment!");
       } else {
         comment_records.push({
+          creatorId : creatorId,
           user_id: email_ID,
           timestamp: date,
           comment_text: comment_txt,
@@ -401,6 +402,7 @@
 
       if (like_records.length === 0) {
         like_records.push({
+          creatorId : creatorId,
           user_id: email_ID,
           post_id: postId,
           status: true,
@@ -422,6 +424,7 @@
 
         if (likeFind == undefined) {
           like_records.push({
+            creatorId : creatorId,
             user_id: email_ID,
             post_id: postId,
             status: true,

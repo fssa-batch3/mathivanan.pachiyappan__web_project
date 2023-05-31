@@ -47,41 +47,58 @@
         const userId = params.get('user_ID');
 
         // Retrieve blog records from localStorage
-        const getPost = JSON.parse(localStorage.getItem("blog_records"));
+        const getPost = JSON.parse(localStorage.getItem("blog_records")) || [];
 
         // Retrieve comment records from localStorage
-        const commentRecord = JSON.parse(localStorage.getItem("comment_records"));
+        // const commentRecord = JSON.parse(localStorage.getItem("comment_records"));
 
-        // Retrieve like records from localStorage
-        const likeItems = JSON.parse(localStorage.getItem("like_records"));
+        // // Retrieve like records from localStorage
+        // const likeItems = JSON.parse(localStorage.getItem("like_records"));
 
-        // Filter comment records for the current user
-        const userComment = commentRecord.filter((comment) => comment.other_user === userId);
+        // // Filter comment records for the current user
+        // const userComment = commentRecord.filter((comment) => comment.other_user === userId);
 
-        // Filter like records for the current user
-        const userLikes = likeItems.filter((like) => like.user_id === userId);
+        // // Filter like records for the current user
+        // const userLikes = likeItems.filter((like) => like.user_id === userId);
 
-        // Iterate over the user's comments and create notification elements
+        // // Iterate over the user's comments and create notification elements
         const notificationContentElement = document.getElementById("notificationContent");
 
-        const post_comment = userComment.filter(
-            (comment) => comment.comment_post_id === postId
-        );
+        const user_records = JSON.parse(localStorage.getItem("user_records")) || []
 
-        for (let i = 0; i < userComment.length; i++) {
-            const comment = userComment[i];
+        // const post_comment = userComment.filter(
+        //     (comment) => comment.comment_post_id === postId
+        // );
+
+                // Get the local storage data for likes, comments, and follows
+const likeRecords = JSON.parse(localStorage.getItem("like_records")) || [];
+const commentRecords = JSON.parse(localStorage.getItem("comment_records")) || [];
+const followRecords = JSON.parse(localStorage.getItem("follow_records")) || [];
+const user_Id = JSON.parse(localStorage.getItem("email_ID")) || [];
+
+// for(let i = 0; i<likeRecords.length; i++){
+
+    const user_like = likeRecords.filter((e)=> e.creatorId === user_Id);
+    const user_comment = commentRecords.filter((e)=> e.creatorId === user_Id);
+
+    const notification_data = user_like.concat(user_comment);
+    console.log(notification_data)
+
+        for (let i = 0; i < notification_data.length; i++) {
+            const comment = notification_data[i];
             // let notificationUser;
             let content;
 
             if (comment.type === "like") {
-                notificationUser = comment.user_id;
+                notificationUser = comment.userId;
                 content = " liked your";
             } else if (comment.type === "comment") {
-                notificationUser = comment.user_id;
+                notificationUser = comment.userId;
                 content = " commented on your";
             }
 
-            const comment_user = getPost.find((post) => post.user_email === userId);
+            const comment_user = user_records.filter((e) => e.user_email === notification_data[i].user_id);
+            console.log(comment_user)
 
             const notificationLink = document.createElement("a");
             notificationLink.href = `../posts/8-1_post.html?post_ID=${comment.comment_post_id}`;
@@ -93,7 +110,7 @@
             notificationLink.appendChild(notificationDiv);
 
             const profileImage = document.createElement("img");
-            profileImage.src = comment.user_profile;
+            profileImage.src = comment_user[0].user_profile;
             profileImage.alt = "Profile Picture";
             profileImage.classList.add("profile_pic");
             notificationDiv.appendChild(profileImage);
@@ -101,36 +118,13 @@
             const notificationText = document.createElement("p");
             notificationText.classList.add("notific_card");
             const timestamp = ""; // You need to define the timestamp variable
-            notificationText.innerHTML = `<strong class="bold">${userId}</strong> <span>${content} ${timestamp}</span>`;
+            notificationText.innerHTML = `<strong class="bold">${comment_user[0].user_name}</strong> <span>${content} ${timestamp}</span>`;
             notificationDiv.appendChild(notificationText);
 
-            notificationContentElement.prepend(notificationLink);
+            notificationContentElement.append(notificationLink);
         }
 
 
-        // // Create a "Clear All Notifications" button
-        // const clearNotificationsButton = document.createElement("button");
-        // clearNotificationsButton.setAttribute("class", "clear_Notification")
-        // clearNotificationsButton.innerText = "Clear All Notifications";
-        // clearNotificationsButton.addEventListener("click", clearNotifications);
-
-        // // Append the button to the notification content element
-        // notificationContentElement.appendChild(clearNotificationsButton);
-
-        // // Function to clear all notifications for the user
-        // function clearNotifications() {
-        //     // Filter out the user's comments from the comment records
-        //     const updatedRecords = commentRecordN.filter((e) => e.other_user !== userId);
-        //     const updatedRecordsLike = likeItems.filter((e) => e.creatorId !== userId);
-        //     // Save the updated records back to localStorage
-        //     alert("Clear All!")
-        //     localStorage.setItem("comment_records", JSON.stringify(updatedRecords));
-        //     localStorage.setItem("like_records", JSON.stringify(updatedRecordsLike));
-        //     // Remove the notification elements from the UI
-        //     while (notificationContentElement.firstChild) {
-        //         notificationContentElement.firstChild.remove();
-        //     }
-        // }
 
     </script>
 

@@ -261,14 +261,15 @@ div.dropdown:hover .dropdown-content {
     font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
-}
-
-.active-filter {
-    background: var(--second-color);
-    color: var(--bg-color);
+    background: var(--bg-color);
+    color: var(--first-color);
     padding: 4px 10px;
     border-radius: 4px;
 }
+
+/* .active-filter {
+    
+} */
 
 /* Post */
 .post {
