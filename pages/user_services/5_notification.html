@@ -70,38 +70,74 @@
         //     (comment) => comment.comment_post_id === postId
         // );
 
-                // Get the local storage data for likes, comments, and follows
-const likeRecords = JSON.parse(localStorage.getItem("like_records")) || [];
-const commentRecords = JSON.parse(localStorage.getItem("comment_records")) || [];
-const followRecords = JSON.parse(localStorage.getItem("follow_records")) || [];
-const user_Id = JSON.parse(localStorage.getItem("email_ID")) || [];
+        // Get the local storage data for likes, comments, and follows
+        const likeRecords = JSON.parse(localStorage.getItem("like_records")) || [];
+        const commentRecords = JSON.parse(localStorage.getItem("comment_records")) || [];
+        const followRecords = JSON.parse(localStorage.getItem("follow_records")) || [];
+        const user_Id = JSON.parse(localStorage.getItem("email_ID")) || [];
 
-// for(let i = 0; i<likeRecords.length; i++){
+        let datenow = new Date()
+        console.log(datenow)
+        // for(let i = 0; i<likeRecords.length; i++){
 
-    const user_like = likeRecords.filter((e)=> e.creatorId === user_Id);
-    const user_comment = commentRecords.filter((e)=> e.creatorId === user_Id);
+        const user_like = likeRecords.filter((e) => e.creatorId === user_Id);
+        const user_comment = commentRecords.filter((e) => e.creatorId === user_Id);
 
-    const notification_data = user_like.concat(user_comment);
-    console.log(notification_data)
+        const notification_data = user_like.concat(user_comment);
+        console.log(notification_data)
+
+        notification_data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+     
 
         for (let i = 0; i < notification_data.length; i++) {
             const comment = notification_data[i];
             // let notificationUser;
             let content;
 
+            
+           let timeAgo;
+            function calculateTimeDifference(postDate) {
+            const currentDate = new Date();
+            const postCreationDate = new Date(postDate);
+            const timeDifference = currentDate.getTime() - postCreationDate.getTime();
+            // Calculate the difference in seconds, minutes, hours, and days
+            const seconds = Math.floor(timeDifference / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            // Determine the appropriate time unit to display
+            let displayTime;
+            if (days > 0) {
+                timeAgo = `${days} day${days !== 1 ? 's' : ''} ago`;
+            } else if (hours > 0) {
+                timeAgo = `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+            } else if (minutes > 0) {
+                timeAgo = `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+            } else {
+                timeAgo = `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
+            }
+            return displayTime;
+        }
+
+        calculateTimeDifference(comment.timestamp);
+
+
             if (comment.type === "like") {
                 notificationUser = comment.userId;
-                content = " liked your";
+                content = " liked your post |  " + timeAgo;
             } else if (comment.type === "comment") {
                 notificationUser = comment.userId;
-                content = " commented on your";
+                content = " commented on your post | " + timeAgo;
             }
+
+        
 
             const comment_user = user_records.filter((e) => e.user_email === notification_data[i].user_id);
             console.log(comment_user)
 
             const notificationLink = document.createElement("a");
-            notificationLink.href = `../posts/8-1_post.html?post_ID=${comment.comment_post_id}`;
+            notificationLink.href = `../posts/8-1_post.html?post_ID=${comment.post_id}`;
             notificationLink.style.textDecoration = "none";
             notificationLink.style.color = "black";
 
@@ -121,7 +157,7 @@ const user_Id = JSON.parse(localStorage.getItem("email_ID")) || [];
             notificationText.innerHTML = `<strong class="bold">${comment_user[0].user_name}</strong> <span>${content} ${timestamp}</span>`;
             notificationDiv.appendChild(notificationText);
 
-            notificationContentElement.append(notificationLink);
+            notificationContentElement.prepend(notificationLink);
         }
 
 

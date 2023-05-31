@@ -56,6 +56,14 @@ div.header {
     box-shadow: 1px 1px 4px #000000;
 }
 
+a.post-box {
+    background: var(--bg-color);
+    box-shadow: 0 4px 14px hsl(355deg 25% 15% / 10%);
+    padding: 15px;
+    border-radius: 0.5rem;
+    color: #000000;
+}
+
 div.header form input {
     width: 17vw;
     height: 5%;

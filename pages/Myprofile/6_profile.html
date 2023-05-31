@@ -50,7 +50,8 @@
           <ul clas="menu">
             <li><button class="userAccess_btn" id="postBtn">posts</button></li>
             <li><button class="userAccess_btn" id="saveItemBtn">saved items</button></li>
-            <li><button class="userAccess_btn" id="topTrendsBtn">Top Trends <i class="fa fa-bar-chart" aria-hidden="true" id="map_icon"></i></button></li>
+            <li><button class="userAccess_btn" id="topTrendsBtn">Top Trends <i class="fa fa-bar-chart"
+                  aria-hidden="true" id="map_icon"></i></button></li>
           </ul>
           <button type="submit" id="follow_btn">Follow</button>
           <button type="submit" onclick="deleteData()" id="deleteBtn"><b>Delete</b></button>
@@ -104,7 +105,7 @@
     } else {
       document.getElementById("profile_image").style.backgroundImage = "url(" + profile_image + ")";
     }
-    
+
     // User Profile Banner
     let profile_banner = user_data['user_banner'];
     if (profile_banner == 0) {
@@ -239,9 +240,9 @@
     }
 
 
+
     const savedItems = JSON.parse(localStorage.getItem("save_records"));
     const saved_post = savedItems.filter((e) => e.user_id === userId);
-
     const savedPostUser = all_post.filter((e) =>
       saved_post.some((s) => e.post_id === s.post_id)
     )
@@ -255,11 +256,13 @@
     });
 
     // Saved Items
-    saveItemBtn.addEventListener("click", function () {
-      let postsDiv = document.getElementById("posts");
-      postsDiv.innerHTML = "";
-      create_card(savedPostUser);
-    });
+    if (savedItems.length > 0) {
+      saveItemBtn.addEventListener("click", function () {
+        let postsDiv = document.getElementById("posts");
+        postsDiv.innerHTML = "";
+        create_card(savedPostUser);
+      });
+    }
 
     // Top Trends
 

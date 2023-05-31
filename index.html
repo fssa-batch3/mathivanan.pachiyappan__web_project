@@ -68,9 +68,12 @@
 
         for (let i = 0; i < blog_data.length; i++) {
             //  <div class="col"> </div>
-            div_box = document.createElement("div");
+            div_box = document.createElement("a");
             div_box.setAttribute("class", "post-box design");
-            console.log(div_box);
+            div_box.setAttribute(
+                "href",
+                "/pages/Reg/2_login.html"
+            );
 
             //  <div class="card"> </div>
             img_card = document.createElement("img");
@@ -86,14 +89,10 @@
             div_box.append(h2_txt);
 
             //  <div class="card-body"> </div>
-            a_tag = document.createElement("a");
-            a_tag.setAttribute("class", "post-title");
-            a_tag.setAttribute(
-                "href",
-                `../posts/8-1_post.html?post_ID=${blog_data[i].post_id}`
-            );
-            a_tag.innerText = blog_data[i].title;
-            div_box.append(a_tag);
+            h3_tag = document.createElement("h3_tag");
+            h3_tag.setAttribute("class", "post-title");
+            h3_tag.innerText = blog_data[i].title;
+            div_box.append(h3_tag);
 
             //  <span class="post-date"> </span>
             span_txt = document.createElement("span");
@@ -112,14 +111,14 @@
             div_box.append(div_profile);
 
             a_tag2 = document.createElement("a");
-            a_tag2.setAttribute("href",`../Myprofile/6_profile.html?user_ID=${blog_data[i].unique_id}`);
+            a_tag2.setAttribute("href", `../Myprofile/6_profile.html?user_ID=${blog_data[i].unique_id}`);
             div_profile.append(a_tag2);
 
             profile_img = document.createElement("img");
             profile_img.setAttribute("src", blog_data[i].profile.source);
             profile_img.setAttribute("alt", blog_data[i].profile.alt);
             profile_img.setAttribute("class", "profile-img");
-            a_tag2.append(profile_img);
+            a_tag2.prepend(profile_img);
 
             span_txt2 = document.createElement("span");
             span_txt2.setAttribute("class", "profile-name");

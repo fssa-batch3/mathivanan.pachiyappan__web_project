@@ -244,10 +244,13 @@
     let CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dvb2bkrx9/upload";
     let CLOUDINARY_UPLOAD_PRESET = "sk3iuzma";
 
+    let post_img_edit="";
+
     let imgPreview3 = document.getElementById("cover_imgBox");
     let fileUpload3 = document.getElementById("cover-upload");
 
     fileUpload3.addEventListener("change", function (event) {
+      imgPreview3.style.backgroundImage = "https://res.cloudinary.com/dvb2bkrx9/image/upload/v1685532581/mxbfrgvu1k54dwtx5cr5.gif";
       let file2 = event.target.files[0];
       let formData = new FormData();
       formData.append("file", file2);
@@ -263,7 +266,8 @@
       })
         .then(function (res) {
           console.log(res);
-          imgPreview3.src = res.data.secure_url;
+          imgPreview3.style.backgroundImage = `url(${res.data.secure_url})`;
+          post_img_edit=res.data.secure_url
           let userRecords_bi = res.data.secure_url;
           localStorage.setItem("cover_image", userRecords_bi);
         })
@@ -443,10 +447,12 @@
 
       function saveUpdate(e) {
         // e.preventDefault();
+        let coverImageURL = post_img_edit;
         let title = document.getElementById("content-type").value;
         let category = document.getElementById("category").value;
         let content = document.getElementById("result").innerHTML;
         let tags = document.getElementById("tagline").value.split(",");
+        post_find.image.source = coverImageURL;
         post_find.title = title;
         post_find.category = category;
         post_find.content = content;

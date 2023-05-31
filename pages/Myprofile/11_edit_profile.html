@@ -134,10 +134,13 @@
     const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dvb2bkrx9/upload";
     const CLOUDINARY_UPLOAD_PRESET = "sk3iuzma";
 
+    let profile_image="";
+    
     const imgPreview = document.getElementById("imgBox2");
     const fileUpload = document.getElementById("profile-upload");
 
     fileUpload.addEventListener("change", function (event) {
+      imgPreview.style.backgroundImage= "url(https://res.cloudinary.com/dvb2bkrx9/image/upload/v1685532587/nwu3dv1nfvqcc4wp34x7.gif)";
       const file = event.target.files[0];
       const formData = new FormData();
       formData.append("file", file);
@@ -153,10 +156,8 @@
       })
         .then(function (res) {
           console.log(res);
-          imgPreview.src = res.data.secure_url;
-          // Store the URL in localStorage
-          const userRecords = res.data.secure_url;
-          localStorage.setItem("profile_image", userRecords);
+          imgPreview.style.backgroundImage=`url(${ res.data.secure_url})`;
+          profile_image = res.data.secure_url
         })
         .catch(function (err) {
           console.error(err);
@@ -165,10 +166,13 @@
 
     // Profile banner Upload API
 
+    let profile_banner="";
+
     const imgPreview2 = document.getElementById("imgBox");
     const fileUpload2 = document.getElementById("banner-upload");
 
     fileUpload2.addEventListener("change", function (event) {
+      imgPreview2.style.backgroundImage= "url(https://res.cloudinary.com/dvb2bkrx9/image/upload/v1685532581/mxbfrgvu1k54dwtx5cr5.gif)";
       const file2 = event.target.files[0];
       const formData = new FormData();
       formData.append("file", file2);
@@ -184,9 +188,8 @@
       })
         .then(function (res) {
           console.log(res);
-          imgPreview2.src = res.data.secure_url;
-          const userRecords_bi = res.data.secure_url;
-          localStorage.setItem("profile_banner", userRecords_bi);
+          imgPreview2.style.backgroundImage=`url(${ res.data.secure_url})`;
+          profile_banner = res.data.secure_url
         })
         .catch(function (err) {
           console.error(err);
@@ -234,8 +237,8 @@
 
     function saveUpdate(e) {
       e.preventDefault();
-      const img2 = localStorage.getItem("profile_banner");
-      const img = localStorage.getItem("profile_image");
+      const img2 = profile_banner;
+      const img = profile_image;
       const date = document.getElementById("date").value;
       const country = document.getElementById("country").value;
       const job = document.getElementById("job").value;

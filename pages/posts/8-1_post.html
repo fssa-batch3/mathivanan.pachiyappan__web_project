@@ -216,18 +216,139 @@
 
     const creatorId = blog_records.find((e) => e.post_id == postId)?.unique_id;
 
+    const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
+
+    const heart_icon = document.getElementById("heart_icon_c");
+
+    const likeFind = like_records.find(
+      (like) => like.user_id == email_ID && like.post_id == postId
+    );
+    if (likeFind == undefined) {
+      heart_icon.setAttribute("name", "heart-outline");
+      heart_icon.style.color = "black";
+    } else {
+      heart_icon.setAttribute("name", "heart");
+      heart_icon.style.color = "red";
+    }
+
+    // like count inner text
+    const heart_icon_count = document.getElementById("like_icon_count");
+    const like_count = like_records.filter((e) => e.post_id == postId);
+    heart_icon_count.innerText = parseInt(like_count.length);
+
+    // Like count JS;
+
+    // Create a new Date object
+    let date = new Date();
+    console.log(date);
+    // Get the year, month, and day components
+    // let year = date.getFullYear();
+    // let month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if needed
+    // let day = date.getDate().toString().padStart(2, '0'); // Add leading zero if needed
+
+    // // Format the date as "YYYY-MM-DD"
+    // let likeTime = `${year}-${month}-${day}`;
+
+    // console.log(formattedDate); // Output: 2023-05-28 (current date)
+
+    heart_icon.addEventListener("click", function (e) {
+      const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
+      let like_count; // Declare the like_count variable
+
+
+      if (like_records.length === 0) {
+        like_records.push({
+          creatorId: creatorId,
+          user_id: email_ID,
+          post_id: postId,
+          status: true,
+          timestamp: date,
+          // count: parseInt(heart_icon_count.innerText) +1,
+          type: "like"
+        });
+
+        localStorage.setItem("like_records", JSON.stringify(like_records));
+        heart_icon.setAttribute("name", "heart");
+        heart_icon.style.color = "red";
+        like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
+        heart_icon_count.innerText = parseInt(like_count.length);
+      } else {
+        const likeFind = like_records.find(
+          (like) => like.user_id == email_ID && like.post_id == postId
+        );
+        const findIndex = like_records.indexOf(likeFind);
+
+        if (likeFind == undefined) {
+          like_records.push({
+            creatorId: creatorId,
+            user_id: email_ID,
+            post_id: postId,
+            status: true,
+            timestamp: date,
+            // count: parseInt(heart_icon_count.innerText) +1,
+            type: "like"
+          });
+          localStorage.setItem("like_records", JSON.stringify(like_records));
+          heart_icon.setAttribute("name", "heart");
+          heart_icon.style.color = "red";
+          like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
+          heart_icon_count.innerText = parseInt(like_count.length);
+        } else {
+          like_records.splice(findIndex, 1);
+          localStorage.setItem("like_records", JSON.stringify(like_records));
+          heart_icon.setAttribute("name", "heart-outline");
+          heart_icon.style.color = "black";
+          like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
+          heart_icon_count.innerText = parseInt(like_count.length);
+        }
+      }
+    });
+
+
+    const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
+
+    const save_icon = document.getElementById("save_icon_c");
+
+    const saveFind = save_records.find(
+      (save) => save.user_id == email_ID && save.post_id == postId
+    );
+    if (saveFind == undefined) {
+      save_icon.setAttribute("name", "bookmark-outline");
+      save_icon.style.color = "black";
+    } else {
+      save_icon.setAttribute("name", "bookmark");
+      save_icon.style.color = "black";
+    }
+
+    // like count inner text
+    const save_count = save_records.filter((e) => e.post_id == postId);
+
+    // Like count JS;
+
+    save_icon.addEventListener("click", function (e) {
+      const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
+      const saveFind = save_records.find(
+        (record) => record.user_id == email_ID && record.post_id == postId
+      );
+      if (saveFind) {
+        save_records.splice(save_records.indexOf(saveFind), 1);
+        save_icon.setAttribute("name", "bookmark-outline");
+      } else {
+        save_records.push({ user_id: email_ID, post_id: postId, notific: false, creatorId: creatorId });
+        save_icon.setAttribute("name", "bookmark");
+      }
+      localStorage.setItem("save_records", JSON.stringify(save_records));
+      const save_count = save_records.filter(
+        (record) => record.post_id == postId
+      ).length;
+      save_icon.style.color = save_count ? "black" : "";
+    });
+
     function publishCmt(e) {
       e.preventDefault();
       const comment_txt = document.getElementById("cmt_txt").value;
 
       let date = new Date();
-
-      // let year = date.getFullYear();
-      // let month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if needed
-      // let day = date.getDate().toString().padStart(2, '0'); // Add leading zero if needed
-
-      // // Format the date as "YYYY-MM-DD"
-      // let commentTime = `${year}-${month}-${day}`;
 
 
       const comment_records = JSON.parse(localStorage.getItem("comment_records")) || [];
@@ -239,11 +360,11 @@
         alert("Please Write your Comment!");
       } else {
         comment_records.push({
-          creatorId : creatorId,
+          creatorId: creatorId,
           user_id: email_ID,
           timestamp: date,
           comment_text: comment_txt,
-          comment_post_id: postId,
+          post_id: postId,
           comment_id: uuid,
           status: true,
           type: "comment"
@@ -257,7 +378,7 @@
     const comment_list = JSON.parse(localStorage.getItem("comment_records"));
 
     const post_comment = comment_list.filter(
-      (comment) => comment.comment_post_id === postId
+      (comment) => comment.post_id === postId
     );
     const user_records = JSON.parse(localStorage.getItem("user_records"));
 
@@ -358,135 +479,6 @@
         this.parentNode.parentNode.appendChild(dropdown);
       });
     }
-
-
-    const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
-
-    const heart_icon = document.getElementById("heart_icon_c");
-
-    const likeFind = like_records.find(
-      (like) => like.user_id == email_ID && like.post_id == postId
-    );
-    if (likeFind == undefined) {
-      heart_icon.setAttribute("name", "heart-outline");
-      heart_icon.style.color = "black";
-    } else {
-      heart_icon.setAttribute("name", "heart");
-      heart_icon.style.color = "red";
-    }
-
-    // like count inner text
-    const heart_icon_count = document.getElementById("like_icon_count");
-    const like_count = like_records.filter((e) => e.post_id == postId);
-    heart_icon_count.innerText = parseInt(like_count.length);
-
-    // Like count JS;
-
-    // Create a new Date object
-    let date = new Date();
-    console.log(date);
-    // Get the year, month, and day components
-    // let year = date.getFullYear();
-    // let month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if needed
-    // let day = date.getDate().toString().padStart(2, '0'); // Add leading zero if needed
-
-    // // Format the date as "YYYY-MM-DD"
-    // let likeTime = `${year}-${month}-${day}`;
-
-    // console.log(formattedDate); // Output: 2023-05-28 (current date)
-
-    heart_icon.addEventListener("click", function (e) {
-      const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
-      let like_count; // Declare the like_count variable
-
-
-      if (like_records.length === 0) {
-        like_records.push({
-          creatorId : creatorId,
-          user_id: email_ID,
-          post_id: postId,
-          status: true,
-          timestamp: date,
-          // count: parseInt(heart_icon_count.innerText) +1,
-          type: "like"
-        });
-
-        localStorage.setItem("like_records", JSON.stringify(like_records));
-        heart_icon.setAttribute("name", "heart");
-        heart_icon.style.color = "red";
-        like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
-        heart_icon_count.innerText = parseInt(like_count.length);
-      } else {
-        const likeFind = like_records.find(
-          (like) => like.user_id == email_ID && like.post_id == postId
-        );
-        const findIndex = like_records.indexOf(likeFind);
-
-        if (likeFind == undefined) {
-          like_records.push({
-            creatorId : creatorId,
-            user_id: email_ID,
-            post_id: postId,
-            status: true,
-            timestamp: date,
-            // count: parseInt(heart_icon_count.innerText) +1,
-            type: "like"
-          });
-          localStorage.setItem("like_records", JSON.stringify(like_records));
-          heart_icon.setAttribute("name", "heart");
-          heart_icon.style.color = "red";
-          like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
-          heart_icon_count.innerText = parseInt(like_count.length);
-        } else {
-          like_records.splice(findIndex, 1);
-          localStorage.setItem("like_records", JSON.stringify(like_records));
-          heart_icon.setAttribute("name", "heart-outline");
-          heart_icon.style.color = "black";
-          like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
-          heart_icon_count.innerText = parseInt(like_count.length);
-        }
-      }
-    });
-
-
-    const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
-
-    const save_icon = document.getElementById("save_icon_c");
-
-    const saveFind = save_records.find(
-      (save) => save.user_id == email_ID && save.post_id == postId
-    );
-    if (saveFind == undefined) {
-      save_icon.setAttribute("name", "bookmark-outline");
-      save_icon.style.color = "black";
-    } else {
-      save_icon.setAttribute("name", "bookmark");
-      save_icon.style.color = "black";
-    }
-
-    // like count inner text
-    const save_count = save_records.filter((e) => e.post_id == postId);
-
-    // Like count JS;
-
-    save_icon.addEventListener("click", function (e) {
-      const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
-      const saveFind = save_records.find(
-        (record) => record.user_id == email_ID && record.post_id == postId
-      );
-      if (saveFind) {
-        save_records.splice(save_records.indexOf(saveFind), 1);
-        save_icon.setAttribute("name", "bookmark-outline");
-      } else {
-        save_records.push({ user_id: email_ID, post_id: postId, notific: false, creatorId: creatorId });
-        save_icon.setAttribute("name", "bookmark");
-      }
-      localStorage.setItem("save_records", JSON.stringify(save_records));
-      const save_count = save_records.filter(
-        (record) => record.post_id == postId
-      ).length;
-      save_icon.style.color = save_count ? "black" : "";
-    });
 
   </script>
 
