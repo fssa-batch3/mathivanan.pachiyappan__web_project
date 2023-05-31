@@ -29,9 +29,9 @@ a {
     list-style: none;
 }
 
-img {
+/* img {
     width: 100%;
-}
+} */
 
 section {
     padding: 3rem 0 2rem;
@@ -92,6 +92,7 @@ div.nav_main p a {
     text-decoration: none;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
 div.nav_main span {
     color: orange;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -117,8 +118,14 @@ div.navigation_link ul li a:hover {
     text-decoration: none;
 }
 
-div.navigation_link ul li img {
+div.navigation_link ul li.profile_img {
     border-radius: 2em;
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 2px solid orange;
 }
 
 div.nav_main {
@@ -255,14 +262,15 @@ div.dropdown:hover .dropdown-content {
     font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
-}
-
-.active-filter {
-    background: var(--second-color);
-    color: var(--bg-color);
+    background: var(--bg-color);
+    color: var(--first-color);
     padding: 4px 10px;
     border-radius: 4px;
 }
+
+/* .active-filter {
+    
+} */
 
 /* Post */
 .post {
@@ -272,11 +280,12 @@ div.dropdown:hover .dropdown-content {
     gap: 1.5rem;
 }
 
-.post-box {
+a.post-box {
     background: var(--bg-color);
     box-shadow: 0 4px 14px hsl(355deg 25% 15% / 10%);
     padding: 15px;
     border-radius: 0.5rem;
+    color: #000000;
 }
 
 .post-img {
@@ -300,7 +309,7 @@ div.dropdown:hover .dropdown-content {
     color: var(--text-color);
     /* To Remove Title In 2 Lines */
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -313,7 +322,7 @@ div.dropdown:hover .dropdown-content {
     margin-top: 4px;
 }
 
-.post-description {
+p.post-description {
     font-size: 0.9rem;
     line-height: 1.5rem;
     margin: 5px 0 10px;
@@ -349,38 +358,47 @@ div.icons {
     display: block;
     justify-content: space-evenly;
     background-color: white;
-    position: relative;
+    position: static;
     text-align: center;
     border-radius: 1em;
     padding: 1em;
     margin: auto;
     margin-bottom: 1em;
-    bottom: 0;
     width: 100%;
     height: 10%;
     /* z-index: 1; */
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
 }
+
+span.notific_count {
+   background-color: red;
+   color: white;
+   padding: 3px 5px 3px 5px;
+   border-radius: 1rem;
+   font-size: 50%;
+   font-weight: bold;
+   position: relative;
+   border: 1.5px solid #ffffff;
+   right: 25%;
+   top: -0.5rem;
+}
+
+span#notificMobile {
+    background-color: red;
+    padding: 1px 4px 1px 4px;
+    border-radius: 1rem;
+    font-size: 50%;
+    font-weight: bold;
+    position: sticky;
+    right: 25%;
+    border: none;
+ }
+
 div.icons p {
     font-family: 'Poppins', sans-serif;
     font-size: 85%;
 }
-/* div.icons {
-    display: block;
-    justify-content: space-evenly;
-    position: fixed;
-    width: 95%;
-    height: 15%;
-    margin: auto;
-    margin-top: 2rem;
-    text-align: center;
-    margin-bottom: 2em;
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-    padding: 1em;
-    border-radius: 1em;
-    background-color: white;
-    z-index: 1;
-} */
+
 
 @media only screen and (max-width: 600px) {
     #med-dc {

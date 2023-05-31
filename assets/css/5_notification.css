@@ -44,11 +44,29 @@ div.notific_profile img.profile_pic{
     height: 4rem;
 }
 
-div.notific_profile p.post-description{
-    opacity: 100%;
-    font-size: 80%;
+button.clear_Notification {
+    background: none;
+    border: none;
+    border-bottom: 1.5px solid red;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    color: red;
+}
+
+div.notific_profile p.notific_card strong{
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5rem;
+    font-size: 100%;
     text-align: left;
     max-width: 20rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+p.notific_card span {
+    font-size: 80%;
+    color: gray;
+    font-family: 'Poppins', sans-serif;
 }
 
 div.notific_profile strong.bold {

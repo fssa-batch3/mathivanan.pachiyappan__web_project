@@ -10,46 +10,12 @@
   <link rel="stylesheet" href="../../assets/css/6_profile.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 
 <body>
   <!--Header-->
-  <header>
-    <!--Nav-->
-    <div class="header">
-      <div class="nav_main">
-        <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
-      </div>
 
-      <div class="navigation_link">
-        <ul>
-          <form>
-            <input type="text" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000;"></i></span>
-          </form>
-          </li>
-          <li id="med-blk"><a href="../user_services/4_creat_post.html">Create</a></li>
-          <a href="../user_services/5_notification.html">
-            <li id="med-blk"><i class="fa fa-bell"></i></li>
-          </a>
-          <div class="dropdown">
-            <button class="dropbtn">
-              <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem" height="40rem"></li>
-            </button>
-            <div class="dropdown-content">
-              <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
-                  style="font-size:15px"></i>Profile</a>
-              <a id="med-dc" href="../user_services/4_creat_post.html"><i class="fa fa-magic"
-                  style="font-size:18px"></i>Create</a>
-              <a id="med-dc" href="../user_services/5_notification.html"><i class="fa fa-bell"
-                  style="font-size:13px"></i>Notification</a>
-              <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear" style="font-size:15px"></i>Settings</a>
-              <a href="../../index.html"><i class="fa fa-sign-out" style="font-size:18px"></i>Log-Out</a>
-            </div>
-          </div>
-        </ul>
-      </div>
-    </div>
-  </header>
   <div class="header__wrapper">
     <header id="profile_bg"></header>
     <div class="cols__container">
@@ -65,29 +31,34 @@
         <i class="fa fa-map-marker" aria-hidden="true" id="map_icon"></i>
         <p id="user_country"></p>
 
-        <ul class="about">
-          <li><a href="../follow/7_follow.html"><span>4,053</span>Followers</a></li>
-          <li><a href="../follow/7_follow.html"><span>345</span>Following</a></li>
-          <li><a href="#"><span>200</span>Totall Post</a></li>
+        <ul class="about" id="countContent">
+          <li id="followers_Id"><span id="followers">0</span>Followers</li>
+          <li id="following_Id"><span id="following">0</span>Following</li>
+          <li><span id="totall_post">0</span>Totall Post</li>
         </ul>
 
         <div class="content">
           <p id="user_tag" class="tag_line"></p>
           <p id="user_bio"></p>
         </div>
-        <button><a href="./11_edit_profile.html">Edit Profile</a></button>
+        <div id="editBtn">
+          <!-- <button><a href="./11_edit_profile.html">Edit Profile</a></button> -->
+        </div>
       </div>
       <div class="right__col">
         <nav>
-          <ul>
-            <li><a href="#">posts</a></li>
-            <li><a href="./6_savedpost.html">saved items</a></li>
-            <li><a href="./6_toptrend.html">Top Trending</a></li>
+          <ul clas="menu">
+            <li><button class="userAccess_btn" id="postBtn">posts</button></li>
+            <li><button class="userAccess_btn" id="saveItemBtn">saved items</button></li>
+            <li><button class="userAccess_btn" id="topTrendsBtn">Top Trends <i class="fa fa-bar-chart"
+                  aria-hidden="true" id="map_icon"></i></button></li>
           </ul>
-          <button type="submit" onclick="deleteData()"><b>Delete</b></button>
+          <button type="submit" id="follow_btn">Follow</button>
+          <button type="submit" onclick="deleteData()" id="deleteBtn"><b>Delete</b></button>
         </nav>
 
         <div id="posts" class="post_list"></div>
+
       </div>
     </div>
   </div>
@@ -96,106 +67,52 @@
     <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
     <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
     <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-    <p>© 2022 Venom.com All rights reserved</p>
+    <p>© 2023 Venom.com All rights reserved</p>
   </div>
   </div>
 
   <script>
 
-    let email_ID = JSON.parse(localStorage.getItem("email_ID"));
+    let params = new URLSearchParams(window.location.search);
+    let userId = params.get('user_ID');
 
-    // filter user posts///////////////////
     let all_post = JSON.parse(localStorage.getItem("blog_records"));
+    // let savedPost = JSON.parse(localStorage.getItem("save_records"));
 
-    let user_post = all_post.filter(post => post.unique_id == email_ID);
-    // console.log(user_post);
+    let user_post = all_post.filter(post => post.unique_id == userId);
+    // let saveItems = savedPost.filter(save => save.user_id == userId);
+    let post_count = document.getElementById("totall_post");
+    post_count.innerText = user_post.length;
 
-    for (let i = 0; i < user_post.length; i++) {
+    let email_ID = JSON.parse(localStorage.getItem("email_ID"));
+    let user_records = JSON.parse(localStorage.getItem("user_records"));
+    let user_name = user_records.find((e) => e.user_email !== email_ID)?.user_name;
+    // let profile_Image = user_records.find((e) => e.user_email !== email_ID)?.user_profile;
 
-      // Create the post_box div element
-      const postBoxDiv = document.createElement("div");
-      postBoxDiv.classList.add("post_box");
-
-      // Create the h2 element for the post content
-      const postContentH2 = document.createElement("h2");
-      postContentH2.classList.add("post_content");
-      postContentH2.innerText = user_post[i]["title"];
-
-      // Create the p element for the time and date
-      const timeDateP = document.createElement("p");
-      timeDateP.setAttribute("class", "time_date");
-      timeDateP.innerHTML = "Published On : " + user_post[i]["timestamp"]; 
-
-      // Create the second p element for the post content
-      const postContentP = document.createElement("p");
-      postContentP.classList.add("post_content");
-      postContentP.innerHTML = user_post[i]["content"]; 
-
-      // Append the h2 and p elements to the post_box div
-      postBoxDiv.appendChild(postContentH2);
-      postBoxDiv.appendChild(timeDateP);
-      postBoxDiv.appendChild(postContentP);
-
-      // Append the post_box div to the div with id "posts"
-      const postsDiv = document.getElementById("posts");
-      postsDiv.appendChild(postBoxDiv);
-
-      edit_button = document.createElement("button");
-      edit_button.setAttribute("class", "edit_btn");
-      edit_button.setAttribute("data-id", user_post[i]["post_id"]);
-      edit_button.innerText = "Edit";
-      postBoxDiv.append(edit_button);
-
-      // Delete button JSON and JS code
-      // Declare and initialize delete_button before the event listener
-      const delete_button = document.createElement("button");
-      delete_button.setAttribute("class", "delete_btn");
-      delete_button.innerText = "Delete";
-      postBoxDiv.append(delete_button);
-
-      // Add event listener to delete_button
-      delete_button.addEventListener("click", function () {
-        if (confirm("Are you sure to Delete ?")) {
-          let post_ID = localStorage.getItem("post_id");
-          let blog_records = JSON.parse(localStorage.getItem("blog_records"));
-          function login_data(e) {
-            return e.post_id == post_ID;
-          }
-          user_data = blog_records.find(login_data);
-          const indexOfUser = blog_records.indexOf(user_data);
-          blog_records.splice(indexOfUser, 1);
-          localStorage.setItem('blog_records', JSON.stringify(blog_records));
-          location.reload();
-        };
-      });
-
-      let edit = document.querySelectorAll("button.edit_btn");
-      edit.forEach(function (find_post) {
-        find_post.addEventListener("click", function () {
-          const id = this.dataset.id
-
-          localStorage.setItem("post_id", JSON.stringify(id));
-          window.location.href = "../user_services/4_creat_post.html";
-        })
-      });
-    };
-    // localStorage.getItem("key", value)
-
-    let user_records = JSON.parse(localStorage.getItem("user_records"))
     function login_data(e) {
-      return e.user_email == email_ID;
+      return e.user_email == userId;
     }
+
     user_data = user_records.find(login_data);
 
+    //Default profile pic
+    let defaultProfile = "https://res.cloudinary.com/dvb2bkrx9/image/upload/v1684832522/erso53o021syntb52mls.jpg"
 
-    var imageURL = localStorage.getItem("imageURL");
-    var imgBox = document.getElementById("profile_bg");
-    profile_bg.style.backgroundImage = "url(" + imageURL + ")";
+    //User Profile Pic
+    let profile_image = user_data['user_profile'];
+    if (profile_image == 0) {
+      document.getElementById("profile_image").style.backgroundImage = "url(" + defaultProfile + ")";
+    } else {
+      document.getElementById("profile_image").style.backgroundImage = "url(" + profile_image + ")";
+    }
 
-    var imageURL2 = localStorage.getItem("imageURL2");
-    var imgBox2 = document.getElementById("profile_image");
-    profile_image.style.backgroundImage = "url(" + imageURL2 + ")";
-
+    // User Profile Banner
+    let profile_banner = user_data['user_banner'];
+    if (profile_banner == 0) {
+      document.getElementById("profile_bg").style.backgroundColor = "gray";
+    } else {
+      document.getElementById("profile_bg").style.backgroundImage = "url(" + profile_banner + ")";
+    }
 
     document.getElementById("profile_name").innerText = user_data['user_name'];
     document.getElementById("profile_email").innerText = user_data['user_email'];
@@ -204,6 +121,87 @@
     document.getElementById("user_job").innerText = user_data['user_job'];
     document.getElementById("user_tag").innerText = user_data['user_tag'];
     document.getElementById("user_bio").innerText = user_data['user_bio'];
+
+    //Profile edit page
+
+    let editBtn = document.getElementById("editBtn");
+
+    let button_tag = document.createElement("button");
+    a_tag = document.createElement("a");
+    a_tag.setAttribute("href", "./11_edit_profile.html?user_ID=" + user_data["user_email"]);
+    a_tag.innerHTML = "Edit Profile";
+    button_tag.appendChild(a_tag);
+
+    editBtn.append(button_tag);
+
+    if (userId === email_ID) {
+      editBtn.style.display = 'block';
+    } else {
+      editBtn.style.display = 'none';
+    }
+
+    // get the follow data from local storage or initialize it as an empty array
+
+    let follow_records = JSON.parse(localStorage.getItem("follow_records")) || [];
+
+    let follow_btn = document.getElementById("follow_btn");
+
+    function updateFollowUI() {
+      let followFind = follow_records.find(follow => follow.follower_id === email_ID && follow.following_id === userId);
+      if (followFind === undefined) {
+        follow_btn.innerText = 'Follow';
+      } else {
+        follow_btn.innerText = 'Following';
+      }
+
+      let follow_count = follow_records.filter(e => e.following_id === userId).length;
+      let follow_btn_count = document.getElementById("followers");
+      follow_btn_count.innerText = follow_count;
+
+      let following_count = follow_records.filter(e => e.follower_id === userId).length;
+      let following_btn_count = document.getElementById("following");
+      following_btn_count.innerText = following_count;
+    }
+
+    updateFollowUI();
+
+    // Like count JS;
+    follow_btn.addEventListener("click", function (e) {
+      let followFind = follow_records.find(follow => follow.follower_id === email_ID && follow.following_id === userId);
+      if (followFind === undefined) {
+        follow_records.push({
+          "follower_id": email_ID,
+          "following_id": userId,
+          "notific": false
+        });
+      } else {
+        let findIndex = follow_records.indexOf(followFind);
+        follow_records.splice(findIndex, 1);
+      }
+
+      localStorage.setItem("follow_records", JSON.stringify(follow_records));
+      updateFollowUI();
+    });
+
+    if (userId === email_ID) {
+      follow_btn.style.display = 'none';
+    } else {
+      follow_btn.style.display = 'block';
+    }
+
+
+    let followersPage = document.getElementById("followers_Id");
+    let followingPage = document.getElementById("following_Id");
+
+    function rederecting() {
+      location.href = "../follow/7_follow.html?user_ID=" + userId;
+    }
+
+    followersPage.addEventListener("click", rederecting);
+    followingPage.addEventListener("click", rederecting);
+
+    let button = document.querySelectorAll('.menu button');
+    let content_inside = document.querySelectorAll('.post_box');
 
     function deleteData(e) {
       if (confirm("Are you sure?")) {
@@ -220,11 +218,208 @@
       };
     }
 
+    let deleteButton = document.getElementById("deleteBtn");
+    if (userId === email_ID) {
+      deleteButton.style.display = 'block';
+    } else {
+      deleteButton.style.display = 'none';
+    }
+
+    //Posts, SavedItems and Top Trends
+
+    let postButton = document.getElementById("postBtn");
+    let saveItemBtn = document.getElementById("saveItemBtn");
+    let topTrendsBtn = document.getElementById("topTrendsBtn");
+
+    if (userId === email_ID) {
+      saveItemBtn.style.display = "black";
+      topTrendsBtn.style.display = "black";
+    } else {
+      saveItemBtn.style.display = "none";
+      topTrendsBtn.style.display = "none";
+    }
 
 
-    // let comment_list = JSON.parse(localStorage.getItem("comment_records"));
+
+    const savedItems = JSON.parse(localStorage.getItem("save_records"));
+    const saved_post = savedItems.filter((e) => e.user_id === userId);
+    const savedPostUser = all_post.filter((e) =>
+      saved_post.some((s) => e.post_id === s.post_id)
+    )
+
+    //Total Post
+
+    postButton.addEventListener("click", function () {
+      let postsDiv = document.getElementById("posts");
+      postsDiv.innerHTML = "";
+      create_card(user_post);
+    });
+
+    // Saved Items
+    if (savedItems.length > 0) {
+      saveItemBtn.addEventListener("click", function () {
+        let postsDiv = document.getElementById("posts");
+        postsDiv.innerHTML = "";
+        create_card(savedPostUser);
+      });
+    }
+
+    // Top Trends
+
+    topTrendsBtn.addEventListener("click", function () {
+      let postsDiv = document.getElementById("posts");
+      postsDiv.innerHTML = "";
+
+      const likeData = [
+        { date: '2023-05-01', count: 50 },
+        { date: '2023-05-02', count: 65 },
+        { date: '2023-05-03', count: 85 },
+        { date: '2023-05-04', count: 80 },
+        { date: '2023-05-05', count: 75 },
+        { date: '2023-05-06', count: 90 },
+        { date: '2023-05-07', count: 120 },
+        { date: '2023-05-08', count: 115 },
+        { date: '2023-05-09', count: 130 },
+        { date: '2023-05-10', count: 125 },
+        // Add more data points here...
+      ];
+
+      // const likeData = JSON.parse(localStorage.getItem("like_records"));
+
+      // Graph chart represent like analytics
+
+      const dataPoints = likeData.map(item => ({
+        x: new Date(item.date),
+        y: item.count
+      }));
+
+      const chart = new CanvasJS.Chart("posts", {
+        animationEnabled: true,
+        title: {
+          text: "Like Track"
+        },
+        axisX: {
+          title: "Date",
+          valueFormatString: "MMM DD, YYYY"
+        },
+        axisY: {
+          title: "Likes",
+          includeZero: false
+        },
+        data: [{
+          type: "line",
+          dataPoints: dataPoints
+        }]
+      });
+
+      chart.render();
+    });
+
+
+    let delete_button;
+    let edit_button;
+    create_card(user_post);
+
+    function create_card(filterPost) {
+
+      for (let i = 0; i < filterPost.length; i++) {
+        // Create the post_box div element
+        let postBoxDiv = document.createElement("div");
+        postBoxDiv.classList.add("post_box");
+
+        // Create the h2 element for the post content
+        let postContentH2 = document.createElement("h2");
+        postContentH2.classList.add("post_content");
+
+        a_tag = document.createElement("a");
+        a_tag.setAttribute("href", "../posts/8-1_post.html?post_ID=" + filterPost[i]["post_id"]);
+        a_tag.innerText = filterPost[i]["title"];
+        postContentH2.append(a_tag);
+
+        // Create the p element for the time and date
+        let timeDateP = document.createElement("p");
+        timeDateP.setAttribute("class", "time_date");
+        timeDateP.innerHTML = "Published On : " + filterPost[i]["timestamp"];
+
+        // Create the second p element for the post content
+        let postContentP = document.createElement("p");
+        postContentP.classList.add("post_content");
+        postContentP.innerHTML = filterPost[i]["content"];
+
+        // Append the h2 and p elements to the post_box div
+        postBoxDiv.appendChild(postContentH2);
+        postBoxDiv.appendChild(timeDateP);
+        postBoxDiv.appendChild(postContentP);
+
+        // Append the post_box div to the div with id "posts"
+        let postsDiv = document.getElementById("posts");
+        postsDiv.prepend(postBoxDiv);
+
+        if (userId === filterPost[i].unique_id) {
+          edit_button = document.createElement("button");
+          edit_button.setAttribute("class", "edit_btn");
+          edit_button.setAttribute("data-id", filterPost[i]["post_id"]);
+          edit_button.innerText = "Edit";
+          postBoxDiv.append(edit_button);
+
+          // Delete button JSON and JS code
+          // Declare and initialize delete_button before the event listener
+          delete_button = document.createElement("button");
+          delete_button.setAttribute("class", "delete_btn");
+          delete_button.setAttribute("data-uuid", filterPost[i]["post_id"]);
+          delete_button.innerText = "Delete";
+          postBoxDiv.append(delete_button);
+        }
+
+        if (userId === email_ID) {
+          delete_button.style.display = "block";
+          edit_button.style.display = "block";
+        } else {
+          delete_button.style.display = "none";
+          edit_button.style.display = "none";
+        }
+      };
+    };
+
+    // Add event listener to delete_button
+
+    let delete_btn = document.querySelectorAll("button.delete_btn");
+    delete_btn.forEach(function (find_post) {
+      find_post.addEventListener("click", function () {
+        if (confirm("Are you sure to Delete ?")) {
+          let post_d_id = this.dataset.uuid;
+          let blog_records = JSON.parse(localStorage.getItem("blog_records"));
+
+          // Find the index of the post to delete
+          let find_post = blog_records.find(e => e.post_id == post_d_id);
+
+          let indexOfPost = blog_records.indexOf(find_post);
+          // Remove the post from the array
+
+          blog_records.splice(indexOfPost, 1);
+
+
+          localStorage.setItem('blog_records', JSON.stringify(blog_records));
+          location.reload();
+        }
+      })
+    });
+
+    // Post edit button JS
+
+    let edit = document.querySelectorAll("button.edit_btn");
+    edit.forEach(function (find_post) {
+      find_post.addEventListener("click", function () {
+        let id = this.dataset.id
+
+        localStorage.setItem("post_id", JSON.stringify(id));
+        window.location.href = "../user_services/4_creat_post.html";
+      })
+
+    });
 
   </script>
+  <script src="/assets/header.js"></script>
 </body>
 
 </html>

@@ -50,10 +50,12 @@ div.cover_inputs label {
   border-bottom-right-radius: 2em;
   border-top-right-radius: 2em;
 }
+
 div.cover_inputs label i {
   margin-left: 0.3rem;
   margin-bottom: 1em;
 }
+
 input:focus {
   outline: none;
   border: none;
@@ -76,6 +78,18 @@ div.post_button button:nth-child(1) {
 }
 
 div.post_button button:nth-child(2) {
+  padding: 8px 12px;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  font-size: 90%;
+  background-color: blue;
+  margin-right: 0.5em;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+div.post_button button:nth-child(3) {
   padding: 8px 12px;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
@@ -127,14 +141,35 @@ div.inputs input[type="search"] {
   border: none;
 }
 
+div.input_tag {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 div.input_tag input[type="search"] {
   font-family: "Poppins", sans-serif;
+  background-color: #e6edfc;
   font-size: 80%;
   margin-bottom: 1rem;
   padding: 8px 5px;
-  width: 100%;
+  width: 85%;
   border-radius: 5px;
   border: none;
+}
+
+button.tagbutton {
+  background-color: #335ecc;
+  color: white;
+  padding: 5px 5px;
+  height: 2.2rem;
+  margin-left: 1rem;
+  font-size: 80%;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
 }
 
 .options {
@@ -194,7 +229,16 @@ input[type="color"]::-moz-color-swatch {
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #020929;
 }
 
-#text-input {
+button.mic {
+  padding: 7px 11px 7px 11px;
+  font-size: 120%;
+  border-radius: 1.5rem;
+  border: none;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+  float: right;
+}
+
+#result {
   margin-top: 10px;
   border: 1px solid #dddddd;
   padding: 20px;

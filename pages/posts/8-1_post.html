@@ -2,203 +2,487 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venom.com</title>
-    <link rel="stylesheet" href="../../assets/css/3_home.css">
-    <link rel="stylesheet" href="../../assets/css/8_post.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Venom.com</title>
+  <link rel="stylesheet" href="../../assets/css/3_home.css">
+  <link rel="stylesheet" href="../../assets/css/8_post.css">
+  <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
-   <!--Header-->
-   <header>
-    <!--Nav-->
-    <div class="header">
-        <div class="nav_main">
-            <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
-        </div>
-        
-        <div class="navigation_link">
-            <ul>
-                <form>
-                    <input type="text" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000;"></i></span>
-                  </form>
-                </li>
-                <li id="med-blk"><a href="../user_services/4_creat_post.html">Create</a></li>
-                <a href="../user_services/5_notification.html">
-                    <li id="med-blk"><i class="fa fa-bell" style="color: #000;"></i></li>
-                </a>
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem"
-                                height="40rem"></li>
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
-                                style="font-size:15px"></i>Profile</a>
-                        <a id="med-dc" href="../user_services/4_creat_post.html"><i class="fa fa-magic"
-                                style="font-size:18px"></i>Create</a>
-                        <a id="med-dc" href="../user_services/5_notification.html"><i class="fa fa-bell"
-                                style="font-size:13px"></i>Notification</a>
-                        <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear"
-                                style="font-size:15px"></i>Settings</a>
-                        <a href="../../index.html"><i class="fa fa-sign-out"
-                                style="font-size:18px"></i>Log-Out</a>
-                    </div>
-                </div>
-            </ul>
-        </div>
+  <!--Header-->
+  <div class="post_page">
+    <p id="cover_image"></p>
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+      <!-- Audio button -->
+      <div style="display: flex; align-items: center;">
+        <button onclick="convertTextToSpeech()" style="background: none; border: none; margin-right: 1rem;"><i
+            class='fa fa-volume-up' style='font-size:23px;color:blue; cursor: pointer;'></i></button>
+        <!-- Audio player -->
+        <audio id="audio-player" controls></audio>
+      </div>
+      <!-- Share button icon -->
+      <button class="share_icon" id="share-button">
+        <ion-icon name="share-social"></ion-icon>
+      </button>
     </div>
-</header>
-    <div class="post_page">
-        <div><i class="fa fa-share-alt" aria-hidden="true" style="font-size: 200%;float: right;"></i></div>
-        <img src="../../assets/images/img/post-1.jpg" alt="post_1" width="100%" height="30%" />
-        
-        <div id="container"></div>
-        <!--Space for HTML elements of Blog Post-->
+    <div id="container"></div>
+    <!--Space for HTML elements of Blog Post-->
 
-        <div class="react_icons">
-            <div class="icon_main">
-                <p><img src="../../assets/images/svg/heart-outline.svg" alt="heart_icon">
-                    0</p>
-                <p class="cmt_icon"><img src="../../assets/images/svg/chatbubble-outline.svg" alt="comment_icon">
-                    0</p>
-            </div>
-            <div class="side_main">
-                <p><img src="../../assets/images/svg/bookmark-outline.svg" alt="bookmark_icon">
-                    Save</p>
-            </div>
-        </div>
-        <div class="comment_area">
-            <h3>Responses (0)</h3>
-            <form>
-            <button onclick="publishCmt()" id="post_cmt"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-            <textarea placeholder="What are your thoughts?" id="cmt_txt" contenteditable="true" style="height: 55px; overflow: auto;"></textarea>
-            </form>
-            <h4>Others</h4>
-            <div id="comment_box"></div>
-            <!--Comment data from HTML elements-->
-            
-        </div>
+    <div class="react_icons">
+      <div class="icon_main">
+        <p id="like_icon">
+          <ion-icon name="heart-outline" id="heart_icon_c"></ion-icon>
+          <span id="like_icon_count">0</span>
+        </p>
+        <p class="cmt_icon">
+          <ion-icon name="chatbubble-outline"></ion-icon>
+          <span id="cmt_icon_count">0</span>
+        </p>
+      </div>
+      <div class="side_main">
+        <p>
+          <ion-icon name="bookmark-outline" id="save_icon_c"></ion-icon>
+          Save
+        </p>
+      </div>
     </div>
-    <div class="icons">
-        <a href="#"><i class="fa fa-facebook" style="color: #000;"></i></a>
-        <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
-        <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
-        <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-        <p>© 2022 Venom.com All rights reserved</p>
+    <div class="comment_area">
+      <h3>
+        Responses (<span id="cmt_count">0</span>)
+      </h3>
+      <form class="form_data">
+        <textarea placeholder="What are your thoughts?" id="cmt_txt" contenteditable="true"
+          style="height: 55px; overflow: auto;"></textarea>
+        <button onclick="publishCmt(event);" id="post_cmt">
+          <ion-icon name="send"></ion-icon>
+        </button>
+      </form>
+      <h4>Comment List</h4>
+      <div id="comment_box"></div>
+      <!--Comment data from HTML elements-->
+
+      <div id="share-popup">
+        <div class="close-button" id="close-button">X</div>
+        <div class="social-icons">
+          <img src="/assets/images/svg/Daco_524733.png" alt="Facebook" id="facebook-icon">
+          <img src="/assets/images/svg/Daco_1851355.png" alt="Twitter" id="twitter-icon">
+          <img src="/assets/images/svg/Daco_99265.png" alt="LinkedIn" id="linkedin-icon">
+          <img src="/assets/images/svg/Daco_540.png" alt="Instagram" id="instagram-icon">
+        </div>
+        <div>
+          <input type="text" id="link-input" readonly>
+          <button id="copy-link-button">Copy Link</button>
+        </div>
+      </div>
+
     </div>
-<script>
-  
-const params = new URLSearchParams(window.location.search);
-const postId = params.get('post_ID');
+  </div>
+  <div class="icons">
+    <a href="#">
+      <i class="fa fa-facebook" style="color: #000;"></i>
+    </a>
+    <a href="#">
+      <i class="fa fa-instagram" style="color: #000;"></i>
+    </a>
+    <a href="#">
+      <i class="fa fa-twitter" style="color: #000;"></i>
+    </a>
+    <a href="#">
+      <i class="fa fa-github" style="color: #000;"></i>
+    </a>
+    <p>© 2023 Venom.com All rights reserved</p>
+  </div>
 
-function findRecord(e){
-    return e.post_id == postId;
-}
+  <script>
 
-let blog_records = JSON.parse(localStorage.getItem("blog_records"));
-let converter = new showdown.Converter();
+    function convertTextToSpeech() {
+      const text = document.getElementById('container').innerText;
+      if (text.trim() === '') {
+        alert('Please enter some text.');
+        return;
+      }
 
-let blogDetails = blog_records.filter(findRecord);
+      $.ajax({
+        url: 'https://api.openai.com/v1/engines/davinci/tokens',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer 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'
+        },
+        method: 'POST',
+        data: JSON.stringify({
+          'prompt': text,
+          'max_tokens': 200
+        }),
+        success: function (response) {
+          const audioUrl = response.choices[0].audio;
+          const audioPlayer = document.getElementById('audio-player');
+          audioPlayer.src = audioUrl;
+          audioPlayer.play();
+        },
+        error: function () {
+          alert('Error occurred while converting text to speech.');
+        }
+      });
+    }
+
+    let linkInput = document.getElementById('link-input');
+    let get_link = window.location.href;
+    linkInput.value = get_link;
+    document.getElementById('copy-link-button').addEventListener('click', function () {
+      linkInput.select();
+      document.execCommand('copy');
+      alert('Link copied to clipboard!');
+    });
+
+    document.getElementById('share-button').addEventListener('click', function () {
+      document.getElementById('share-popup').style.display = 'block';
+    });
+
+    document.getElementById('close-button').addEventListener('click', function () {
+      document.getElementById('share-popup').style.display = 'none';
+    });
+
+    document.getElementById('facebook-icon').addEventListener('click', function () {
+      // Replace 'your-url-here' with the actual URL you want to share
+      var url = get_link;
+      var shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
+      window.open(shareUrl, '_blank');
+    });
+
+    document.getElementById('twitter-icon').addEventListener('click', function () {
+      // Replace 'your-url-here' with the actual URL you want to share
+      var url = get_link;
+      var shareUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(url);
+      window.open(shareUrl, '_blank');
+    });
+
+    document.getElementById('linkedin-icon').addEventListener('click', function () {
+      // Replace 'your-url-here' with the actual URL you want to share
+      var url = get_link;
+      var shareUrl = 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(url);
+      window.open(shareUrl, '_blank');
+    });
+
+    document.getElementById('instagram-icon').addEventListener('click', function () {
+      // Replace 'your-url-here' with the actual URL you want to share
+      var url = get_link;
+      var shareUrl = 'https://www.instagram.com/sharer.php?u=' + encodeURIComponent(url);
+      window.open(shareUrl, '_blank');
+    });
+
+    const email_ID = JSON.parse(localStorage.getItem("email_ID"));
+
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get("post_ID");
+
+    const blog_records = JSON.parse(localStorage.getItem("blog_records"));
+
+    function findRecord(e) {
+      return e.post_id == postId;
+    }
+
+    const converter = new showdown.Converter();
+
+    const blogDetails = blog_records.filter(findRecord);
+
+    blogDetails.forEach(function (post) {
+      const html = converter.makeHtml(post.content);
+      const postHTML =
+        `<h2>${post.title}</h2>` +
+        `<p><em> Published On : ${post.timestamp}  by  <b>
+          <a href="../Myprofile/6_profile.html?user_ID=${post.unique_id}">
+            <span style="color: black; margin-right: 0.5rem;">${post.name}</span>
+            <img src="${post.profile.source}" style="width: 2rem; height: 2rem; margin-bottom: -0.8rem; border: 2px solid orange;"/>
+            </a></b></em></p>` +
+        `<p><strong>${post.category}</strong></p>` +
+        `<p><strong>Tags : </strong> ${post.tags.join(", ")}</p>` +
+        `<div>${html}</div>`;
+      const container = document.getElementById("container");
+      container.innerHTML += postHTML;
+    });
 
 
-blogDetails.forEach(function(post) {
-  let imageURL = "![alt text](" + post.imageURL + ")";
-  let html = converter.makeHtml(post.content);
-  let postHTML = "<h2>" + post.title + "</h2>" +
-                 "<p><em> Published On : " + post.timestamp + "</em></p>" +
-                 "<p><strong>" + post.category + "</strong></p>" +
-                 "<p><strong>Tags : </strong> " + post.tags.join(", ") + "</p>" +
-                 "<div>" + imageURL + "</div>" + 
-                 "<div>" + html + "</div>";
-  let container = document.getElementById("container");
-  container.innerHTML += postHTML;
-}); 
+    const coverImage = blog_records.find((e) => e.post_id == postId)?.image.source;
+    const coverImg = document.getElementById("cover_image");
+    coverImg.style.backgroundImage = `url(${coverImage})`;
 
-// User Comment functions
-function publishCmt() {
+    const creatorId = blog_records.find((e) => e.post_id == postId)?.unique_id;
 
-let comment_txt = document.getElementById("cmt_txt").value;
-let cmt_uuid = uuidv4();
+    const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
 
-const date = new Date();
-const commentTime = `${date.getDate().toString().padStart(2, '0')} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
+    const heart_icon = document.getElementById("heart_icon_c");
 
+    const likeFind = like_records.find(
+      (like) => like.user_id == email_ID && like.post_id == postId
+    );
+    if (likeFind == undefined) {
+      heart_icon.setAttribute("name", "heart-outline");
+      heart_icon.style.color = "black";
+    } else {
+      heart_icon.setAttribute("name", "heart");
+      heart_icon.style.color = "red";
+    }
 
-let comment_records = JSON.parse(localStorage.getItem("comment_records")) || [];
+    // like count inner text
+    const heart_icon_count = document.getElementById("like_icon_count");
+    const like_count = like_records.filter((e) => e.post_id == postId);
+    heart_icon_count.innerText = parseInt(like_count.length);
 
-comment_records.push({
-    "name": "Linda Merry",
-    "comment_id": cmt_uuid,
-    "profile": {
-        source:"../../assets/images/img/profile-1.jpg",
-        alt: "profile_1" 
-    },
-    "profile_link": { href : "../others-profile/6-1_profile.html"
-    },
-    "comment_time": commentTime,
-    "comment_text": comment_txt
-});
-localStorage.setItem("comment_records", JSON.stringify(comment_records));
-// alert("Your comment added ✅");
-};
-// JSON for user comment
-let comment_list = JSON.parse(localStorage.getItem("comment_records"));
+    // Like count JS;
 
-for (let i = 0; i < comment_list.length ; i++) {
+    // Create a new Date object
+    let date = new Date();
+    console.log(date);
+    // Get the year, month, and day components
+    // let year = date.getFullYear();
+    // let month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add leading zero if needed
+    // let day = date.getDate().toString().padStart(2, '0'); // Add leading zero if needed
 
-//  <div class="col"> </div>
-const commentBox = document.getElementById("comment_box");
+    // // Format the date as "YYYY-MM-DD"
+    // let likeTime = `${year}-${month}-${day}`;
 
-const notificProfile = document.createElement("div");
-notificProfile.setAttribute("class", "notific_profile");
+    // console.log(formattedDate); // Output: 2023-05-28 (current date)
 
-const profileDiv = document.createElement("div");
-
-const profileLink = document.createElement("a");
-profileLink.href = "../others-profile/6b_profile-Anand.html";
-
-const profileImage = document.createElement("img");
-profileImage.src = "../../assets/images/Profile/profile_2.jpg";
-profileImage.alt = "user_image";
-profileImage.setAttribute("class", "profile_img")
-
-profileLink.appendChild(profileImage);
-
-const profileName = document.createElement("p");
-
-const strong = document.createElement("strong");
-strong.textContent = "Anand Mahindra";
-
-const span = document.createElement("span");
-span.innerText = comment_list[i]["comment_time"];
-
-profileName.appendChild(strong);
-profileName.appendChild(document.createElement("br"));
-profileName.appendChild(span);
-
-profileDiv.appendChild(profileLink);
-profileDiv.appendChild(profileName);
-
-notificProfile.appendChild(profileDiv); 
-
-const commentTxt = document.createElement("p");
-commentTxt.setAttribute("class", "comment_txt")
-commentTxt.innerText = comment_list[i]["comment_text"];
-
-commentBox.appendChild(notificProfile);
-commentBox.appendChild(commentTxt);
-};
+    heart_icon.addEventListener("click", function (e) {
+      const like_records = JSON.parse(localStorage.getItem("like_records")) || [];
+      let like_count; // Declare the like_count variable
 
 
+      if (like_records.length === 0) {
+        like_records.push({
+          creatorId: creatorId,
+          user_id: email_ID,
+          post_id: postId,
+          status: true,
+          timestamp: date,
+          // count: parseInt(heart_icon_count.innerText) +1,
+          type: "like"
+        });
 
-</script>
+        localStorage.setItem("like_records", JSON.stringify(like_records));
+        heart_icon.setAttribute("name", "heart");
+        heart_icon.style.color = "red";
+        like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
+        heart_icon_count.innerText = parseInt(like_count.length);
+      } else {
+        const likeFind = like_records.find(
+          (like) => like.user_id == email_ID && like.post_id == postId
+        );
+        const findIndex = like_records.indexOf(likeFind);
+
+        if (likeFind == undefined) {
+          like_records.push({
+            creatorId: creatorId,
+            user_id: email_ID,
+            post_id: postId,
+            status: true,
+            timestamp: date,
+            // count: parseInt(heart_icon_count.innerText) +1,
+            type: "like"
+          });
+          localStorage.setItem("like_records", JSON.stringify(like_records));
+          heart_icon.setAttribute("name", "heart");
+          heart_icon.style.color = "red";
+          like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
+          heart_icon_count.innerText = parseInt(like_count.length);
+        } else {
+          like_records.splice(findIndex, 1);
+          localStorage.setItem("like_records", JSON.stringify(like_records));
+          heart_icon.setAttribute("name", "heart-outline");
+          heart_icon.style.color = "black";
+          like_count = like_records.filter((e) => e.post_id == postId); // Initialize the like_count variable
+          heart_icon_count.innerText = parseInt(like_count.length);
+        }
+      }
+    });
+
+
+    const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
+
+    const save_icon = document.getElementById("save_icon_c");
+
+    const saveFind = save_records.find(
+      (save) => save.user_id == email_ID && save.post_id == postId
+    );
+    if (saveFind == undefined) {
+      save_icon.setAttribute("name", "bookmark-outline");
+      save_icon.style.color = "black";
+    } else {
+      save_icon.setAttribute("name", "bookmark");
+      save_icon.style.color = "black";
+    }
+
+    // like count inner text
+    const save_count = save_records.filter((e) => e.post_id == postId);
+
+    // Like count JS;
+
+    save_icon.addEventListener("click", function (e) {
+      const save_records = JSON.parse(localStorage.getItem("save_records")) || [];
+      const saveFind = save_records.find(
+        (record) => record.user_id == email_ID && record.post_id == postId
+      );
+      if (saveFind) {
+        save_records.splice(save_records.indexOf(saveFind), 1);
+        save_icon.setAttribute("name", "bookmark-outline");
+      } else {
+        save_records.push({ user_id: email_ID, post_id: postId, notific: false, creatorId: creatorId });
+        save_icon.setAttribute("name", "bookmark");
+      }
+      localStorage.setItem("save_records", JSON.stringify(save_records));
+      const save_count = save_records.filter(
+        (record) => record.post_id == postId
+      ).length;
+      save_icon.style.color = save_count ? "black" : "";
+    });
+
+    function publishCmt(e) {
+      e.preventDefault();
+      const comment_txt = document.getElementById("cmt_txt").value;
+
+      let date = new Date();
+
+
+      const comment_records = JSON.parse(localStorage.getItem("comment_records")) || [];
+      const email_ID = JSON.parse(localStorage.getItem("email_ID"));
+      const uuid = uuidv4();
+      // const user_records = JSON.parse(localStorage.getItem("user_records"));
+
+      if (comment_txt == 0) {
+        alert("Please Write your Comment!");
+      } else {
+        comment_records.push({
+          creatorId: creatorId,
+          user_id: email_ID,
+          timestamp: date,
+          comment_text: comment_txt,
+          post_id: postId,
+          comment_id: uuid,
+          status: true,
+          type: "comment"
+        });
+      }
+      localStorage.setItem("comment_records", JSON.stringify(comment_records));
+      location.reload();
+    }
+
+    // JSON for user comment
+    const comment_list = JSON.parse(localStorage.getItem("comment_records"));
+
+    const post_comment = comment_list.filter(
+      (comment) => comment.post_id === postId
+    );
+    const user_records = JSON.parse(localStorage.getItem("user_records"));
+
+    // console.log(comment_user)
+    // console.log(post_comment);
+
+    const comment_count = post_comment.length;
+    document.getElementById("cmt_count").innerHTML = comment_count;
+    document.getElementById("cmt_icon_count").innerHTML = comment_count;
+
+    for (let i = 0; i < post_comment.length; i++) {
+
+      const email_ID = JSON.parse(localStorage.getItem("email_ID"));
+
+      const comment_user = user_records.filter((e) => post_comment[i].user_id === e.user_email);
+
+      const commentBox = document.getElementById("comment_box");
+
+      const notificProfile = document.createElement("div");
+      notificProfile.setAttribute("class", "notific_profile");
+
+      const profileDiv = document.createElement("div");
+      profileDiv.setAttribute("class", "flex_div");
+
+      const profileLink = document.createElement("a");
+      profileLink.href = `../Myprofile/6_profile.html?user_ID=${post_comment[i].user_id}`;
+
+      const profileImage = document.createElement("img");
+      profileImage.src = comment_user[0].user_profile;
+      profileImage.alt = "user_image";
+      profileImage.setAttribute("class", "profile_img");
+
+      profileLink.appendChild(profileImage);
+
+      const profileName = document.createElement("p");
+      const strong = document.createElement("strong");
+      strong.textContent = comment_user[0].user_name;
+
+      let date = new Date(post_comment[i].timestamp);
+      let commentTime = `${date
+        .getDate()
+        .toString()
+        .padStart(2, "0")} ${date.toLocaleString("default", {
+          month: "short",
+        })} ${date.getFullYear()}`;
+
+      const span = document.createElement("span");
+      span.innerText = commentTime;
+
+      const image = document.createElement("img")
+      image.setAttribute("src", "/assets/images/svg/ellipsis-vertical.svg")
+      image.setAttribute("class", "drop_ellipsis");
+      image.setAttribute("alt", "ellipsis-vertical");
+
+      profileName.appendChild(strong);
+      profileName.appendChild(document.createElement("br"));
+      profileName.appendChild(span);
+
+      profileDiv.appendChild(profileLink);
+      profileDiv.appendChild(profileName);
+
+      notificProfile.appendChild(profileDiv);
+      notificProfile.appendChild(image);
+      const commentTxt = document.createElement("p");
+      commentTxt.setAttribute("class", "comment_txt");
+      commentTxt.innerText = post_comment[i].comment_text;
+
+      commentBox.prepend(commentTxt);
+      commentBox.prepend(notificProfile);
+
+      if (post_comment[i].user_id !== email_ID) {
+        image.style.display = "none";
+      }
+      // Dropdown functionality
+      image.addEventListener("click", function () {
+        const dropdown = document.createElement("div");
+        dropdown.setAttribute("class", "dropdown");
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.setAttribute("class", "delete_btn");
+        deleteBtn.setAttribute("data-uuid", post_comment[i].comment_id);
+
+        deleteBtn.addEventListener("click", function () {
+          if (confirm("Are you sure you want to delete this comment?")) {
+            let commentId = this.dataset.uuid;
+            let commentIndex = post_comment.findIndex((comment) => comment.comment_id === commentId);
+            if (commentIndex !== -1) {
+              post_comment.splice(commentIndex, 1);
+
+              localStorage.setItem('comment_records', JSON.stringify(post_comment));
+              location.reload();
+            }
+          }
+        });
+
+        dropdown.appendChild(deleteBtn);
+        this.parentNode.parentNode.appendChild(dropdown);
+      });
+    }
+
+  </script>
+
+  <script src="/assets/header.js"></script>
 </body>
 
 </html>

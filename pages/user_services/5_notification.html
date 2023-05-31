@@ -2,204 +2,169 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notification-Venom.com</title>
-  <link rel="stylesheet" href="../../assets/css/3_home.css">
-  <link rel="stylesheet" href="../../assets/css/5_notification.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification-Venom.com</title>
+    <link rel="stylesheet" href="../../assets/css/3_home.css">
+    <link rel="stylesheet" href="../../assets/css/5_notification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
 </head>
 
 <body>
-   <!--Header-->
-   <header>
-    <!--Nav-->
-    <div class="header">
-        <div class="nav_main">
-            <p><a href="../home/3_home.html">Ve<span>nom</span></a></p>
+    <!--Header-->
+
+    <div class="notific_main">
+        <h1>
+            Notifications<sup>
+                <i class="fa fa-bell" style="color: #000;"></i>
+            </sup>
+        </h1>
+        <div class="notific_top" id="notificationContent">
+            <!--Notification_content_Js-->
         </div>
+    </div>
+    <div class="icons">
+        <a href="#">
+            <i class="fa fa-facebook" style="color: #000;"></i>
+        </a>
+        <a href="#">
+            <i class="fa fa-instagram" style="color: #000;"></i>
+        </a>
+        <a href="#">
+            <i class="fa fa-twitter" style="color: #000;"></i>
+        </a>
+        <a href="#">
+            <i class="fa fa-github" style="color: #000;"></i>
+        </a>
+        <p>© 2023 Venom.com All rights reserved</p>
+    </div>
+
+    <script>
+        // Retrieve user ID from URL parameter
+        const params = new URLSearchParams(window.location.search);
+        const userId = params.get('user_ID');
+
+        // Retrieve blog records from localStorage
+        const getPost = JSON.parse(localStorage.getItem("blog_records")) || [];
+
+        // Retrieve comment records from localStorage
+        // const commentRecord = JSON.parse(localStorage.getItem("comment_records"));
+
+        // // Retrieve like records from localStorage
+        // const likeItems = JSON.parse(localStorage.getItem("like_records"));
+
+        // // Filter comment records for the current user
+        // const userComment = commentRecord.filter((comment) => comment.other_user === userId);
+
+        // // Filter like records for the current user
+        // const userLikes = likeItems.filter((like) => like.user_id === userId);
+
+        // // Iterate over the user's comments and create notification elements
+        const notificationContentElement = document.getElementById("notificationContent");
+
+        const user_records = JSON.parse(localStorage.getItem("user_records")) || []
+
+        // const post_comment = userComment.filter(
+        //     (comment) => comment.comment_post_id === postId
+        // );
+
+        // Get the local storage data for likes, comments, and follows
+        const likeRecords = JSON.parse(localStorage.getItem("like_records")) || [];
+        const commentRecords = JSON.parse(localStorage.getItem("comment_records")) || [];
+        const followRecords = JSON.parse(localStorage.getItem("follow_records")) || [];
+        const user_Id = JSON.parse(localStorage.getItem("email_ID")) || [];
+
+        let datenow = new Date()
+        console.log(datenow)
+        // for(let i = 0; i<likeRecords.length; i++){
+
+        const user_like = likeRecords.filter((e) => e.creatorId === user_Id);
+        const user_comment = commentRecords.filter((e) => e.creatorId === user_Id);
+
+        const notification_data = user_like.concat(user_comment);
+        console.log(notification_data)
+
+        notification_data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+     
+
+        for (let i = 0; i < notification_data.length; i++) {
+            const comment = notification_data[i];
+            // let notificationUser;
+            let content;
+
+            
+           let timeAgo;
+            function calculateTimeDifference(postDate) {
+            const currentDate = new Date();
+            const postCreationDate = new Date(postDate);
+            const timeDifference = currentDate.getTime() - postCreationDate.getTime();
+            // Calculate the difference in seconds, minutes, hours, and days
+            const seconds = Math.floor(timeDifference / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            // Determine the appropriate time unit to display
+            let displayTime;
+            if (days > 0) {
+                timeAgo = `${days} day${days !== 1 ? 's' : ''} ago`;
+            } else if (hours > 0) {
+                timeAgo = `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+            } else if (minutes > 0) {
+                timeAgo = `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+            } else {
+                timeAgo = `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
+            }
+            return displayTime;
+        }
+
+        calculateTimeDifference(comment.timestamp);
+
+
+            if (comment.type === "like") {
+                notificationUser = comment.userId;
+                content = " liked your post |  " + timeAgo;
+            } else if (comment.type === "comment") {
+                notificationUser = comment.userId;
+                content = " commented on your post | " + timeAgo;
+            }
+
         
-        <div class="navigation_link">
-            <ul>
-                <form>
-                    <input type="text" placeholder="Search...." /><span><i class="fa fa-search" style="color: #000;"></i></span>
-                  </form>
-                </li>
-                <li id="med-blk"><a href="../user_services/4_creat_post.html">Create</a></li>
-                <a href="../user_services/5_notification.html">
-                    <li id="med-blk"><i class="fa fa-bell" style="color: #000;"></i></li>
-                </a>
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        <li><img src="../../assets/images/profile_2.jpg" alt="profile_pic" width="40rem"
-                                height="40rem"></li>
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="../Myprofile/6_profile.html"><i class="fa fa-user-circle-o"
-                                style="font-size:15px"></i>Profile</a>
-                        <a id="med-dc" href="../user_services/4_creat_post.html"><i class="fa fa-magic"
-                                style="font-size:18px"></i>Create</a>
-                        <a id="med-dc" href="../user_services/5_notification.html"><i class="fa fa-bell"
-                                style="font-size:13px"></i>Notification</a>
-                        <a href="../Myprofile/11_edit_profile.html"><i class="fa fa-gear"
-                                style="font-size:15px"></i>Settings</a>
-                        <a href="../../index.html"><i class="fa fa-sign-out"
-                                style="font-size:18px"></i>Log-Out</a>
-                    </div>
-                </div>
-            </ul>
-        </div>
-    </div>
-</header>
-  <div class="notific_main">
-    <h1>Notifications<sup><i class="fa fa-bell" style="color: #000;"></i></sup></h1>
-    <div class="notific_top">
-     <!--Notification_content_Js-->
-    </div>
-  </div>
-  <div class="icons">
-    <a href="#"><i class="fa fa-facebook" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-instagram" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-twitter" style="color: #000;"></i></a>
-    <a href="#"><i class="fa fa-github" style="color: #000;"></i></a>
-    <p>© 2022 Venom.com All rights reserved</p>
-  </div>
 
-  <script>
-    const notific_card = [
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_1.jpg",
-          alt:"user_profile"
-        } ,
-        "strong" : "Elon Musk",
-        "notific_text": "liked your post",
-        "timestamp" : "3m ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_2.jpg",
-          alt:"user_profile"
-        } ,
-        "strong" : "Anand Mahindra",
-        "notific_text": "comment your post and started follow you",
-        "timestamp":"5m ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_3.jpg",
-          alt:"user_profile"
-        } ,
-        "strong": "Kamala Harris",
-        "notific_text": "like and comment your post",
-        "timestamp": "7m ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_4.jpg",
-          alt:"user_profile"
-        } ,
-        "strong" :"Girish Mathrubootham",
-        "notific_text": "like your post and started follow you",
-        "timestamp": " 8m ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_5.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Johnny Depp",
-        "notific_text": "react your post with shocking emoji",
-        "timestamp":"15m ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_6.jpg",
-          alt:"user_profile"
-        } ,
-        "strong": "Chris Evans",
-        "notific_text": "comment your post and started follow you",
-        "timestamp":"1h ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_7.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"James Cameron",
-        "notific_text": "liked your Post",
-        "timestamp":"5h ago"
+            const comment_user = user_records.filter((e) => e.user_email === notification_data[i].user_id);
+            console.log(comment_user)
 
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_8.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Ratan Tata",
-        "notific_text": "liked your Post",
-        "timestamp":"2d ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_9.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Bill Gates",
-        "notific_text": "liked your Post",
-        "timestamp":"3d ago"
-      },
-      {
-        "notific_user":{
-          source:"../../assets/images/Profile/profile_10.jpg",
-          alt:"user_profile"
-        } ,
-        "strong":"Sundar Pichai",
-        "br_notific_txt": "liked your Post",
-        "timestamp":"5d ago"
-      },
+            const notificationLink = document.createElement("a");
+            notificationLink.href = `../posts/8-1_post.html?post_ID=${comment.post_id}`;
+            notificationLink.style.textDecoration = "none";
+            notificationLink.style.color = "black";
 
-    ]
+            const notificationDiv = document.createElement("div");
+            notificationDiv.classList.add("notific_profile");
+            notificationLink.appendChild(notificationDiv);
 
-    let div_notific;
-    let img_profile;
-    let p_notific_txt;
-    let br_notific_txt;
-    let strong_txt;
+            const profileImage = document.createElement("img");
+            profileImage.src = comment_user[0].user_profile;
+            profileImage.alt = "Profile Picture";
+            profileImage.classList.add("profile_pic");
+            notificationDiv.appendChild(profileImage);
 
-    for (let i = 0; i < 10; i++){
+            const notificationText = document.createElement("p");
+            notificationText.classList.add("notific_card");
+            const timestamp = ""; // You need to define the timestamp variable
+            notificationText.innerHTML = `<strong class="bold">${comment_user[0].user_name}</strong> <span>${content} ${timestamp}</span>`;
+            notificationDiv.appendChild(notificationText);
 
-    div_notific = document.createElement("div");
-    div_notific.setAttribute("class", "notific_profile");
-    console.log(div_notific);
-
-    img_profile = document.createElement("img");
-    img_profile.setAttribute("src", notific_card[i]["notific_user"]["source"]);
-    img_profile.setAttribute("alt", notific_card[i]["notific_user"]["alt"]);
-    img_profile.setAttribute("class", "profile_pic");
-    div_notific.append(img_profile); 
-
-    p_notific_txt = document.createElement("p");
-    p_notific_txt.setAttribute("class", "post-description");
-    p_notific_txt.innerText = notific_card[i]["notific_text"];
-    div_notific.append(p_notific_txt);
-
-    b_notific_txt = document.createElement("strong");
-    b_notific_txt.setAttribute("class", "bold");
-    b_notific_txt.innerText = notific_card[i]["strong"];
-    p_notific_txt.prepend(b_notific_txt);
-
-    br_notific_txt = document.createElement("br");
-    br_notific_txt.innerText = notific_card[i]["br_notific_text"];
-    b_notific_txt.append(br_notific_txt);
+            notificationContentElement.prepend(notificationLink);
+        }
 
 
-    document.querySelector("div.notific_top").append(div_notific);
 
-    }
-  </script>
+    </script>
+
+    <script src="/assets/header.js"></script>
 </body>
 
 </html>

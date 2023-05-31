@@ -1,56 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login-Venom.com</title>
-    <link rel="stylesheet" href="../../assets/css/2_login.css">
-    <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login-Venom.com</title>
+        <link rel="stylesheet" href="../../assets/css/2_login.css">
+        <link rel="icon" href="../../assets/images/logo.png" type="image/x-icon">
+    </head>
 
-<body>
-    <div class="form">
-        <h1>Login</h1>
-        <form id="login_form" class="form_list">
-            <input type="email" placeholder="Email" id="user_email" />
-            <input type="password" placeholder="Password" id="user_password" />
-            <label><a href="../Reg/3_forgot_password.html">Forgot Password?</a></label>
-            <button class="enter_btn" type="submit">Enter</button>
-        </form>
+    <body>
+        <div class="form">
+            <h1>Login</h1>
+            <form id="login_form" class="form_list">
+                <input type="email" placeholder="Email" id="user_email">
+                <input type="password" placeholder="Password" id="user_password">
+                <label>
+                    <a href="../Reg/3_forgot_password.html">Forgot Password?</a>
+                </label>
+                <button class="enter_btn" type="submit">Enter</button>
+            </form>
         
-        <p class="Create_new"><a href="../Reg/1_sign_Up.html">Create New Account</a></p>
-    </div>
+            <p class="Create_new">
+                <a href="../Reg/1_sign_Up.html">Create New Account</a>
+            </p>
+        </div>
 
-    <script>
-        
-        const form = document.getElementById("login_form");
+        <script>
+                const form = document.getElementById("login_form");
 
-        form.addEventListener("submit",function(e){
-        e.preventDefault();
-        // let name=document.getElementById("user_name").value;
-        let email=document.getElementById("user_email").value;
-        let password=document.getElementById("user_password").value;
-        
-        // let user_records=new Array();
-        // user_records=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
-        let user_records = JSON.parse(localStorage.getItem("user_records"));
-            if(user_records.find((v)=>{return v.user_email==email && v.user_password==password}))
-            {
-            let current_user = user_records.find((v)=>{return v.user_email == email && v.user_password==password});
-            alert("Welcome " + current_user.user_name + " ✅");
-           //   let current_user=user_records.filter((v)=>{return v.user_email == email && v.user_password==password})[0]
-           localStorage.setItem('email_ID',JSON.stringify(email));
-           window.location.href="../home/3_home.html"
-        }
-        else
-        {
-          alert("Incorrect email or password ❌");
-        }
-        });
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  // let name=document.getElementById("user_name").value;
+  const email = document.getElementById("user_email").value;
+  const password = document.getElementById("user_password").value;
 
+  // let user_records=new Array();
+  // user_records=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
+  const user_records = JSON.parse(localStorage.getItem("user_records"));
+  const user_email = user_records.find(
+    (e) => e.user_email == email
+  )?.user_email;
+
+  if (
+    user_records.find((v) => {
+      return v.user_email == email && v.user_password == password;
+    })
+  ) {
+    const current_user = user_records.find((v) => {
+      return v.user_email == email && v.user_password == password;
+    });
+    alert(`Welcome ${current_user.user_name} ✅`);
+    //   let current_user=user_records.filter((v)=>{return v.user_email == email && v.user_password==password})[0]
+    localStorage.setItem("email_ID", JSON.stringify(email));
+
+    const user_data = JSON.parse(localStorage.getItem("user_records"));
+
+    window.location.href = `../home/3_home.html?user_ID=${user_email}`;
+  } else {
+    alert("Incorrect email or password ❌");
+  }
+});
     </script>
-</body>
+    </body>
 
 </html>
